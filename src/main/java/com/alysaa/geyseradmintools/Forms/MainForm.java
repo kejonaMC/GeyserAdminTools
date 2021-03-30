@@ -16,7 +16,6 @@ import java.util.UUID;
 public class MainForm {
     @SuppressWarnings("deprecation")
     public static void formList(){
-        FileConfiguration config = Gat.plugin.getConfig();
         for (Player player : Bukkit.getOnlinePlayers()) {
             UUID uuid = player.getUniqueId();
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
@@ -40,7 +39,7 @@ public class MainForm {
                                         new PlayerToolsForm().PTList();
                                     }
                                     if (response.getClickedButtonId() == 1) {
-                                        new MobsToolsForm().MTList();
+                                        new MobsToolsForm().preMTList();
                                     }
                                     if (response.getClickedButtonId() == 2) {
                                         new ServerToolsForm().STList();
