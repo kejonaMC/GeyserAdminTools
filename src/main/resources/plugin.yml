@@ -1,0 +1,10 @@
+name: GAdminTools
+main: com.alysaa.geyseradmintools.Gat
+version: 1.0
+api-version: 1.15
+description: Geyser Plugin Addon.
+commands:
+  gadmin:
+    description: open admin panel
+    permission: geyseradmintools.gadmin
+    aliases: /gadmin
