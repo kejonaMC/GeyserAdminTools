@@ -1,11 +1,8 @@
 package com.alysaa.geyseradmintools.Forms;
 
-import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.CustomForm;
@@ -24,7 +21,6 @@ public class MobsToolsForm {
         return random.nextInt((upper - lower) + 1) + lower;
     }
     public void preMTList(){
-        FileConfiguration config = Gat.plugin.getConfig();
         for (Player player : Bukkit.getOnlinePlayers()) {
             UUID uuid = player.getUniqueId();
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
