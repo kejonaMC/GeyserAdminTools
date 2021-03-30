@@ -119,7 +119,7 @@ public class MobsToolsForm {
                 fplayer.sendForm(
                         CustomForm.builder()
                                 .title("Passive Mobs Spawning")
-                                .dropdown("Spawn Mobs", "Zombie", "Skeleton", "Spider", "Creeper")
+                                .dropdown("Spawn Mobs", "Pig", "Chicken", "Cow", "Horse")
                                 .input("Amount of mobs")
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
@@ -132,7 +132,7 @@ public class MobsToolsForm {
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            Bukkit.getWorld("world").spawnEntity(location, EntityType.ZOMBIE);
+                                            Bukkit.getWorld("world").spawnEntity(location, EntityType.PIG);
                                         }
                                     }
                                     if (response.getDropdown(1)== 1) {
@@ -143,7 +143,7 @@ public class MobsToolsForm {
                                         String s= response.getInput(2);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            Bukkit.getWorld("world").spawnEntity(location, EntityType.SKELETON);
+                                            Bukkit.getWorld("world").spawnEntity(location, EntityType.CHICKEN);
                                         }
                                     }
                                     if (response.getDropdown(2)== 2) {
@@ -154,7 +154,7 @@ public class MobsToolsForm {
                                         String s= response.getInput(3);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            Bukkit.getWorld("world").spawnEntity(location, EntityType.SPIDER);
+                                            Bukkit.getWorld("world").spawnEntity(location, EntityType.COW);
                                         }
                                     }
                                     if (response.getDropdown(3)== 3) {
@@ -165,12 +165,10 @@ public class MobsToolsForm {
                                         String s= response.getInput(4);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            Bukkit.getWorld("world").spawnEntity(location, EntityType.CREEPER);
+                                            Bukkit.getWorld("world").spawnEntity(location, EntityType.HORSE);
                                         }
                                     }
                                 }));
-            } else {
-                player.sendMessage("Sorry this is a Bedrock command!");
             }
         }
     }
