@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
@@ -38,6 +40,19 @@ public class AdminToolOnJoin implements Listener {
             if (p.getInventory().getItemInMainHand().getType() == Material.NETHER_STAR) {
                 MainForm.formList();
             }
+        }
+    }
+    @EventHandler
+    public void onPlayerDropItem(PlayerDropItemEvent event) {
+        if (Gat.plugin.getConfig().getBoolean("DisableItemDrop")) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (Gat.plugin.getConfig().getBoolean("DisableItemMove")) {
+            event.setCancelled(true);
         }
     }
 }

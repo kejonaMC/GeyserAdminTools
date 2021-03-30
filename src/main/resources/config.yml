@@ -2,3 +2,5 @@ EnableAdminTools: true
 
 ItemJoin: true
 Slot: 4
+DisableItemDrop: true
+DisableItemMove: true
