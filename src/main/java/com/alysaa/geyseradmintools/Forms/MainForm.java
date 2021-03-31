@@ -40,22 +40,26 @@ public class MainForm {
                                         } else {
                                             player.sendMessage("This form has been disabled");
                                         }
-                                        if (response.getClickedButtonId() == 1) {
+                                    }
+                                    if (response.getClickedButtonId() == 1) {
+                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm")) {
                                             new MobsToolsForm().preMTList();
+                                        } else {
+                                            player.sendMessage("This form has been disabled");
                                         }
-                                        if (response.getClickedButtonId() == 2) {
-                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
-                                                new ServerToolsForm().STList();
-                                            } else {
-                                                player.sendMessage("This form has been disabled");
-                                            }
-                                            if (response.getClickedButtonId() == 2) {
-                                                player.setInvulnerable(false);
-                                                player.setAllowFlight(false);
-                                                player.setGameMode(GameMode.SURVIVAL);
-                                                player.showPlayer(player);
-                                            }
+                                    }
+                                    if (response.getClickedButtonId() == 2) {
+                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
+                                            new ServerToolsForm().STList();
+                                        } else {
+                                            player.sendMessage("This form has been disabled");
                                         }
+                                    }
+                                    if (response.getClickedButtonId() == 2) {
+                                        player.setInvulnerable(false);
+                                        player.setAllowFlight(false);
+                                        player.setGameMode(GameMode.SURVIVAL);
+                                        player.showPlayer(player);
                                     }
                                 }));
             }else {

@@ -1,7 +1,5 @@
 package com.alysaa.geyseradmintools.Forms;
 
-import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.listeners.AdminLockChat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -84,10 +82,7 @@ public class ServerToolsForm {
                                         }
                                     }
                                     if (response.getClickedButtonId() == 7) {
-                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm.EnableShutdown"))
                                         Shut();
-                                    } else {
-                                        player.sendMessage("This form has been disabled");
                                     }
                                 }));
             }

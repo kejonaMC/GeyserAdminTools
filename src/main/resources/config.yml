@@ -10,12 +10,6 @@ DisableItemMove: true
 
 # Forms settings
 Forms:
-# Enable Player Button
   EnablePlayerForm: true
-# Enable Mobs certain in form buttons
-  EnableBossMobs: true
-  EnableAggressiveMobs: true
-  EnablePassiveMobs: true
-# Enable Server button or certain in form buttons
+  EnableMobForm: true
   EnableServerForm: true
-    EnableShutdown: false

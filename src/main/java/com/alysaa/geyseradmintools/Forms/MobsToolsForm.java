@@ -4,6 +4,7 @@ import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.geysermc.cumulus.CustomForm;
 import org.geysermc.cumulus.SimpleForm;
@@ -22,6 +23,7 @@ public class MobsToolsForm {
         return random.nextInt((upper - lower) + 1) + lower;
     }
     public void preMTList(){
+
         for (Player player : Bukkit.getOnlinePlayers()) {
             UUID uuid = player.getUniqueId();
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
@@ -42,25 +44,13 @@ public class MobsToolsForm {
                                         return;
                                     }
                                     if (response.getClickedButtonId() == 0) {
-                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnablePassiveMobs")) {
                                             PAMobs();
-                                        } else {
-                                            player.sendMessage("This form has been disabled");
-                                        }
                                     }
                                     if (response.getClickedButtonId() == 1) {
-                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableAggressiveMobs")) {
                                             AGMobs();
-                                        } else {
-                                            player.sendMessage("This form has been disabled");
-                                        }
                                     }
                                     if (response.getClickedButtonId() == 2) {
-                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableBossMobs")) {
                                             BOMobs();
-                                        } else {
-                                            player.sendMessage("This form has been disabled");
-                                        }
                                     }
                                     if (response.getClickedButtonId() == 3) {
                                         List<Entity> ents = player.getNearbyEntities(35, player.getWorld().getMaxHeight() * 2, 10);
@@ -91,7 +81,10 @@ public class MobsToolsForm {
                                 .input("Amount of mobs")
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
-
+                                    if (!response.isCorrect()) {
+                                        // player closed the form or returned invalid info (see FormResponse)
+                                        return;
+                                    }
                                     if (response.getDropdown(0) == 0) {
                                         int x = getRandom(10, 10);
                                         int y = getRandom(10, 10);
@@ -208,7 +201,10 @@ public class MobsToolsForm {
                                 .input("Amount of mobs")
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
-
+                                    if (!response.isCorrect()) {
+                                        // player closed the form or returned invalid info (see FormResponse)
+                                        return;
+                                    }
                                     if (response.getDropdown(0)== 0) {
                                         int x = getRandom(10, 10);
                                         int y = getRandom(10, 10);
@@ -391,7 +387,10 @@ public class MobsToolsForm {
                                 .input("Amount of mobs")
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
-
+                                    if (!response.isCorrect()) {
+                                        // player closed the form or returned invalid info (see FormResponse)
+                                        return;
+                                    }
                                     if (response.getDropdown(0) == 0) {
                                         int x = getRandom(10, 10);
                                         int y = getRandom(10, 10);
