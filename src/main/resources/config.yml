@@ -1,6 +1,22 @@
+# Plugin provided by ProjectG
+
 EnableAdminTools: true
 
+# Item on join settings
 ItemJoin: true
 Slot: 4
 DisableItemDrop: true
 DisableItemMove: true
+
+# Forms settings
+Forms:
+# Enable Player Button
+  EnablePlayerForm: true
+# Enable Mobs button or certain in form buttons
+  EnableMobForm: true
+    EnableBossMobs: true
+    EnableAggressiveMobs: true
+    EnablePassiveMobs: true
+# Enable Server button or certain in form buttons
+  EnableServerForm: true
+    EnableShutdown: false

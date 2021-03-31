@@ -1,5 +1,6 @@
 package com.alysaa.geyseradmintools.Forms;
 
+import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -41,13 +42,25 @@ public class MobsToolsForm {
                                         return;
                                     }
                                     if (response.getClickedButtonId() == 0) {
-                                       PAMobs();
+                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm.EnablePassiveMobs")) {
+                                            PAMobs();
+                                        } else {
+                                            player.sendMessage("This form has been disabled");
+                                        }
                                     }
                                     if (response.getClickedButtonId() == 1) {
-                                        AGMobs();
+                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm.EnableAggressiveMobs")) {
+                                            AGMobs();
+                                        } else {
+                                            player.sendMessage("This form has been disabled");
+                                        }
                                     }
                                     if (response.getClickedButtonId() == 2) {
-                                        BOMobs();
+                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm.EnableBossMobs")) {
+                                            BOMobs();
+                                        } else {
+                                            player.sendMessage("This form has been disabled");
+                                        }
                                     }
                                     if (response.getClickedButtonId() == 3) {
                                         List<Entity> ents = player.getNearbyEntities(35, player.getWorld().getMaxHeight() * 2, 10);
