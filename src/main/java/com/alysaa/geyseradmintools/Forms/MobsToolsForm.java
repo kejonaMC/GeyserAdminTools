@@ -3,9 +3,7 @@ package com.alysaa.geyseradmintools.Forms;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.geysermc.cumulus.CustomForm;
 import org.geysermc.cumulus.SimpleForm;
 import org.geysermc.cumulus.response.CustomFormResponse;
@@ -13,6 +11,7 @@ import org.geysermc.cumulus.response.SimpleFormResponse;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -51,10 +50,17 @@ public class MobsToolsForm {
                                         BOMobs();
                                     }
                                     if (response.getClickedButtonId() == 3) {
-                                        for(Entity e : player.getWorld().getEntities()){
-                                            e.remove();
+                                        List<Entity> ents = player.getNearbyEntities(35, player.getWorld().getMaxHeight() * 2, 10);
+
+                                        for (Entity ent : ents) {
+                                            if (ent instanceof Monster) {
+                                                ((Monster) ent).setHealth(0);
+                                            }
+                                                if (ent instanceof Creature) {
+                                                    ((Creature) ent).setHealth(0);
+                                                }
+                                            }
                                         }
-                                    }
                                 }));
             }
         }
