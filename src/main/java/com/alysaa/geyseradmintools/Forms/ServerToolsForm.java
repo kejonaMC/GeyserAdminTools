@@ -1,8 +1,10 @@
 package com.alysaa.geyseradmintools.Forms;
 
 import com.alysaa.geyseradmintools.Gat;
+import com.alysaa.geyseradmintools.listeners.AdminLockChat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.SimpleForm;
 import org.geysermc.cumulus.response.SimpleFormResponse;
@@ -10,6 +12,8 @@ import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
 import java.util.UUID;
+
+import static com.alysaa.geyseradmintools.listeners.AdminLockChat.isMuted;
 
 public class ServerToolsForm {
     public void STList() {
@@ -26,7 +30,10 @@ public class ServerToolsForm {
                                 .button("Weather Rain")//2
                                 .button("Day")//3
                                 .button("Night")//4
-                                .button("Shutdown server")//5
+                                .button("Clear Chat")
+                                .button("Lock Chat")
+                                .button("Unlock Chat")
+                                .button("Shutdown server")
                                 .responseHandler((form, responseData) -> {
                                     SimpleFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -52,6 +59,31 @@ public class ServerToolsForm {
                                         player.sendMessage("Time set on Night");
                                     }
                                     if (response.getClickedButtonId() == 4) {
+                                        int i;
+                                        for (i = 0; i < 25; i++) {
+                                            player.sendMessage(" ");
+                                        }
+                                            Bukkit.getServer().broadcastMessage("Chat has been cleared by admin!");
+                                        }
+                                    if (response.getClickedButtonId() == 5) {
+                                        if (player.hasPermission("geyseradmintools.gadmin")) {
+                                            if (!isMuted) {
+                                                // Disables chat
+                                                isMuted = true;
+                                                Bukkit.broadcastMessage(ChatColor.DARK_RED + "Chat has been locked by an admin! ");
+                                            }
+                                        }
+                                    }
+                                    if (response.getClickedButtonId() == 6) {
+                                        if (player.hasPermission("geyseradmintools.gadmin")) {
+                                            if (!isMuted) {
+                                                // Disables chat
+                                                isMuted = false;
+                                                Bukkit.broadcastMessage(ChatColor.GREEN + "Chat has been unlocked by an admin! ");
+                                            }
+                                        }
+                                    }
+                                    if (response.getClickedButtonId() == 7) {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm.EnableShutdown"))
                                         Shut();
                                     } else {
