@@ -1,12 +1,8 @@
 package com.alysaa.geyseradmintools.Forms;
 
-import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.SimpleForm;
 import org.geysermc.cumulus.response.SimpleFormResponse;
@@ -18,7 +14,6 @@ import java.util.UUID;
 public class PlayerToolsForm {
     @SuppressWarnings("deprecation")
     public void PTList() {
-        FileConfiguration config = Gat.plugin.getConfig();
         for (Player player : Bukkit.getOnlinePlayers()) {
             UUID uuid = player.getUniqueId();
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
@@ -75,8 +70,6 @@ public class PlayerToolsForm {
                                         player.sendMessage("Health regenerated");
                                     }
                                 }));
-            } else {
-                player.sendMessage("Sorry this is a Bedrock command!");
             }
         }
     }
