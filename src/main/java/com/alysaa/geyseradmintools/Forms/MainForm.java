@@ -41,23 +41,19 @@ public class MainForm {
                                             player.sendMessage("This form has been disabled");
                                         }
                                         if (response.getClickedButtonId() == 1) {
-                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm")) {
-                                                new MobsToolsForm().preMTList();
+                                            new MobsToolsForm().preMTList();
+                                        }
+                                        if (response.getClickedButtonId() == 2) {
+                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
+                                                new ServerToolsForm().STList();
                                             } else {
                                                 player.sendMessage("This form has been disabled");
                                             }
                                             if (response.getClickedButtonId() == 2) {
-                                                if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
-                                                    new ServerToolsForm().STList();
-                                                } else {
-                                                    player.sendMessage("This form has been disabled");
-                                                }
-                                                if (response.getClickedButtonId() == 2) {
-                                                    player.setInvulnerable(false);
-                                                    player.setAllowFlight(false);
-                                                    player.setGameMode(GameMode.SURVIVAL);
-                                                    player.showPlayer(player);
-                                                }
+                                                player.setInvulnerable(false);
+                                                player.setAllowFlight(false);
+                                                player.setGameMode(GameMode.SURVIVAL);
+                                                player.showPlayer(player);
                                             }
                                         }
                                     }

@@ -42,21 +42,21 @@ public class MobsToolsForm {
                                         return;
                                     }
                                     if (response.getClickedButtonId() == 0) {
-                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm.EnablePassiveMobs")) {
+                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnablePassiveMobs")) {
                                             PAMobs();
                                         } else {
                                             player.sendMessage("This form has been disabled");
                                         }
                                     }
                                     if (response.getClickedButtonId() == 1) {
-                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm.EnableAggressiveMobs")) {
+                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableAggressiveMobs")) {
                                             AGMobs();
                                         } else {
                                             player.sendMessage("This form has been disabled");
                                         }
                                     }
                                     if (response.getClickedButtonId() == 2) {
-                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm.EnableBossMobs")) {
+                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableBossMobs")) {
                                             BOMobs();
                                         } else {
                                             player.sendMessage("This form has been disabled");
