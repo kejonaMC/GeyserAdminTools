@@ -11,7 +11,6 @@ import org.geysermc.cumulus.response.SimpleFormResponse;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;

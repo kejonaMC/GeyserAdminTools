@@ -3,6 +3,7 @@ main: com.alysaa.geyseradmintools.Gat
 version: 1.0
 api-version: 1.15
 description: Geyser Plugin Addon.
+author: ProjectG
 commands:
   gadmin:
     description: open admin panel
