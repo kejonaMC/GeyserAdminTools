@@ -329,7 +329,7 @@ public class MobsToolsForm {
                                         int y = getRandom(10, 10);
                                         int z = getRandom(10, 10);
                                         Location location = player.getLocation().add(x, y, z);
-                                        String s= response.getInput(4);
+                                        String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
                                             player.getWorld().spawnEntity(location, EntityType.SQUID);
