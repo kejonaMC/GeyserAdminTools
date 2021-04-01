@@ -11,6 +11,7 @@ import org.geysermc.cumulus.response.SimpleFormResponse;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -68,6 +69,7 @@ public class MobsToolsForm {
     }
     public void AGMobs() {
         for (Player player : Bukkit.getOnlinePlayers()) {
+            Location target = player.getEyeLocation().add(player.getLocation().getDirection().multiply(4 /* distance in blocks */));
             UUID uuid = player.getUniqueId();
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
@@ -84,102 +86,66 @@ public class MobsToolsForm {
                                         return;
                                     }
                                     if (response.getDropdown(0) == 0) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s = response.getInput(1);
                                         int in = Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.ZOMBIE);
+                                            player.getWorld().spawnEntity(target, EntityType.ZOMBIE);
                                         }
                                     }
                                     if (response.getDropdown(0) == 1) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s = response.getInput(1);
                                         int in = Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.SKELETON);
+                                            player.getWorld().spawnEntity(target, EntityType.SKELETON);
                                         }
                                     }
                                     if (response.getDropdown(0) == 2) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s = response.getInput(1);
                                         int in = Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.SPIDER);
+                                            player.getWorld().spawnEntity(target, EntityType.SPIDER);
                                         }
                                     }
                                     if (response.getDropdown(0) == 3) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s = response.getInput(1);
                                         int in = Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.CREEPER);
+                                            player.getWorld().spawnEntity(target, EntityType.CREEPER);
                                         }
                                     }
                                     if (response.getDropdown(0) == 4) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s = response.getInput(1);
                                         int in = Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.BLAZE);
+                                            player.getWorld().spawnEntity(target, EntityType.BLAZE);
                                         }
                                     }
                                     if (response.getDropdown(0) == 6) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s = response.getInput(1);
                                         int in = Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.VEX);
+                                            player.getWorld().spawnEntity(target, EntityType.VEX);
                                         }
                                     }
                                     if (response.getDropdown(0) == 7) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s = response.getInput(1);
                                         int in = Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.WITHER_SKELETON);
+                                            player.getWorld().spawnEntity(target, EntityType.WITHER_SKELETON);
                                         }
                                     }
                                     if (response.getDropdown(0) == 8) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s = response.getInput(1);
                                         int in = Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.SLIME);
+                                            player.getWorld().spawnEntity(target, EntityType.SLIME);
                                         }
                                     }
                                     if (response.getDropdown(0) == 9) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s = response.getInput(1);
                                         int in = Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.GHAST);
+                                            player.getWorld().spawnEntity(target, EntityType.GHAST);
                                         }
                                     }
                                 }));
@@ -188,6 +154,7 @@ public class MobsToolsForm {
     }
     public void PAMobs(){
         for (Player player : Bukkit.getOnlinePlayers()) {
+            Location target = player.getEyeLocation().add(player.getLocation().getDirection().multiply(4 /* distance in blocks */));
             UUID uuid = player.getUniqueId();
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
@@ -203,169 +170,110 @@ public class MobsToolsForm {
                                         // player closed the form or returned invalid info (see FormResponse)
                                         return;
                                     }
+
                                     if (response.getDropdown(0)== 0) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.PIG);
+                                            player.getWorld().spawnEntity(target, EntityType.PIG);
                                         }
                                     }
                                     if (response.getDropdown(0)== 1) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.CHICKEN);
+                                            player.getWorld().spawnEntity(target, EntityType.CHICKEN);
                                         }
                                     }
                                     if (response.getDropdown(0)== 2) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.COW);
+                                            player.getWorld().spawnEntity(target, EntityType.COW);
                                         }
                                     }
                                     if (response.getDropdown(0)== 3) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.HORSE);
+                                            player.getWorld().spawnEntity(target, EntityType.HORSE);
                                         }
                                     }
                                     if (response.getDropdown(0)== 4) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.SHEEP);
+                                            player.getWorld().spawnEntity(target, EntityType.SHEEP);
                                         }
                                     }
                                     if (response.getDropdown(0)== 5) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.RABBIT);
+                                            player.getWorld().spawnEntity(target, EntityType.RABBIT);
                                         }
                                     }
                                     if (response.getDropdown(0)== 6) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.DONKEY);
+                                            player.getWorld().spawnEntity(target, EntityType.DONKEY);
                                         }
                                     }
                                     if (response.getDropdown(0)== 7) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.BAT);
+                                            player.getWorld().spawnEntity(target, EntityType.BAT);
                                         }
                                     }
                                     if (response.getDropdown(0)== 8) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.WOLF);
+                                            player.getWorld().spawnEntity(target, EntityType.WOLF);
                                         }
                                     }
                                     if (response.getDropdown(0)== 9) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.SNOWMAN);
+                                            player.getWorld().spawnEntity(target, EntityType.SNOWMAN);
                                         }
                                     }
                                     if (response.getDropdown(0)== 10) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.VILLAGER);
+                                            player.getWorld().spawnEntity(target, EntityType.VILLAGER);
                                         }
                                     }
                                     if (response.getDropdown(0)== 11) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.SQUID);
+                                            player.getWorld().spawnEntity(target, EntityType.SQUID);
                                         }
                                     }
                                     if (response.getDropdown(0)== 12) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.PARROT);
+                                            player.getWorld().spawnEntity(target, EntityType.PARROT);
                                         }
                                     }
                                     if (response.getDropdown(0)== 13) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.POLAR_BEAR);
+                                            player.getWorld().spawnEntity(target, EntityType.POLAR_BEAR);
                                         }
                                     }
                                     if (response.getDropdown(0)== 14) {
-                                        int x = getRandom(10, 10);
-                                        int y = getRandom(10, 10);
-                                        int z = getRandom(10, 10);
-                                        Location location = player.getLocation().add(x, y, z);
                                         String s= response.getInput(1);
                                         int in=Integer.parseInt(s);
                                         for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(location, EntityType.MUSHROOM_COW);
+                                            player.getWorld().spawnEntity(target, EntityType.MUSHROOM_COW);
                                         }
                                     }
                                 }));
