@@ -55,7 +55,7 @@ public class MainForm {
                                             player.sendMessage("This form has been disabled");
                                         }
                                     }
-                                    if (response.getClickedButtonId() == 2) {
+                                    if (response.getClickedButtonId() == 3) {
                                         player.setInvulnerable(false);
                                         player.setAllowFlight(false);
                                         player.setGameMode(GameMode.SURVIVAL);

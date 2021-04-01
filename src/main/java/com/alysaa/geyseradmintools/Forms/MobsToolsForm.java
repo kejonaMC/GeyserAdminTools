@@ -1,10 +1,8 @@
 package com.alysaa.geyseradmintools.Forms;
 
-import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.geysermc.cumulus.CustomForm;
 import org.geysermc.cumulus.SimpleForm;

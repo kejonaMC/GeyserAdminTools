@@ -1,8 +1,7 @@
 package com.alysaa.geyseradmintools;
 
 import com.alysaa.geyseradmintools.commands.GatCommand;
-import com.alysaa.geyseradmintools.listeners.AdminLockChat;
-import com.alysaa.geyseradmintools.listeners.AdminToolOnJoin;
+import com.alysaa.geyseradmintools.listeners.*;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,7 +20,10 @@ public class Gat extends JavaPlugin {
         this.getCommand("gadmin").setExecutor(new GatCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminLockChat(), this);
-        getLogger().info("Plugin has been enabled");
+        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnRespawn(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnDeath(), this);
+        getLogger().info("Plugin has been enabled - Provided by ProjectG");
 
     }
     @Override
