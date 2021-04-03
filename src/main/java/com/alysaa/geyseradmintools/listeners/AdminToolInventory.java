@@ -18,7 +18,7 @@ public class AdminToolInventory  implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (!player.hasPermission("geyseradmintools.gadmin")) {
+            if (!player.hasPermission("geyseradmintools.item")) {
                 return;
             }
             FileConfiguration config = Gat.plugin.getConfig();
@@ -32,7 +32,7 @@ public class AdminToolInventory  implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
-        if (!player.hasPermission("geyseradmintools.gadmin")) {
+        if (!player.hasPermission("geyseradmintools.item")) {
             return;
         }
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -46,7 +46,7 @@ public class AdminToolInventory  implements Listener {
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent e) {
         Player player = e.getPlayer();
-        if (!player.hasPermission("geyseradmintools.gadmin")) {
+        if (!player.hasPermission("geyseradmintools.item")) {
             return;
         }
         FileConfiguration config = Gat.plugin.getConfig();

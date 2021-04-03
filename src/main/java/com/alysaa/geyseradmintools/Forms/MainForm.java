@@ -24,7 +24,8 @@ public class MainForm {
                         SimpleForm.builder()
                                 .title("AdminTools")
                                 .content("List of Tools")
-                                .button("Player Tools")
+                                .button("Admin Tools")
+                                .button("Mod Tools")
                                 .button("Mobs Tools")
                                 .button("Server Tools")
                                 .button("Remove all gadmin effects")
@@ -35,27 +36,42 @@ public class MainForm {
                                         return;
                                     }
                                     if (response.getClickedButtonId() == 0) {
-                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnablePlayerForm")) {
-                                            new PlayerToolsForm().PTList();
-                                        } else {
-                                            player.sendMessage("This form has been disabled");
+                                        if (player.hasPermission("geyseradmintools.admintool")) {
+                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableAdminForm")) {
+                                                new AdminToolsForm().ATList();
+                                            } else {
+                                                player.sendMessage("[Admin Tools] You do not have the permission to ise this button!");
+                                            }
                                         }
                                     }
                                     if (response.getClickedButtonId() == 1) {
-                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm")) {
-                                            new MobsToolsForm().preMTList();
-                                        } else {
-                                            player.sendMessage("This form has been disabled");
+                                        if (player.hasPermission("geyseradmintools.modtool")) {
+                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableModForm")) {
+                                                new ModToolsForm().ModList();
+                                            } else {
+                                                player.sendMessage("[Admin Tools] You do not have the permission to ise this button!");
+                                            }
                                         }
                                     }
                                     if (response.getClickedButtonId() == 2) {
-                                        if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
-                                            new ServerToolsForm().STList();
-                                        } else {
-                                            player.sendMessage("This form has been disabled");
+                                        if (player.hasPermission("geyseradmintools.mobtool")) {
+                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm")) {
+                                                new MobsToolsForm().preMTList();
+                                            } else {
+                                                player.sendMessage("[Admin Tools] You do not have the permission to ise this button!");
+                                            }
                                         }
                                     }
                                     if (response.getClickedButtonId() == 3) {
+                                        if (player.hasPermission("geyseradmintools.servertool")) {
+                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
+                                                new ServerToolsForm().STList();
+                                            } else {
+                                                player.sendMessage("[Admin Tools] You do not have the permission to ise this button!");
+                                            }
+                                        }
+                                    }
+                                    if (response.getClickedButtonId() == 4) {
                                         player.setInvulnerable(false);
                                         player.setAllowFlight(false);
                                         player.setGameMode(GameMode.SURVIVAL);

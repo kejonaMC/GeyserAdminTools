@@ -31,7 +31,6 @@ public class ServerToolsForm {
                                 .button("Clear Chat")
                                 .button("Lock Chat")
                                 .button("Unlock Chat")
-                                .button("Shutdown server")
                                 .responseHandler((form, responseData) -> {
                                     SimpleFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -80,34 +79,6 @@ public class ServerToolsForm {
                                                 Bukkit.broadcastMessage(ChatColor.GREEN + "Chat has been unlocked by an admin! ");
                                             }
                                         }
-                                    }
-                                    if (response.getClickedButtonId() == 7) {
-                                        Shut();
-                                    }
-                                }));
-            }
-        }
-    }
-    public void Shut() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            UUID uuid = player.getUniqueId();
-            boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
-            if (isFloodgatePlayer) {
-                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-                fplayer.sendForm(
-                        SimpleForm.builder()
-                                .title("Server Shutdown")
-                                .content("Are you sure you want to shutdown the server?")
-                                .button("Yes Shutdown the server")//1
-                                .responseHandler((form, responseData) -> {
-                                    SimpleFormResponse response = form.parseResponse(responseData);
-                                    if (!response.isCorrect()) {
-                                        // player closed the form or returned invalid info (see FormResponse)
-                                        return;
-                                    }
-                                    if (response.getClickedButtonId() == 0) {
-                                        player.sendMessage("Server is shutting down");
-                                        Bukkit.getServer().shutdown();
                                     }
                                 }));
             }

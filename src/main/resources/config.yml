@@ -10,6 +10,7 @@ DisableItemMove: true
 
 # Forms settings
 Forms:
-  EnablePlayerForm: true
+  EnableAdminForm: true
+  EnableModForm: true
   EnableMobForm: true
   EnableServerForm: true

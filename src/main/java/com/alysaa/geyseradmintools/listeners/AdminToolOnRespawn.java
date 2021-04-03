@@ -16,7 +16,7 @@ public class AdminToolOnRespawn implements Listener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
         Player player = e.getPlayer();
-        if (!player.hasPermission("geyseradmintools.gadmin")){
+        if (!player.hasPermission("geyseradmintools.item")){
             return;
         }
         FileConfiguration config = Gat.plugin.getConfig();

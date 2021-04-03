@@ -11,9 +11,9 @@ import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
 import java.util.UUID;
 
-public class PlayerToolsForm {
+public class AdminToolsForm {
     @SuppressWarnings("deprecation")
-    public void PTList() {
+    public void ATList() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             UUID uuid = player.getUniqueId();
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
@@ -21,8 +21,8 @@ public class PlayerToolsForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         SimpleForm.builder()
-                                .title("Player Tools")
-                                .content("List of Player Tools")
+                                .title("Admin Tools")
+                                .content("List of Admin Tools")
                                 .button("Gamemode Creative")//1
                                 .button("Gamemode Survival")//2
                                 .button("Gamemode Spectator")//3
