@@ -20,7 +20,7 @@ permissions:
     description: Allows to open mob form
     default: op
   geyseradmintools.servertools:
-    description: Allows to ipen server form
+    description: Allows to open server form
     default: op
   geyseradmintools.item:
     description: gives player admin item on join
