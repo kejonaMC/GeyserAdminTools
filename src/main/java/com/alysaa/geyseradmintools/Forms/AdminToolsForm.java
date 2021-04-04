@@ -39,35 +39,35 @@ public class AdminToolsForm {
                                     }
                                     if (response.getClickedButtonId() == 0) {
                                         player.setGameMode(GameMode.CREATIVE);
-                                        player.sendMessage("Gamemode set on Creative");
+                                        player.sendMessage("[GeyserAdminTool] Gamemode set on Creative");
                                     }
                                     if (response.getClickedButtonId() == 1) {
                                         player.setGameMode(GameMode.SURVIVAL);
-                                        player.sendMessage("Gamemode set on Survival");
+                                        player.sendMessage("[GeyserAdminTool] Gamemode set on Survival");
                                     }
                                     if (response.getClickedButtonId() == 2) {
                                         player.setGameMode(GameMode.SPECTATOR);
-                                        player.sendMessage("Gamemode set in Spectator");
+                                        player.sendMessage("[GeyserAdminTool] Gamemode set in Spectator");
                                     }
                                     if (response.getClickedButtonId() == 3) {
                                         player.hidePlayer(player);
-                                        player.sendMessage("Vanish Enabled");
+                                        player.sendMessage("[GeyserAdminTool] Vanish Enabled");
                                     }
                                     if (response.getClickedButtonId() == 4) {
                                         player.setInvulnerable(true);
-                                        player.sendMessage("God mode enabled");
+                                        player.sendMessage("[GeyserAdminTool] God mode enabled");
                                     }
                                     if (response.getClickedButtonId() == 5) {
                                         player.setAllowFlight(true);
-                                        player.sendMessage("Flying enabled");
+                                        player.sendMessage("[GeyserAdminTool] Flying enabled");
                                     }
                                     if (response.getClickedButtonId() == 6) {
                                         player.getInventory().clear();
-                                        player.sendMessage("Inventory cleared");
+                                        player.sendMessage("[GeyserAdminTool] Inventory cleared");
                                     }
                                     if (response.getClickedButtonId() == 7) {
                                         player.setHealth(12);
-                                        player.sendMessage("Health regenerated");
+                                        player.sendMessage("[GeyserAdminTool] Health regenerated");
                                     }
                                 }));
             }

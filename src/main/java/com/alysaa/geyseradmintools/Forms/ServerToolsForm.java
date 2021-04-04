@@ -40,27 +40,27 @@ public class ServerToolsForm {
                                     if (response.getClickedButtonId() == 0) {
                                         player.getWorld().setStorm(false);
                                         player.getWorld().setWeatherDuration(18000);
-                                        player.sendMessage("Weather set on Sunny");
+                                        player.sendMessage("[GeyserAdminTool] Weather set on Sunny");
                                     }
                                     if (response.getClickedButtonId() == 1) {
                                         player.getWorld().setStorm(true);
                                         player.getWorld().setWeatherDuration(18000);
-                                        player.sendMessage("Weather set on Rain");
+                                        player.sendMessage("[GeyserAdminTool] Weather set on Rain");
                                     }
                                     if (response.getClickedButtonId() == 2) {
                                         player.getWorld().setTime(1000);
-                                        player.sendMessage("Time set on Day");
+                                        player.sendMessage("[GeyserAdminTool] Time set on Day");
                                     }
                                     if (response.getClickedButtonId() == 3) {
                                         Bukkit.getWorld("world").setTime(14000);
-                                        player.sendMessage("Time set on Night");
+                                        player.sendMessage("[GeyserAdminTool] Time set on Night");
                                     }
                                     if (response.getClickedButtonId() == 4) {
                                         int i;
                                         for (i = 0; i < 25; i++) {
                                             player.sendMessage(" ");
                                         }
-                                            Bukkit.getServer().broadcastMessage("Chat has been cleared by admin!");
+                                            Bukkit.getServer().broadcastMessage("Chat has been cleared by an admin!");
                                         }
                                     if (response.getClickedButtonId() == 5) {
                                         if (player.hasPermission("geyseradmintools.gadmin")) {

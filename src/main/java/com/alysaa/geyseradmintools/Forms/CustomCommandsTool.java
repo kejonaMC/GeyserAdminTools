@@ -1,8 +1,9 @@
 package com.alysaa.geyseradmintools.Forms;
 
+import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.SimpleForm;
 import org.geysermc.cumulus.response.SimpleFormResponse;
@@ -11,8 +12,9 @@ import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
 import java.util.UUID;
 
-public class ModToolsForm {
-    public void ModList() {
+public class CustomCommandsTool {
+    public void CustomCommands() {
+        FileConfiguration config = Gat.plugin.getConfig();
         for (Player player : Bukkit.getOnlinePlayers()) {
             UUID uuid = player.getUniqueId();
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
@@ -20,45 +22,43 @@ public class ModToolsForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         SimpleForm.builder()
-                                .title("Mod Tools")
-                                .content("List of Mod Tools")
-                                .button("Gamemode Survival")//2
-                                .button("Gamemode Spectator")//3
-                                .button("Vanish")//4
-                                .button("Fly")//6
-                                .button("Clear Inventory")//7
-                                .button("Ban/Mute player")
+                                .title(config.getString("CommandsForm.Title"))
+                                .content(config.getString("CommandsForm.Content"))
+                                .button(config.getString("CommandsForm.Button1"))
+                                .button(config.getString("CommandsForm.Button2"))
+                                .button(config.getString("CommandsForm.Button3"))
+                                .button(config.getString("CommandsForm.Button4"))
+                                .button(config.getString("CommandsForm.Button5"))
                                 .responseHandler((form, responseData) -> {
                                     SimpleFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
                                         // player closed the form or returned invalid info (see FormResponse)
                                         return;
                                     }
-                                    if (response.getClickedButtonId() == 0) {
-                                        player.setGameMode(GameMode.SURVIVAL);
-                                        player.sendMessage("[GeyserAdminTool] Gamemode set on Survival");
-                                    }
                                     if (response.getClickedButtonId() == 1) {
-                                        player.setGameMode(GameMode.SPECTATOR);
-                                        player.sendMessage("[GeyserAdminTool] Gamemode set in Spectator");
+                                        String server1 = config.getString("CommandsForm.SetCommand1");
+                                      player.performCommand(server1);
                                     }
                                     if (response.getClickedButtonId() == 2) {
-                                        player.hidePlayer(player);
-                                        player.sendMessage("[GeyserAdminTool] Vanish Enabled");
+                                        String server2 = config.getString("CommandsForm.SetCommand2");
+                                        player.performCommand(server2);
                                     }
                                     if (response.getClickedButtonId() == 3) {
-                                        player.setAllowFlight(true);
-                                        player.sendMessage("[GeyserAdminTool] Flying enabled");
+                                        String server3 = config.getString("CommandsForm.SetCommand3");
+                                        player.performCommand(server3);
+
                                     }
                                     if (response.getClickedButtonId() == 4) {
-                                        player.getInventory().clear();
-                                        player.sendMessage("[GeyserAdminTool] Inventory cleared");
+                                        String server4 = config.getString("CommandsForm.SetCommand4");
+                                        player.performCommand(server4);
                                     }
                                     if (response.getClickedButtonId() == 5) {
-                                        BanPlayerForm.banPlayers();
+                                        String server5 = config.getString("CommandsForm.SetCommand5");
+                                        player.performCommand(server5);
                                     }
                                 }));
             }
         }
     }
 }
+

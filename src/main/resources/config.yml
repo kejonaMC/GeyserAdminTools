@@ -12,5 +12,30 @@ DisableItemMove: true
 Forms:
   EnableAdminForm: true
   EnableModForm: true
+  EnableCustomCommands: true
   EnableMobForm: true
   EnableServerForm: true
+
+# Edit Selector Form
+CommandsForm:
+  # Set button name in main menu.
+  ButtonMainMenu: Custom Commands
+  # Set title and content text
+  Title: Server Selector
+  Content: Click on the server button of choice.
+
+  # Button Setup Button = Button Name, SetCommand = set command to button
+  Button1: test1
+  SetCommand1: "spawn"
+
+  Button2: test2
+  SetCommand2: "back"
+
+  Button3: test3
+  SetCommand3: "home"
+
+  Button4: test4
+  SetCommand4: ""
+
+  Button5: test5
+  SetCommand5: ""

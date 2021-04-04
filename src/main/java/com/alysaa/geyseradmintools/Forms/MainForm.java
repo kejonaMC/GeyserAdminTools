@@ -26,6 +26,7 @@ public class MainForm {
                                 .content("List of Tools")
                                 .button("Admin Tools")
                                 .button("Mod Tools")
+                                .button(Gat.plugin.getConfig().getString("CommandsForm.ButtonMainMenu"))
                                 .button("Mobs Tools")
                                 .button("Server Tools")
                                 .button("Remove all gadmin effects")
@@ -40,7 +41,7 @@ public class MainForm {
                                             if (Gat.plugin.getConfig().getBoolean("Forms.EnableAdminForm")) {
                                                 new AdminToolsForm().ATList();
                                             } else {
-                                                player.sendMessage("[Admin Tools] You do not have the permission to ise this button!");
+                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
                                             }
                                         }
                                     }
@@ -49,37 +50,46 @@ public class MainForm {
                                             if (Gat.plugin.getConfig().getBoolean("Forms.EnableModForm")) {
                                                 new ModToolsForm().ModList();
                                             } else {
-                                                player.sendMessage("[Admin Tools] You do not have the permission to ise this button!");
+                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
                                             }
                                         }
                                     }
                                     if (response.getClickedButtonId() == 2) {
-                                        if (player.hasPermission("geyseradmintools.mobtool")) {
-                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm")) {
-                                                new MobsToolsForm().preMTList();
+                                        if (player.hasPermission("geyseradmintools.customcommands")) {
+                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableCustomCommands")) {
+                                                new CustomCommandsTool().CustomCommands();
+
                                             } else {
-                                                player.sendMessage("[Admin Tools] You do not have the permission to ise this button!");
+                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
                                             }
                                         }
                                     }
                                     if (response.getClickedButtonId() == 3) {
-                                        if (player.hasPermission("geyseradmintools.servertool")) {
-                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
-                                                new ServerToolsForm().STList();
+                                        if (player.hasPermission("geyseradmintools.mobtool")) {
+                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm")) {
+                                                new MobsToolsForm().preMTList();
                                             } else {
-                                                player.sendMessage("[Admin Tools] You do not have the permission to ise this button!");
+                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
                                             }
                                         }
                                     }
                                     if (response.getClickedButtonId() == 4) {
+                                        if (player.hasPermission("geyseradmintools.servertool")) {
+                                            if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
+                                                new ServerToolsForm().STList();
+                                            } else {
+                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
+                                            }
+                                        }
+                                    }
+                                    if (response.getClickedButtonId() == 5) {
                                         player.setInvulnerable(false);
                                         player.setAllowFlight(false);
                                         player.setGameMode(GameMode.SURVIVAL);
                                         player.showPlayer(player);
+                                        player.sendMessage("[GeyserAdminTool] All effects have been cleared");
                                     }
                                 }));
-            }else {
-                player.sendMessage("Sorry this is a Bedrock command!");
             }
         }
     }

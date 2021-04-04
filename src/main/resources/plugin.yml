@@ -25,4 +25,7 @@ permissions:
   geyseradmintools.item:
     description: gives player admin item on join
     default: op
+  geyseradmintools.customcommands:
+    description: Allows to open Custom Commands form
+    default: op
 
