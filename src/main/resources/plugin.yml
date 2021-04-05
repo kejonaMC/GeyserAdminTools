@@ -28,4 +28,7 @@ permissions:
   geyseradmintools.customcommands:
     description: Allows to open Custom Commands form
     default: op
+  geyseradmintools.banplayer:
+    description: Allows to open ban form
+    default: op
 

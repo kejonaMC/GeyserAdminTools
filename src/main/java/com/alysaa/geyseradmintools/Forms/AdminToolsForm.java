@@ -31,6 +31,7 @@ public class AdminToolsForm {
                                 .button("Fly")//6
                                 .button("Clear Inventory")//7
                                 .button("Heal")//8
+                                .button("Ban player")
                                 .responseHandler((form, responseData) -> {
                                     SimpleFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -68,6 +69,9 @@ public class AdminToolsForm {
                                     if (response.getClickedButtonId() == 7) {
                                         player.setHealth(12);
                                         player.sendMessage("[GeyserAdminTool] Health regenerated");
+                                    }
+                                    if (response.getClickedButtonId() == 8) {
+                                        BanPlayerForm.banPlayers();
                                     }
                                 }));
             }

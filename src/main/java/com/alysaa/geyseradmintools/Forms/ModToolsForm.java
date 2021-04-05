@@ -27,7 +27,7 @@ public class ModToolsForm {
                                 .button("Vanish")//4
                                 .button("Fly")//6
                                 .button("Clear Inventory")//7
-                                .button("Ban/Mute player")
+                                .button("Ban player")
                                 .responseHandler((form, responseData) -> {
                                     SimpleFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -55,7 +55,9 @@ public class ModToolsForm {
                                         player.sendMessage("[GeyserAdminTool] Inventory cleared");
                                     }
                                     if (response.getClickedButtonId() == 5) {
-                                        BanPlayerForm.banPlayers();
+                                        if (player.hasPermission("geyseradmintools.banplayer")) {
+                                            BanPlayerForm.banPlayers();
+                                        }
                                     }
                                 }));
             }
