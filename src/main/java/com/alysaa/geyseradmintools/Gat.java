@@ -2,6 +2,7 @@ package com.alysaa.geyseradmintools;
 
 import com.alysaa.geyseradmintools.commands.GatCommand;
 import com.alysaa.geyseradmintools.listeners.*;
+import com.alysaa.geyseradmintools.utils.bstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,6 +17,7 @@ public class Gat extends JavaPlugin {
     public static Gat plugin;
     @Override
     public void onEnable(){
+        new Metrics(this, 10943);
         plugin = this;
         createFiles();
         checkConfigVer();
