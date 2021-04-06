@@ -26,8 +26,6 @@ public class BanPlayerForm implements Listener {
                 fplayer.sendForm(
                         SimpleForm.builder()
                                 .title("Ban/Mute Tool")
-                                .button("Mute Player")
-                                .button("Unmute Player")
                                 .button("Ban Player")
                                 .button("Unban Player")
                                 .responseHandler((form, responseData) -> {
@@ -66,7 +64,6 @@ public class BanPlayerForm implements Listener {
                         CustomForm.builder()
                                 .title("Ban/unban tool")
                                 .dropdown("Select Player", playerlist)
-                                .toggle("Ban = left / Unban = right")
                                 .input("Hours banned")
                                 .input("Reason ban")
                                 .input("Player name to unban")
