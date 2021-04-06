@@ -32,5 +32,9 @@ permissions:
     description: Allows to open Custom Commands form
     default: op
 
+  geyseradmintools.banplayer:
+    description: Allows to open ban form
+    default: op
+
 
 command : gadmin (to open main menu without items)
