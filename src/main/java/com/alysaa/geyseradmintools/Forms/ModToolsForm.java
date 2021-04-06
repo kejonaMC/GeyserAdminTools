@@ -56,7 +56,7 @@ public class ModToolsForm {
                                     }
                                     if (response.getClickedButtonId() == 5) {
                                         if (player.hasPermission("geyseradmintools.banplayer")) {
-                                            BanPlayerForm.banPlayers();
+                                            BanPlayerForm.banList();
                                         }
                                     }
                                 }));

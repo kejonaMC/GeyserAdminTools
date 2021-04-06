@@ -71,7 +71,7 @@ public class AdminToolsForm {
                                         player.sendMessage("[GeyserAdminTool] Health regenerated");
                                     }
                                     if (response.getClickedButtonId() == 8) {
-                                        BanPlayerForm.banPlayers();
+                                        BanPlayerForm.banList();
                                     }
                                 }));
             }
