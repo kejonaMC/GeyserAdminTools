@@ -10,16 +10,16 @@ commands:
     permission: geyseradmintools.gadmin
     aliases: /gadmin
 permissions:
-  geyseradmintools.admintools:
+  geyseradmintools.admintool:
     description: Allows to open admin form
     default: op
-  geyseradmintools.modtools:
+  geyseradmintools.modtool:
     description: Allows to open mod form
     default: op
-  geyseradmintools.mobtools:
+  geyseradmintools.mobtool:
     description: Allows to open mob form
     default: op
-  geyseradmintools.servertools:
+  geyseradmintools.servertool:
     description: Allows to open server form
     default: op
   geyseradmintools.item:
