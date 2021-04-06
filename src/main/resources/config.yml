@@ -17,13 +17,13 @@ Forms:
   EnableMobForm: true
   EnableServerForm: true
 
-# Edit Selector Form
+# Edit custom Form
 CommandsForm:
   # Set button name in main menu.
   ButtonMainMenu: Custom Commands
   # Set title and content text
-  Title: Server Selector
-  Content: Click on the server button of choice.
+  Title: Choose title
+  Content: choose content
 
   # Button Setup Button = Button Name, SetCommand = set command to button
   Button1: test1
