@@ -1,15 +1,10 @@
 package com.alysaa.geyseradmintools.Forms;
 
-import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.geysermc.cumulus.CustomForm;
 import org.geysermc.cumulus.SimpleForm;
 import org.geysermc.cumulus.response.CustomFormResponse;
@@ -121,4 +116,5 @@ public class BanPlayerForm implements Listener {
             }
         }
     }
+
 }

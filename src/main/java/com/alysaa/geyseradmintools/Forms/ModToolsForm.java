@@ -27,7 +27,7 @@ public class ModToolsForm {
                                 .button("Vanish")//4
                                 .button("Fly")//6
                                 .button("Clear Inventory")//7
-                                .button("Ban player")
+                                .button("Ban/Unban player")
                                 .responseHandler((form, responseData) -> {
                                     SimpleFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
