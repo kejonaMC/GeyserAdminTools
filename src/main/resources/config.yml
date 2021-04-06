@@ -1,4 +1,5 @@
 # Plugin provided by ProjectG
+version: 1
 
 EnableAdminTools: true
 

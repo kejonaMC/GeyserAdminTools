@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class Gat extends JavaPlugin {
     public static Gat plugin;
@@ -17,6 +18,7 @@ public class Gat extends JavaPlugin {
     public void onEnable(){
         plugin = this;
         createFiles();
+        checkConfigVer();
         this.getCommand("gadmin").setExecutor(new GatCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminLockChat(), this);
@@ -29,6 +31,13 @@ public class Gat extends JavaPlugin {
     @Override
     public void onDisable(){
 
+    }
+    public void checkConfigVer(){
+        Logger logger = this.getLogger();
+        //Change version number only when editing config.yml!
+        if (!(getConfig().getInt("version") ==1)){
+            logger.info("Config.yml is outdated. please regenerate a new config.yml!");
+        }
     }
     private void createFiles() {
         File configFile = new File(getDataFolder(), "config.yml");
