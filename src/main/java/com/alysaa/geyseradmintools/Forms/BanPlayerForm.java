@@ -24,7 +24,7 @@ public class BanPlayerForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         SimpleForm.builder()
-                                .title("Ban/Mute Tool")
+                                .title("Ban/Unban Tool")
                                 .button("Ban Player")
                                 .button("Unban Player")
                                 .responseHandler((form, responseData) -> {
