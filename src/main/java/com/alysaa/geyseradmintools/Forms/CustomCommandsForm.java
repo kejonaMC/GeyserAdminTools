@@ -12,7 +12,7 @@ import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
 import java.util.UUID;
 
-public class CustomCommandsTool {
+public class CustomCommandsForm {
     public void CustomCommands() {
         FileConfiguration config = Gat.plugin.getConfig();
         for (Player player : Bukkit.getOnlinePlayers()) {

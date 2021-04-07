@@ -67,7 +67,7 @@ public class AdminToolsForm {
                                         player.sendMessage("[GeyserAdminTool] Inventory cleared");
                                     }
                                     if (response.getClickedButtonId() == 7) {
-                                        player.setHealth(12);
+                                        player.setHealth(20);
                                         player.sendMessage("[GeyserAdminTool] Health regenerated");
                                     }
                                     if (response.getClickedButtonId() == 8) {

@@ -57,7 +57,7 @@ public class MainForm {
                                     if (response.getClickedButtonId() == 2) {
                                         if (player.hasPermission("geyseradmintools.customcommands")) {
                                             if (Gat.plugin.getConfig().getBoolean("Forms.EnableCustomCommands")) {
-                                                new CustomCommandsTool().CustomCommands();
+                                                new CustomCommandsForm().CustomCommands();
 
                                             } else {
                                                 player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
