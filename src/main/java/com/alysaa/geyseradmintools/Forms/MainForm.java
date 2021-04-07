@@ -41,7 +41,7 @@ public class MainForm {
                                             if (Gat.plugin.getConfig().getBoolean("Forms.EnableAdminForm")) {
                                                 new AdminToolsForm().ATList();
                                             } else {
-                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
+                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
                                             }
                                         }
                                     }
@@ -50,7 +50,7 @@ public class MainForm {
                                             if (Gat.plugin.getConfig().getBoolean("Forms.EnableModForm")) {
                                                 new ModToolsForm().ModList();
                                             } else {
-                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
+                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
                                             }
                                         }
                                     }
@@ -60,7 +60,7 @@ public class MainForm {
                                                 new CustomCommandsTool().CustomCommands();
 
                                             } else {
-                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
+                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
                                             }
                                         }
                                     }
@@ -69,7 +69,7 @@ public class MainForm {
                                             if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm")) {
                                                 new MobsToolsForm().preMTList();
                                             } else {
-                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
+                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
                                             }
                                         }
                                     }
@@ -78,7 +78,7 @@ public class MainForm {
                                             if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
                                                 new ServerToolsForm().STList();
                                             } else {
-                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
+                                                player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
                                             }
                                         }
                                     }

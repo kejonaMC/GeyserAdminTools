@@ -38,7 +38,7 @@ public class BanPlayerForm implements Listener {
                                         if (player.hasPermission("geyseradmintools.banplayer")) {
                                             banPlayers();
                                         } else {
-                                            player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
+                                            player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
                                         }
                                     }
                                     if (response.getClickedButtonId() == 1) {
