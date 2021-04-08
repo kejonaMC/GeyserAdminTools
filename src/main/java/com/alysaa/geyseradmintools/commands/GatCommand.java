@@ -1,6 +1,6 @@
 package com.alysaa.geyseradmintools.commands;
 
-import com.alysaa.geyseradmintools.Forms.MainForm;
+import com.alysaa.geyseradmintools.forms.MainForm;
 import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.command.Command;

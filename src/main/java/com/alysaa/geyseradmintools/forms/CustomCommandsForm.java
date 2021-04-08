@@ -1,4 +1,4 @@
-package com.alysaa.geyseradmintools.Forms;
+package com.alysaa.geyseradmintools.forms;
 
 import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
@@ -29,6 +29,11 @@ public class CustomCommandsForm {
                                 .button(config.getString("CommandsForm.Button3"))
                                 .button(config.getString("CommandsForm.Button4"))
                                 .button(config.getString("CommandsForm.Button5"))
+                                .button(config.getString("CommandsForm.Button6"))
+                                .button(config.getString("CommandsForm.Button7"))
+                                .button(config.getString("CommandsForm.Button8"))
+                                .button(config.getString("CommandsForm.Button9"))
+                                .button(config.getString("CommandsForm.Button10"))
                                 .responseHandler((form, responseData) -> {
                                     SimpleFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -55,6 +60,26 @@ public class CustomCommandsForm {
                                     if (response.getClickedButtonId() == 5) {
                                         String server5 = config.getString("CommandsForm.SetCommand5");
                                         player.performCommand(server5);
+                                    }
+                                    if (response.getClickedButtonId() == 6) {
+                                        String server6 = config.getString("CommandsForm.SetCommand6");
+                                        player.performCommand(server6);
+                                    }
+                                    if (response.getClickedButtonId() == 7) {
+                                        String server7 = config.getString("CommandsForm.SetCommand7");
+                                        player.performCommand(server7);
+                                    }
+                                    if (response.getClickedButtonId() == 8) {
+                                        String server8 = config.getString("CommandsForm.SetCommand8");
+                                        player.performCommand(server8);
+                                    }
+                                    if (response.getClickedButtonId() == 9) {
+                                        String server9 = config.getString("CommandsForm.SetCommand9");
+                                        player.performCommand(server9);
+                                    }
+                                    if (response.getClickedButtonId() == 10) {
+                                        String server10 = config.getString("CommandsForm.SetCommand10");
+                                        player.performCommand(server10);
                                     }
                                 }));
             }

@@ -1,4 +1,5 @@
 # Plugin provided by ProjectG
+# Do not change version value!
 version: 1
 
 EnableAdminTools: true
@@ -9,7 +10,10 @@ Slot: 4
 DisableItemDrop: true
 DisableItemMove: true
 
-# Forms settings
+###################
+# Forms settings  #
+###################
+
 Forms:
   EnableAdminForm: true
   EnableModForm: true
@@ -17,15 +21,18 @@ Forms:
   EnableMobForm: true
   EnableServerForm: true
 
-# Edit custom Form
+######################
+# Edit custom Form   #
+######################
+
 CommandsForm:
-  # Set button name in main menu.
+  # Set button text in main menu.
   ButtonMainMenu: Custom Commands
   # Set title and content text
   Title: Choose title
   Content: choose content
 
-  # Button Setup Button = Button Name, SetCommand = set command to button
+  # Button"1" = Button Name, SetCommand"1" = set command to button
   Button1: test1
   SetCommand1: "spawn"
 
@@ -40,3 +47,19 @@ CommandsForm:
 
   Button5: test5
   SetCommand5: ""
+
+  Button6: test6
+  SetCommand6: ""
+
+  Button7: test7
+  SetCommand7: ""
+
+  Button8: test8
+  SetCommand8: ""
+
+  Button9: test9
+  SetCommand9: ""
+
+  Button10: test10
+  SetCommand10: ""
+

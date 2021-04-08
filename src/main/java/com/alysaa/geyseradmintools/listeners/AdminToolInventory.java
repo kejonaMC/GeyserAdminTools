@@ -1,6 +1,6 @@
 package com.alysaa.geyseradmintools.listeners;
 
-import com.alysaa.geyseradmintools.Forms.MainForm;
+import com.alysaa.geyseradmintools.forms.MainForm;
 import com.alysaa.geyseradmintools.Gat;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

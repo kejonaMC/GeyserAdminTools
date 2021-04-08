@@ -1,4 +1,4 @@
-package com.alysaa.geyseradmintools.Forms;
+package com.alysaa.geyseradmintools.forms;
 
 import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
