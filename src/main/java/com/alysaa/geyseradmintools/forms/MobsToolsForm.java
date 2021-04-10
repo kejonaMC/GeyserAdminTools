@@ -73,7 +73,7 @@ public class MobsToolsForm {
             fplayer.sendForm(
                     CustomForm.builder()
                             .title("Aggressive Mobs Spawning")
-                            .dropdown("Spawn Mobs", "Zombie", "Skeleton", "Spider", "Creeper", "Blaze", "Vex", "Wither Skeleton")
+                            .dropdown("Spawn Mobs", "Zombie", "Skeleton", "Spider", "Creeper", "Blaze", "Vex", "Wither Skeleton","Slime","Ghast")
                             .input("Amount of mobs")
                             .responseHandler((form, responseData) -> {
                                 CustomFormResponse response = form.parseResponse(responseData);
@@ -97,35 +97,35 @@ public class MobsToolsForm {
                                     for (int i = 0; i < in; i++) {
                                         player.getWorld().spawnEntity(target, EntityType.SPIDER);
                                     }
-                                    if (response.getDropdown(0) == 3) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.CREEPER);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 3) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.CREEPER);
                                     }
-                                    if (response.getDropdown(0) == 4) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.BLAZE);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 4) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.BLAZE);
                                     }
-                                    if (response.getDropdown(0) == 6) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.VEX);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 5) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.VEX);
                                     }
-                                    if (response.getDropdown(0) == 7) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.WITHER_SKELETON);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 6) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.WITHER_SKELETON);
                                     }
-                                    if (response.getDropdown(0) == 8) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.SLIME);
-                                        }
-                                        if (response.getDropdown(0) == 9) {
-                                            for (int i = 0; i < in; i++) {
-                                                player.getWorld().spawnEntity(target, EntityType.GHAST);
-                                            }
-                                        }
+                                }
+                                if (response.getDropdown(0) == 7) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.SLIME);
+                                    }
+                                }
+                                if (response.getDropdown(0) == 8) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.GHAST);
                                     }
                                 }
                             }));
@@ -165,67 +165,67 @@ public class MobsToolsForm {
                                     for (int i = 0; i < in; i++) {
                                         player.getWorld().spawnEntity(target, EntityType.COW);
                                     }
+                                }
 
-                                    if (response.getDropdown(0) == 3) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.HORSE);
-                                        }
+                                if (response.getDropdown(0) == 3) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.HORSE);
                                     }
-                                    if (response.getDropdown(0) == 4) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.SHEEP);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 4) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.SHEEP);
                                     }
+                                }
 
-                                    if (response.getDropdown(0) == 5) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.RABBIT);
-                                        }
+                                if (response.getDropdown(0) == 5) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.RABBIT);
                                     }
-                                    if (response.getDropdown(0) == 6) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.DONKEY);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 6) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.DONKEY);
                                     }
-                                    if (response.getDropdown(0) == 7) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.BAT);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 7) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.BAT);
                                     }
-                                    if (response.getDropdown(0) == 8) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.WOLF);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 8) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.WOLF);
                                     }
-                                    if (response.getDropdown(0) == 9) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.SNOWMAN);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 9) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.SNOWMAN);
                                     }
-                                    if (response.getDropdown(0) == 10) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.VILLAGER);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 10) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.VILLAGER);
                                     }
-                                    if (response.getDropdown(0) == 11) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.SQUID);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 11) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.SQUID);
                                     }
-                                    if (response.getDropdown(0) == 12) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.PARROT);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 12) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.PARROT);
                                     }
-                                    if (response.getDropdown(0) == 13) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.POLAR_BEAR);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 13) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.POLAR_BEAR);
                                     }
-                                    if (response.getDropdown(0) == 14) {
-                                        for (int i = 0; i < in; i++) {
-                                            player.getWorld().spawnEntity(target, EntityType.MUSHROOM_COW);
-                                        }
+                                }
+                                if (response.getDropdown(0) == 14) {
+                                    for (int i = 0; i < in; i++) {
+                                        player.getWorld().spawnEntity(target, EntityType.MUSHROOM_COW);
                                     }
                                 }
                             }));

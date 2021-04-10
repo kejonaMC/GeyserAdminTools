@@ -62,7 +62,7 @@ public class BanPlayerForm {
                             .title("Ban tool")
                             .dropdown("Select Player", playerlist)
                             .input("Hours banned")
-                            .input("Reason ban")
+                            .input("Ban Reason")
                             .responseHandler((form, responseData) -> {
                                 CustomFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
