@@ -13,6 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+
 public class AdminToolInventory  implements Listener {
 
     @EventHandler
@@ -38,7 +39,7 @@ public class AdminToolInventory  implements Listener {
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
             if (player.getInventory().getItemInMainHand().getType() == Material.NETHER_STAR) {
-                MainForm.formList();
+                MainForm.formList(player);
             }
         }
     }
@@ -53,6 +54,6 @@ public class AdminToolInventory  implements Listener {
         if (!config.getBoolean("DisableItemDrop")) {
             return;
         }
-            e.setCancelled(true);
+        e.setCancelled(true);
     }
 }

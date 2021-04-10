@@ -20,7 +20,7 @@ public class GatCommand implements CommandExecutor {
             if (isFloodgatePlayer) {
                 if (command.getName().equalsIgnoreCase("gadmin") && player.hasPermission("geyseradmintools.gadmin")) {
                     try {
-                        MainForm.formList();
+                        MainForm.formList(player);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
