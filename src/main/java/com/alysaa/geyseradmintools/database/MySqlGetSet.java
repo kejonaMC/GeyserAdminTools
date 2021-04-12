@@ -21,7 +21,7 @@ public class MySqlGetSet implements Listener {
     public boolean playerExists(UUID uuid) {
         try {
             PreparedStatement statement = MySql.getConnection()
-                    .prepareStatement("SELECT * FROM " + MySql.tables + " WHERE PlayerUUID=?");
+                    .prepareStatement("SELECT * FROM " + MySql.Jointable + " WHERE PlayerUUID=?");
             statement.setString(1, uuid.toString());
 
         } catch (SQLException e) {
@@ -32,14 +32,15 @@ public class MySqlGetSet implements Listener {
     public void createPlayer(final UUID uuid, Player player) {
         try {
             PreparedStatement statement = MySql.getConnection()
-                    .prepareStatement("SELECT * FROM " + MySql.tables + " WHERE PlayerUUID=?");
+                    .prepareStatement("SELECT * FROM " + MySql.Jointable + " WHERE PlayerUUID=?");
             statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
             results.next();
             if (!playerExists(uuid)) {
                 PreparedStatement insert = MySql.getConnection()
-                        .prepareStatement("INSERT INTO " + MySql.tables + " (PlayerUUID) VALUES (?)");
+                        .prepareStatement("INSERT INTO " + MySql.Jointable + " (PlayerUUID,PlayerName) VALUES (?,?)");
                 insert.setString(1, uuid.toString());
+                insert.setString(2, player.getName());
                 insert.executeUpdate();
             }
         } catch (SQLException e) {

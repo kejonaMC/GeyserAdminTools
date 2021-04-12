@@ -1,10 +1,9 @@
 package com.alysaa.geyseradmintools.forms;
 
+import com.alysaa.geyseradmintools.database.MySql;
 import com.alysaa.geyseradmintools.listeners.AdminToolMutePlayer;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
-import org.bukkit.BanList;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.CustomForm;
 import org.geysermc.cumulus.SimpleForm;
@@ -13,7 +12,6 @@ import org.geysermc.cumulus.response.SimpleFormResponse;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -73,6 +71,7 @@ public class MutePlayerForm {
                                 String name = names.get(clickedIndex);
                                 Player player1 = Bukkit.getPlayer(name);
                                 new AdminToolMutePlayer().bannedFromChat.add(player1);
+
                             }));
         }
     }

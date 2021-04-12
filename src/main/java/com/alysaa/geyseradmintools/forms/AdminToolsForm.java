@@ -30,6 +30,7 @@ public class AdminToolsForm {
                             .button("Clear Inventory")//7
                             .button("Heal")//8
                             .button("Ban/Unban player")
+                            .button("Mute Player")
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -70,6 +71,9 @@ public class AdminToolsForm {
                                 }
                                 if (response.getClickedButtonId() == 8) {
                                     BanPlayerForm.banList(player);
+                                }
+                                if (response.getClickedButtonId() == 9) {
+                                    MutePlayerForm.MuteList(player);
                                 }
                             }));
         }
