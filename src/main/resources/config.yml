@@ -21,6 +21,20 @@ Forms:
   EnableMobForm: true
   EnableServerForm: true
 
+#####################
+# Database config   #
+#####################
+
+EnableMySQL: false
+
+host: localhost
+port: 3306
+database: GeyserAdminTools
+username: root
+password: password
+tables: player_data
+
+
 ######################
 # Edit custom Form   #
 ######################
