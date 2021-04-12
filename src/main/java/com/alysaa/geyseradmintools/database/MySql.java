@@ -21,7 +21,7 @@ public class MySql {
         database = Gat.plugin.getConfig().getString("database");
         username = Gat.plugin.getConfig().getString("username");
         password = Gat.plugin.getConfig().getString("password");
-        tables = Gat.plugin.getConfig().getString("tables");
+        tables = "player_data";
 
         try {
 

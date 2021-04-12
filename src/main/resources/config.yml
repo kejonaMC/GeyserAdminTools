@@ -32,8 +32,6 @@ port: 3306
 database: GeyserAdminTools
 username: root
 password: password
-tables: player_data
-
 
 ######################
 # Edit custom Form   #
