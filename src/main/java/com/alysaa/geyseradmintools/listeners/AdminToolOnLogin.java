@@ -23,10 +23,11 @@ public class AdminToolOnLogin implements Listener {
 
             ResultSet results = statement.executeQuery();
             while (results.next()) {
+                String reason = results.getString("Reason");
 
                     e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED
                             + "You are banned:" + ChatColor.RED + "\n Reason: "
-                            + ChatColor.AQUA + "getReason()");
+                            + ChatColor.AQUA + reason);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
