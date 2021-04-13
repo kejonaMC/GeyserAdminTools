@@ -1,5 +1,6 @@
 package com.alysaa.geyseradmintools.forms;
 
+import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.database.MySql;
 import com.alysaa.geyseradmintools.listeners.AdminToolMutePlayer;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
@@ -12,6 +13,8 @@ import org.geysermc.cumulus.response.SimpleFormResponse;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -71,7 +74,17 @@ public class MutePlayerForm {
                                 String name = names.get(clickedIndex);
                                 Player player1 = Bukkit.getPlayer(name);
                                 new AdminToolMutePlayer().bannedFromChat.add(player1);
-
+                                if (Gat.plugin.getConfig().getBoolean("EnableMySQL")) {
+                                    try {
+                                        PreparedStatement insert = MySql.getConnection()
+                                                .prepareStatement("INSERT INTO " + MySql.Mutetable + " (PlayerUUID,PlayerName) VALUES (?,?)");
+                                        insert.setString(1, String.valueOf(player1.getUniqueId()));
+                                        insert.setString(2, player1.getName());
+                                        insert.executeUpdate();
+                                    } catch (SQLException throwables) {
+                                        throwables.printStackTrace();
+                                    }
+                                }
                             }));
         }
     }
