@@ -13,7 +13,7 @@ public class MySql {
     public String username;
     public String password;
     public static String Jointable;
-    public static String Mutetable;
+    public static String Bantable;
 
     public int port;
 
@@ -23,8 +23,7 @@ public class MySql {
         database = Gat.plugin.getConfig().getString("database");
         username = Gat.plugin.getConfig().getString("username");
         password = Gat.plugin.getConfig().getString("password");
-        Jointable = "player_list";
-        Mutetable = "mute_list";
+        Bantable = "Ban_list";
 
         try {
 
@@ -47,9 +46,7 @@ public class MySql {
     public static void createTable() {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS player_list (PlayerName varchar(200), PlayerUUID varchar(200))");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS ban_list (PlayerName varchar(200), PlayerUUID varchar(200))");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS mute_list (PlayerName varchar(200), PlayerUUID varchar(200))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + MySql.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))");
         } catch (SQLException e) {
             e.printStackTrace();
         }

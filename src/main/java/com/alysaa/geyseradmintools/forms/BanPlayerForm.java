@@ -1,5 +1,7 @@
 package com.alysaa.geyseradmintools.forms;
 
+import com.alysaa.geyseradmintools.Gat;
+import com.alysaa.geyseradmintools.database.MySql;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
@@ -12,6 +14,8 @@ import org.geysermc.cumulus.response.SimpleFormResponse;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -78,6 +82,26 @@ public class BanPlayerForm {
                                 Player player1 = Bukkit.getPlayer(name);
                                 player1.kickPlayer("you where banned for: " + reason);
                                 player.sendMessage("Player " + name + " is banned");
+                                //MySQL code
+                                if (Gat.plugin.getConfig().getBoolean("EnableMySQL")) {
+                                    try {
+                                        PreparedStatement statement = MySql.getConnection()
+                                                .prepareStatement("DELETE FROM " + MySql.Bantable + " WHERE UUID='" + "'");
+                                        statement.execute();
+                                        PreparedStatement insert = MySql.getConnection().prepareStatement("INSERT INTO " + MySql.Bantable
+                                                + "(UUID,REASON,USERNAME,HOURS) VALUE (?,?,?,?)");
+                                        insert.setString(1, player1.getUniqueId().toString());
+                                        insert.setString(2, reason);
+                                        insert.setString(3, name);
+                                        insert.setString(4, hours);
+                                        insert.executeUpdate();
+
+                                        // Player inserted now
+                                    } catch (SQLException throwables) {
+                                        throwables.printStackTrace();
+                                    }
+                                }
+
                             }));
         }
     }
@@ -103,6 +127,19 @@ public class BanPlayerForm {
                                 BanList bl = Bukkit.getBanList(BanList.Type.NAME);
                                 bl.pardon(name);
                                 player.sendMessage("Player " + name + " is unbanned");
+                                Player player1 = Bukkit.getPlayer(name);
+                                //MySQL code
+                                if (Gat.plugin.getConfig().getBoolean("EnableMySQL")) {
+                                    try {
+                                        PreparedStatement statement = MySql.getConnection()
+                                                .prepareStatement("DELETE FROM " + MySql.Bantable + " WHERE UUID=?");
+                                        statement.setString(1, player1.getUniqueId().toString());
+                                        statement.execute();
+
+                                    } catch (SQLException exe) {
+                                        exe.printStackTrace();
+                                    }
+                                }
                             }));
         }
     }

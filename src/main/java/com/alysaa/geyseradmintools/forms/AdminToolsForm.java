@@ -73,7 +73,7 @@ public class AdminToolsForm {
                                     BanPlayerForm.banList(player);
                                 }
                                 if (response.getClickedButtonId() == 9) {
-                                    MutePlayerForm.MuteList(player);
+                                    player.sendMessage("lol");
                                 }
                             }));
         }
