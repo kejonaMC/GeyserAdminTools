@@ -25,7 +25,7 @@ public class GatCommand implements CommandExecutor {
                         e.printStackTrace();
                     }
                 }
-            }else {
+            } else {
                 sender.sendMessage("[GeyserAdminTool] Sorry this command only works for bedrock players!");
             }
         } else if (sender instanceof ConsoleCommandSender) {

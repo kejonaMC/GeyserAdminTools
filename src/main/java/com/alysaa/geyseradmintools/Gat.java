@@ -37,7 +37,7 @@ public class Gat extends JavaPlugin {
     public void checkConfigVer(){
         Logger logger = this.getLogger();
         //Change version number only when editing config.yml!
-        if (!(getConfig().getInt("version") ==1)){
+        if (!(getConfig().getInt("version") == 1 )){
             logger.info("Config.yml is outdated. please regenerate a new config.yml!");
         }
     }
