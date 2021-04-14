@@ -2,17 +2,19 @@ package com.alysaa.geyseradmintools.listeners;
 
 import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
+import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class AdminToolOnRespawn implements Listener {
+
+    private static final ItemStack starTool = ItemStackFactory.getStarTool();
+
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
         Player player = e.getPlayer();
@@ -27,10 +29,21 @@ public class AdminToolOnRespawn implements Listener {
         if (!isFloodGatePlayer) {
             return;
         }
-        ItemStack nether = new ItemStack(Material.NETHER_STAR);
-        ItemMeta netherMeta = nether.getItemMeta();
-        netherMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6Admin Tools"));
-        nether.setItemMeta(netherMeta);
-        player.getInventory().setItem(Gat.plugin.getConfig().getInt("Slot"), nether);
+        if (player.getInventory().contains(starTool)) {
+            return;
+        }
+        // Either we create a copy of the array that is shorter or just use a for loop to only access the itemstacks of the hotbar
+        ItemStack[] wholeInventory = e.getPlayer().getInventory().getContents();
+        boolean success = false;
+        for (int slot = 0; slot < 9; slot++) {
+            if (wholeInventory[slot] == null) {
+                e.getPlayer().getInventory().setItem(slot, starTool);
+                success = true;
+                break;
+            }
+        }
+        if (!success) {
+            e.getPlayer().sendMessage(ChatColor.RED + "Make room in your hotbar for the star tool!");
+        }
     }
 }

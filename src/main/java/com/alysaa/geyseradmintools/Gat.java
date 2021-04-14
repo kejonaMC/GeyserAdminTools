@@ -1,7 +1,12 @@
 package com.alysaa.geyseradmintools;
 
 import com.alysaa.geyseradmintools.commands.GatCommand;
-import com.alysaa.geyseradmintools.listeners.*;
+import com.alysaa.geyseradmintools.listeners.AdminLockChat;
+import com.alysaa.geyseradmintools.listeners.AdminToolInventory;
+import com.alysaa.geyseradmintools.listeners.AdminToolOnDeath;
+import com.alysaa.geyseradmintools.listeners.AdminToolOnJoin;
+import com.alysaa.geyseradmintools.listeners.AdminToolOnRespawn;
+import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import com.alysaa.geyseradmintools.utils.bstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -14,19 +19,26 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 public class Gat extends JavaPlugin {
+
     public static Gat plugin;
+    public static Logger logger;
+
     @Override
     public void onEnable(){
         new Metrics(this, 10943);
         plugin = this;
+        logger = getLogger();
+
         createFiles();
         checkConfigVer();
+        ItemStackFactory.createStarTool();
         this.getCommand("gadmin").setExecutor(new GatCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminLockChat(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnRespawn(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnDeath(), this);
+
         getLogger().info("Plugin has been enabled - Provided by ProjectG");
 
     }
@@ -37,7 +49,7 @@ public class Gat extends JavaPlugin {
     public void checkConfigVer(){
         Logger logger = this.getLogger();
         //Change version number only when editing config.yml!
-        if (!(getConfig().getInt("version") ==1)){
+        if (!(getConfig().getInt("version") == 1 )){
             logger.info("Config.yml is outdated. please regenerate a new config.yml!");
         }
     }
@@ -54,5 +66,4 @@ public class Gat extends JavaPlugin {
             e.printStackTrace();
         }
     }
-
 }

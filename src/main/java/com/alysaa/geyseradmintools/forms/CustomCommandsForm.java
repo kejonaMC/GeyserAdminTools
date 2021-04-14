@@ -38,44 +38,43 @@ public class CustomCommandsForm {
                                     // player closed the form or returned invalid info (see FormResponse)
                                     return;
                                 }
-                                if (response.getClickedButtonId() == 1) {
+                                if (response.getClickedButtonId() == 0) {
                                     String server1 = config.getString("CommandsForm.SetCommand1");
                                     player.performCommand(server1);
                                 }
-                                if (response.getClickedButtonId() == 2) {
+                                if (response.getClickedButtonId() == 1) {
                                     String server2 = config.getString("CommandsForm.SetCommand2");
                                     player.performCommand(server2);
                                 }
-                                if (response.getClickedButtonId() == 3) {
+                                if (response.getClickedButtonId() == 2) {
                                     String server3 = config.getString("CommandsForm.SetCommand3");
                                     player.performCommand(server3);
-
                                 }
-                                if (response.getClickedButtonId() == 4) {
+                                if (response.getClickedButtonId() == 3) {
                                     String server4 = config.getString("CommandsForm.SetCommand4");
                                     player.performCommand(server4);
                                 }
-                                if (response.getClickedButtonId() == 5) {
+                                if (response.getClickedButtonId() == 4) {
                                     String server5 = config.getString("CommandsForm.SetCommand5");
                                     player.performCommand(server5);
                                 }
-                                if (response.getClickedButtonId() == 6) {
+                                if (response.getClickedButtonId() == 5) {
                                     String server6 = config.getString("CommandsForm.SetCommand6");
                                     player.performCommand(server6);
                                 }
-                                if (response.getClickedButtonId() == 7) {
+                                if (response.getClickedButtonId() == 6) {
                                     String server7 = config.getString("CommandsForm.SetCommand7");
                                     player.performCommand(server7);
                                 }
-                                if (response.getClickedButtonId() == 8) {
+                                if (response.getClickedButtonId() == 7) {
                                     String server8 = config.getString("CommandsForm.SetCommand8");
                                     player.performCommand(server8);
                                 }
-                                if (response.getClickedButtonId() == 9) {
+                                if (response.getClickedButtonId() == 8) {
                                     String server9 = config.getString("CommandsForm.SetCommand9");
                                     player.performCommand(server9);
                                 }
-                                if (response.getClickedButtonId() == 10) {
+                                if (response.getClickedButtonId() == 9) {
                                     String server10 = config.getString("CommandsForm.SetCommand10");
                                     player.performCommand(server10);
                                 }
