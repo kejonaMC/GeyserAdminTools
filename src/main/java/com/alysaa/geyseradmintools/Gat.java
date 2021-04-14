@@ -1,8 +1,12 @@
 package com.alysaa.geyseradmintools;
 
 import com.alysaa.geyseradmintools.commands.GatCommand;
-import com.alysaa.geyseradmintools.database.MySql;
-import com.alysaa.geyseradmintools.listeners.*;
+import com.alysaa.geyseradmintools.listeners.AdminLockChat;
+import com.alysaa.geyseradmintools.listeners.AdminToolInventory;
+import com.alysaa.geyseradmintools.listeners.AdminToolOnDeath;
+import com.alysaa.geyseradmintools.listeners.AdminToolOnJoin;
+import com.alysaa.geyseradmintools.listeners.AdminToolOnRespawn;
+import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import com.alysaa.geyseradmintools.utils.bstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -12,39 +16,32 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 public class Gat extends JavaPlugin {
+
     public static Gat plugin;
+    public static Logger logger;
+
     @Override
     public void onEnable(){
         new Metrics(this, 10943);
         plugin = this;
+        logger = getLogger();
+
         createFiles();
         checkConfigVer();
-        EnableMySQL();
+        ItemStackFactory.createStarTool();
         this.getCommand("gadmin").setExecutor(new GatCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminLockChat(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnRespawn(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnDeath(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnLogin(), this);
+
         getLogger().info("Plugin has been enabled - Provided by ProjectG");
 
     }
-
-    private void EnableMySQL() {
-        if (getConfig().getBoolean("EnableMySQL")) {
-            try {
-                new MySql().mysqlSetup();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     @Override
     public void onDisable(){
 
@@ -52,7 +49,7 @@ public class Gat extends JavaPlugin {
     public void checkConfigVer(){
         Logger logger = this.getLogger();
         //Change version number only when editing config.yml!
-        if (!(getConfig().getInt("version") ==1)){
+        if (!(getConfig().getInt("version") == 1 )){
             logger.info("Config.yml is outdated. please regenerate a new config.yml!");
         }
     }
@@ -69,5 +66,4 @@ public class Gat extends JavaPlugin {
             e.printStackTrace();
         }
     }
-
 }
