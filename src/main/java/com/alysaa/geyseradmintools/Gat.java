@@ -1,11 +1,8 @@
 package com.alysaa.geyseradmintools;
 
 import com.alysaa.geyseradmintools.commands.GatCommand;
-import com.alysaa.geyseradmintools.listeners.AdminLockChat;
-import com.alysaa.geyseradmintools.listeners.AdminToolInventory;
-import com.alysaa.geyseradmintools.listeners.AdminToolOnDeath;
-import com.alysaa.geyseradmintools.listeners.AdminToolOnJoin;
-import com.alysaa.geyseradmintools.listeners.AdminToolOnRespawn;
+import com.alysaa.geyseradmintools.database.MySql;
+import com.alysaa.geyseradmintools.listeners.*;
 import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import com.alysaa.geyseradmintools.utils.bstats.Metrics;
 import org.bukkit.Bukkit;
@@ -28,7 +25,7 @@ public class Gat extends JavaPlugin {
         new Metrics(this, 10943);
         plugin = this;
         logger = getLogger();
-
+        new MySql().mysqlSetup();
         createFiles();
         checkConfigVer();
         ItemStackFactory.createStarTool();
@@ -38,7 +35,7 @@ public class Gat extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnRespawn(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnDeath(), this);
-
+        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnLogin(), this);
         getLogger().info("Plugin has been enabled - Provided by ProjectG");
 
     }
