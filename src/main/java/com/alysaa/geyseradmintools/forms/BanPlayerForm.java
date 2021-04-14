@@ -100,11 +100,11 @@ public class BanPlayerForm {
     public static void unbanPlayers(Player player) {
         UUID uuid = player.getUniqueId();
         try {
-            final PreparedStatement[] statement = {MySql.getConnection()
+            PreparedStatement[] statement = {MySql.getConnection()
                     .prepareStatement("SELECT * FROM " + MySql.Bantable + " WHERE UUID=?")};
             statement[0].setString(1, uuid.toString());
             ResultSet rs = statement[0].executeQuery();
-            ArrayList<String> list = new ArrayList<String>();
+            ArrayList<String> list = new ArrayList<>();
             String[] playerlist = list.toArray(new String[0]);
             while (rs.next()) {
                 list.add(rs.getString(3));
