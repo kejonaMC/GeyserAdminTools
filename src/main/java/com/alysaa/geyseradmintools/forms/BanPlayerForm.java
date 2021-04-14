@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class BanPlayerForm {
@@ -100,14 +101,15 @@ public class BanPlayerForm {
     public static void unbanPlayers(Player player) {
         UUID uuid = player.getUniqueId();
         try {
-            PreparedStatement[] statement = {MySql.getConnection()
-                    .prepareStatement("SELECT * FROM " + MySql.Bantable + " WHERE UUID=?")};
-            statement[0].setString(1, uuid.toString());
-            ResultSet rs = statement[0].executeQuery();
-            ArrayList<String> list = new ArrayList<>();
-            String[] playerlist = list.toArray(new String[0]);
-            while (rs.next()) {
-                list.add(rs.getString(3));
+            ArrayList<String> names = new ArrayList<>();
+            String[] playerlist = names.toArray(new String[0]);
+            PreparedStatement statement = MySql.getConnection()
+                    .prepareStatement("SELECT * FROM " + MySql.Bantable + " WHERE UUID=?");
+            statement.setString(1, uuid.toString());
+            ResultSet results = statement.executeQuery();
+            while (results.next()) {
+                String username = results.getString("Username");
+                names.add(username);
             }
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
@@ -122,16 +124,14 @@ public class BanPlayerForm {
                                         return;
                                     }
                                     int clickedIndex = response.getDropdown(0);
-                                    String name = list.get(clickedIndex);
+                                    String name = names.get(clickedIndex);
                                     Player player1 = Bukkit.getPlayer(name);
                                     System.out.println(player1);
                                     //MySQL code
                                     if (Gat.plugin.getConfig().getBoolean("EnableMySQL")) {
                                      try {
-                                         statement[0] = MySql.getConnection()
-                                                 .prepareStatement("DELETE FROM " + MySql.Bantable + " WHERE UUID=?");
-                                      statement[0].setString(1, player1.getUniqueId().toString());
-                                     statement[0].execute();
+                                      statement.setString(1, player1.getUniqueId().toString());
+                                     statement.execute();
                                      } catch (SQLException exe) {
                                      exe.printStackTrace();
                                       }
