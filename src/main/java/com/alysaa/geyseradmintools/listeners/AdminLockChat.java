@@ -10,14 +10,9 @@ public class AdminLockChat implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
-        if(isMuted) {
+        if (isMuted) {
             e.setCancelled(true);
-        }
-        if(e.getPlayer().hasPermission("geyseradmintools.gadmin")) {
-            e.setCancelled(false);
-        }
-        else {
-            e.setCancelled(false);
+            e.getPlayer().sendMessage("shhhhhhhhh!");
         }
     }
 }

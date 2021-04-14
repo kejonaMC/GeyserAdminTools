@@ -13,6 +13,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class AdminToolOnJoin implements Listener {
+
+    // private final ItemStack starTool = Gat.plugin.getStarTool();
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
@@ -27,10 +30,29 @@ public class AdminToolOnJoin implements Listener {
         if (!isFloodGatePlayer) {
             return;
         }
-        ItemStack nether = new ItemStack(Material.NETHER_STAR);
-        ItemMeta netherMeta = nether.getItemMeta();
-        netherMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6Admin Tools"));
-        nether.setItemMeta(netherMeta);
-        player.getInventory().setItem(Gat.plugin.getConfig().getInt("Slot"), nether);
+        ItemStack starTool = new ItemStack(Material.NETHER_STAR, 1);
+        ItemMeta starToolMeta = starTool.getItemMeta();
+        starToolMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6Admin Tools"));
+        starTool.setItemMeta(starToolMeta);
+
+
+        if (player.getInventory().contains(starTool)) {
+            return;
+        }
+        // Either we create a copy of the array that is shorter or just use a for loop to only access the itemstacks of the hotbar
+        ItemStack[] wholeInventory = e.getPlayer().getInventory().getContents();
+        boolean success = false;
+        for (int slot = 0; slot < 9; slot++) {
+            if (wholeInventory[slot] == null) {
+                System.out.println("slot number " + slot + " is null");
+                e.getPlayer().getInventory().setItem(slot, starTool);
+                success = true;
+                break;
+            }
+            System.out.println("slot number " + slot + " is not null");
+        }
+        if (!success) {
+            e.getPlayer().sendMessage(ChatColor.RED + "Make room in your hotbar for the star tool!");
+        }
     }
 }

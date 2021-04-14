@@ -13,6 +13,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class AdminToolOnRespawn implements Listener {
+
+    private final ItemStack starTool = Gat.getStarTool();
+
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
         Player player = e.getPlayer();
@@ -27,10 +30,21 @@ public class AdminToolOnRespawn implements Listener {
         if (!isFloodGatePlayer) {
             return;
         }
-        ItemStack nether = new ItemStack(Material.NETHER_STAR);
-        ItemMeta netherMeta = nether.getItemMeta();
-        netherMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6Admin Tools"));
-        nether.setItemMeta(netherMeta);
-        player.getInventory().setItem(Gat.plugin.getConfig().getInt("Slot"), nether);
+        if (player.getInventory().contains(starTool)) {
+            return;
+        }
+        // Either we create a copy of the array that is shorter or just use a for loop to only access the itemstacks of the hotbar
+        ItemStack[] wholeInventory = e.getPlayer().getInventory().getContents();
+        boolean success = false;
+        for (int slot = 0; slot < 9; slot++) {
+            if (wholeInventory[slot] == null) {
+                e.getPlayer().getInventory().setItem(slot, starTool);
+                success = true;
+                break;
+            }
+        }
+        if (!success) {
+            e.getPlayer().sendMessage(ChatColor.RED + "Make room in your hotbar for the star tool!");
+        }
     }
 }
