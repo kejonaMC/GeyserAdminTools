@@ -2,19 +2,18 @@ package com.alysaa.geyseradmintools.listeners;
 
 import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
+import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class AdminToolOnJoin implements Listener {
 
-    // private final ItemStack starTool = Gat.plugin.getStarTool();
+    private static final ItemStack starTool = ItemStackFactory.getStarTool();
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
@@ -30,12 +29,6 @@ public class AdminToolOnJoin implements Listener {
         if (!isFloodGatePlayer) {
             return;
         }
-        ItemStack starTool = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta starToolMeta = starTool.getItemMeta();
-        starToolMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6Admin Tools"));
-        starTool.setItemMeta(starToolMeta);
-
-
         if (player.getInventory().contains(starTool)) {
             return;
         }
@@ -44,12 +37,10 @@ public class AdminToolOnJoin implements Listener {
         boolean success = false;
         for (int slot = 0; slot < 9; slot++) {
             if (wholeInventory[slot] == null) {
-                System.out.println("slot number " + slot + " is null");
                 e.getPlayer().getInventory().setItem(slot, starTool);
                 success = true;
                 break;
             }
-            System.out.println("slot number " + slot + " is not null");
         }
         if (!success) {
             e.getPlayer().sendMessage(ChatColor.RED + "Make room in your hotbar for the star tool!");

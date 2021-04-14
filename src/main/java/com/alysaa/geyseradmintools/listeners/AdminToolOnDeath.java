@@ -1,8 +1,6 @@
 package com.alysaa.geyseradmintools.listeners;
 
-import com.alysaa.geyseradmintools.Gat;
-import org.bukkit.Material;
-import org.bukkit.entity.Item;
+import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -12,7 +10,7 @@ import java.util.List;
 
 public class AdminToolOnDeath implements Listener {
 
-    private final ItemStack starTool = Gat.getStarTool();
+    private static final ItemStack starTool = ItemStackFactory.getStarTool();
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {

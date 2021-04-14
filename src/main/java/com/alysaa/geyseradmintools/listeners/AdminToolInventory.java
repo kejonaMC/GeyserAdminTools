@@ -2,6 +2,7 @@ package com.alysaa.geyseradmintools.listeners;
 
 import com.alysaa.geyseradmintools.forms.MainForm;
 import com.alysaa.geyseradmintools.Gat;
+import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,8 +16,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class AdminToolInventory  implements Listener {
 
-    FileConfiguration config = Gat.plugin.getConfig();
-    private final ItemStack starTool = Gat.getStarTool();
+    private static final FileConfiguration config = Gat.plugin.getConfig();
+    private static final ItemStack starTool = ItemStackFactory.getStarTool();
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
@@ -39,10 +40,8 @@ public class AdminToolInventory  implements Listener {
 
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent e) {
-        Player player = e.getPlayer();
         if (config.getBoolean("DisableItemDrop")) {
-            // TODO fix this
-            if (e.getItemDrop().equals(starTool)) {
+            if (e.getItemDrop().getItemStack().equals(starTool)) {
                 e.setCancelled(true);
             }
         }
