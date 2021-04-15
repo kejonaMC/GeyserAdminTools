@@ -10,6 +10,7 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class AdminToolOnLogin implements Listener {
@@ -24,7 +25,6 @@ public class AdminToolOnLogin implements Listener {
             ResultSet results = statement.executeQuery();
             while (results.next()) {
                 String reason = results.getString("Reason");
-
                     e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED
                             + "You are banned:" + ChatColor.RED + "\n Reason: "
                             + ChatColor.AQUA + reason);

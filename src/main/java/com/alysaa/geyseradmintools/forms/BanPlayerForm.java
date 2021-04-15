@@ -2,6 +2,7 @@ package com.alysaa.geyseradmintools.forms;
 
 import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.database.MySql;
+import com.alysaa.geyseradmintools.listeners.AdminToolOnLogin;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ import org.geysermc.floodgate.api.player.FloodgatePlayer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -98,26 +100,29 @@ public class BanPlayerForm {
                             }));
         }
     }
+
     public static void unbanPlayers(Player player) {
+        List<String> names = new ArrayList<String>();
         UUID uuid = player.getUniqueId();
         try {
-            ArrayList<String> names = new ArrayList<>();
-            String[] playerlist = names.toArray(new String[0]);
             PreparedStatement statement = MySql.getConnection()
-                    .prepareStatement("SELECT * FROM " + MySql.Bantable + " WHERE UUID=?");
+                    .prepareStatement("SELECT * FROM " + MySql.Bantable + " WHERE Username=?");
             statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
             while (results.next()) {
-                String username = results.getString("Username");
-                names.add(username);
+                String uname = results.getString("Username");
+                names.add(uname);
             }
-            boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
+        } catch (SQLException exe) {
+            exe.printStackTrace();
+        }
+        boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
                                 .title("unban tool")
-                                .dropdown("Select Player to unban", playerlist)
+                                .dropdown("Select Player to unban", names.toString())
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -129,17 +134,21 @@ public class BanPlayerForm {
                                     System.out.println(player1);
                                     //MySQL code
                                     if (Gat.plugin.getConfig().getBoolean("EnableMySQL")) {
-                                     try {
-                                      statement.setString(1, player1.getUniqueId().toString());
-                                     statement.execute();
-                                     } catch (SQLException exe) {
-                                     exe.printStackTrace();
-                                      }
-                                       }
+                                        try {
+                                            PreparedStatement statements = MySql.getConnection()
+                                                    .prepareStatement("SELECT * FROM " + MySql.Bantable + " WHERE UUID=?");
+                                            statements.setString(1, uuid.toString());
+
+                                            ResultSet results = statements.executeQuery();
+                                            while (results.next()) {
+                                                statements.setString(1, player1.getUniqueId().toString());
+                                                statements.execute();
+                                            }
+                                        } catch (SQLException throwables) {
+                                            throwables.printStackTrace();
+                                        }
+                                    }
                                 }));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }
