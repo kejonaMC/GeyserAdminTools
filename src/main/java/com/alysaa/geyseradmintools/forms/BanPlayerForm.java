@@ -106,7 +106,7 @@ public class BanPlayerForm {
         UUID uuid = player.getUniqueId();
         try {
             PreparedStatement statement = MySql.getConnection()
-                    .prepareStatement("SELECT * FROM " + MySql.Bantable + " WHERE Username=?");
+                    .prepareStatement("SELECT * FROM " + MySql.Bantable + " WHERE UUID=?");
             statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
             while (results.next()) {
