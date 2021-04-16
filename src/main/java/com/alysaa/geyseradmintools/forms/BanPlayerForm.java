@@ -81,7 +81,6 @@ public class BanPlayerForm {
                                 Player player1 = Bukkit.getPlayer(name);
                                 player.sendMessage("[GeyserAdminTools] Player " + name + " is banned");
                                 //MySQL code
-                                if (Gat.plugin.getConfig().getBoolean("EnableMySQL")) {
                                     try {
                                         PreparedStatement insert = MySql.getConnection().prepareStatement("INSERT INTO " + MySql.Bantable
                                                 + "(UUID,REASON,USERNAME,HOURS) VALUE (?,?,?,?)");
@@ -95,8 +94,6 @@ public class BanPlayerForm {
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
-                                }
-
                             }));
         }
     }
