@@ -41,9 +41,8 @@ public class MySql {
             }
         } else {
             try {
-                Connection connection;
                 Class.forName("org.sqlite.JDBC");
-                connection = DriverManager.getConnection("jdbc:sqlite:plugins/GAdminTools/database.db");
+                setConnection(DriverManager.getConnection("jdbc:sqlite:plugins/GAdminTools/database.db"));
                 String cmd = "CREATE TABLE IF NOT EXISTS " + MySql.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))";
                 PreparedStatement stmt = connection.prepareStatement(cmd);
                 stmt.execute();
