@@ -1,7 +1,7 @@
 package com.alysaa.geyseradmintools.forms;
 
 import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.database.MySql;
+import com.alysaa.geyseradmintools.database.MySQLandSQL;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -59,7 +59,6 @@ public class BanPlayerForm {
         UUID uuid = player.getUniqueId();
         List<String> names = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
         String[] playerlist = names.toArray(new String[0]);
-
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
@@ -80,20 +79,22 @@ public class BanPlayerForm {
                                 String name = names.get(clickedIndex);
                                 Player player1 = Bukkit.getPlayer(name);
                                 player.sendMessage("[GeyserAdminTools] Player " + name + " is banned");
-                                //MySQL code
+                                    //database code
                                     try {
-                                        PreparedStatement insert = MySql.getConnection().prepareStatement("INSERT INTO " + MySql.Bantable
-                                                + "(UUID,REASON,USERNAME,HOURS) VALUE (?,?,?,?)");
+                                        String sql = "(UUID,REASON,USERNAME,HOURS) VALUES (?,?,?,?)";
+                                        PreparedStatement insert = MySQLandSQL.getConnection().prepareStatement("INSERT INTO " + MySQLandSQL.Bantable
+                                                + sql);
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, reason);
                                         insert.setString(3, name);
                                         insert.setString(4, hours);
                                         insert.executeUpdate();
-
                                         // Player inserted now
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
+                                    player1.kickPlayer("you where banned for: " + reason);
+                                    //end
                             }));
         }
     }
@@ -101,8 +102,8 @@ public class BanPlayerForm {
     public static void unbanPlayers(Player player) {
         UUID uuid = player.getUniqueId();
         List<String> names = new ArrayList<>();
-        String query = "SELECT * FROM " + MySql.Bantable;
-        try (Statement stmt = MySql.getConnection().createStatement()) {
+        String query = "SELECT * FROM " + MySQLandSQL.Bantable;
+        try (Statement stmt = MySQLandSQL.getConnection().createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 names.add(rs.getString("Username"));
@@ -124,18 +125,17 @@ public class BanPlayerForm {
                                     int clickedIndex = response.getDropdown(0);
                                     String name = names.get(clickedIndex);
                                     OfflinePlayer player1 = Bukkit.getOfflinePlayer(name);
+                                    player.sendMessage("[GeyserAdminTools] Player " + name + " is unbanned");
                                     //MySQL code
-                                    if (Gat.plugin.getConfig().getBoolean("EnableMySQL")) {
                                         try {
-                                            PreparedStatement statement = MySql.getConnection()
-                                                    .prepareStatement("DELETE FROM " + MySql.Bantable + " WHERE UUID=?");
+                                            PreparedStatement statement = MySQLandSQL.getConnection()
+                                                    .prepareStatement("DELETE FROM " + MySQLandSQL.Bantable + " WHERE UUID=?");
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
 
                                         } catch (SQLException exe) {
                                             exe.printStackTrace();
                                         }
-                                    }
                                 }));
             }
         } catch (SQLException throwables) {

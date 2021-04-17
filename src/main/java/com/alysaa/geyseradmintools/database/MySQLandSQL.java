@@ -6,7 +6,7 @@ import org.bukkit.ChatColor;
 
 import java.sql.*;
 
-public class MySql {
+public class MySQLandSQL {
     private static Connection connection;
     public String host;
     public String database;
@@ -43,12 +43,10 @@ public class MySql {
             try {
                 Class.forName("org.sqlite.JDBC");
                 setConnection(DriverManager.getConnection("jdbc:sqlite:plugins/GAdminTools/database.db"));
-                String cmd = "CREATE TABLE IF NOT EXISTS " + MySql.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))";
+                String cmd = "CREATE TABLE IF NOT EXISTS " + MySQLandSQL.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))";
                 PreparedStatement stmt = connection.prepareStatement(cmd);
                 stmt.execute();
-                System.out.println("[GeyserAdminTools] SQLite Connected.");
-                connection.close();
-                //stmt.close();
+                Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[GeyserAdminTools] SQLite Connected");
             } catch (Exception e) {
                 System.out.println("SQLite Error");
                 e.printStackTrace();
@@ -58,7 +56,7 @@ public class MySql {
     public static void createTable() {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + MySql.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + MySQLandSQL.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,6 +67,6 @@ public class MySql {
     }
 
     public void setConnection(Connection connection) {
-        MySql.connection = connection;
+        MySQLandSQL.connection = connection;
     }
 }

@@ -1,6 +1,6 @@
 package com.alysaa.geyseradmintools.listeners;
 
-import com.alysaa.geyseradmintools.database.MySql;
+import com.alysaa.geyseradmintools.database.MySQLandSQL;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,7 +10,6 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class AdminToolOnLogin implements Listener {
@@ -18,8 +17,8 @@ public class AdminToolOnLogin implements Listener {
     public void onPlayerLogin(AsyncPlayerPreLoginEvent e) {
         UUID uuid = e.getUniqueId();
         try {
-            PreparedStatement statement = MySql.getConnection()
-                    .prepareStatement("SELECT * FROM " + MySql.Bantable + " WHERE UUID=?");
+            PreparedStatement statement = MySQLandSQL.getConnection()
+                    .prepareStatement("SELECT * FROM " + MySQLandSQL.Bantable + " WHERE UUID=?");
             statement.setString(1, uuid.toString());
 
             ResultSet results = statement.executeQuery();

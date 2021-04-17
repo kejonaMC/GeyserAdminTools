@@ -1,7 +1,7 @@
 package com.alysaa.geyseradmintools;
 
 import com.alysaa.geyseradmintools.commands.GatCommand;
-import com.alysaa.geyseradmintools.database.MySql;
+import com.alysaa.geyseradmintools.database.MySQLandSQL;
 import com.alysaa.geyseradmintools.listeners.*;
 import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import com.alysaa.geyseradmintools.utils.bstats.Metrics;
@@ -25,7 +25,7 @@ public class Gat extends JavaPlugin {
         new Metrics(this, 10943);
         plugin = this;
         logger = getLogger();
-        new MySql().mysqlSetup();
+        new MySQLandSQL().mysqlSetup();
         createFiles();
         checkConfigVer();
         ItemStackFactory.createStarTool();
