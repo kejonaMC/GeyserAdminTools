@@ -1,6 +1,6 @@
 package com.alysaa.geyseradmintools.forms;
 
-import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
+import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -16,20 +16,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class BanPlayerForm {
-    public static void banList(Player player) {
+public class MutePlayerForm {
+    public static void MuteList(Player player) {
         UUID uuid = player.getUniqueId();
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title("Ban/Unban Tool")
-                            .button("Ban Player")
-                            .button("Unban Player")
+                            .title("Mute/Unmute Tool")
+                            .button("Mute Player")
+                            .button("Unmute Player")
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -37,15 +39,15 @@ public class BanPlayerForm {
                                     return;
                                 }
                                 if (response.getClickedButtonId() == 0) {
-                                    if (player.hasPermission("geyseradmintools.banplayer")) {
-                                        banPlayers(player);
+                                    if (player.hasPermission("geyseradmintools.muteplayer")) {
+                                        MutePlayers(player);
                                     } else {
                                         player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
                                     }
                                 }
                                 if (response.getClickedButtonId() == 1) {
-                                    if (player.hasPermission("geyseradmintools.banplayer")) {
-                                        unbanPlayers(player);
+                                    if (player.hasPermission("geyseradmintools.muteplayer")) {
+                                        unMutePlayers(player);
                                     } else {
                                         player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
                                     }
@@ -54,7 +56,7 @@ public class BanPlayerForm {
         }
     }
 
-    public static void banPlayers(Player player) {
+    public static void MutePlayers(Player player) {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
@@ -64,10 +66,10 @@ public class BanPlayerForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
-                                .title("Ban tool")
+                                .title("Mute tool")
                                 .dropdown("Select Player", playerlist)
-                                .input("Hours banned")
-                                .input("Ban Reason")
+                                .input("Hours Muted")
+                                .input("Mute Reason")
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -78,11 +80,11 @@ public class BanPlayerForm {
                                     String reason = response.getInput(2);
                                     String name = names.get(clickedIndex);
                                     Player player1 = Bukkit.getPlayer(name);
-                                    player.sendMessage("[GeyserAdminTools] Player " + name + " is banned");
+                                    player.sendMessage("[GeyserAdminTools] Player " + name + " is muted");
                                     //database code
                                     try {
                                         String sql = "(UUID,REASON,USERNAME,HOURS) VALUES (?,?,?,?)";
-                                        PreparedStatement insert = BanDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + BanDatabaseSetup.Bantable
+                                        PreparedStatement insert = MuteDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + MuteDatabaseSetup.Mutetable
                                                 + sql);
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, reason);
@@ -93,7 +95,7 @@ public class BanPlayerForm {
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
-                                    player1.kickPlayer("you where banned for: " + reason);
+                                    player1.sendMessage("You are Muted! for: " + hours + "Hours, Reason: " + reason);
                                     //end
                                 }));
             }
@@ -102,12 +104,12 @@ public class BanPlayerForm {
         thread.start();
     }
 
-    public static void unbanPlayers(Player player) {
+    public static void unMutePlayers(Player player) {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + BanDatabaseSetup.Bantable;
-            try (Statement stmt = BanDatabaseSetup.getConnection().createStatement()) {
+            String query = "SELECT * FROM " + MuteDatabaseSetup.Mutetable;
+            try (Statement stmt = MuteDatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
                     names.add(rs.getString("Username"));
@@ -129,11 +131,11 @@ public class BanPlayerForm {
                                         int clickedIndex = response.getDropdown(0);
                                         String name = names.get(clickedIndex);
                                         OfflinePlayer player1 = Bukkit.getOfflinePlayer(name);
-                                        player.sendMessage("[GeyserAdminTools] Player " + name + " is unbanned");
+                                        player.sendMessage("[GeyserAdminTools] Player " + name + " is unmuted");
                                         //MySQL code
                                         try {
-                                            PreparedStatement statement = BanDatabaseSetup.getConnection()
-                                                    .prepareStatement("DELETE FROM " + BanDatabaseSetup.Bantable + " WHERE UUID=?");
+                                            PreparedStatement statement = MuteDatabaseSetup.getConnection()
+                                                    .prepareStatement("DELETE FROM " + MuteDatabaseSetup.Mutetable + " WHERE UUID=?");
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
 

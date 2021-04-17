@@ -6,13 +6,13 @@ import org.bukkit.ChatColor;
 
 import java.sql.*;
 
-public class MySQLandSQL {
+public class MuteDatabaseSetup {
     private static Connection connection;
     public String host;
     public String database;
     public String username;
     public String password;
-    public static String Bantable;
+    public static String Mutetable;
     public int port;
 
     public void mysqlSetup() {
@@ -21,7 +21,7 @@ public class MySQLandSQL {
         database = Gat.plugin.getConfig().getString("database");
         username = Gat.plugin.getConfig().getString("username");
         password = Gat.plugin.getConfig().getString("password");
-        Bantable = "Ban_list";
+        Mutetable = "Mute_list";
         if (Gat.plugin.getConfig().getBoolean("EnableMySQL")) {
             try {
                 synchronized (this) {
@@ -34,7 +34,7 @@ public class MySQLandSQL {
                             + this.port + "/" + this.database, this.username, this.password));
                     createTable();
 
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[GeyserAdminTools] MYSQL Connected");
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[GeyserAdminTools] MYSQL Mute Connected");
                 }
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
@@ -42,11 +42,11 @@ public class MySQLandSQL {
         } else {
             try {
                 Class.forName("org.sqlite.JDBC");
-                setConnection(DriverManager.getConnection("jdbc:sqlite:plugins/GAdminTools/database.db"));
-                String cmd = "CREATE TABLE IF NOT EXISTS " + MySQLandSQL.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))";
+                setConnection(DriverManager.getConnection("jdbc:sqlite:plugins/GeyserAdminTools/database.db"));
+                String cmd = "CREATE TABLE IF NOT EXISTS " + MuteDatabaseSetup.Mutetable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))";
                 PreparedStatement stmt = connection.prepareStatement(cmd);
                 stmt.execute();
-                Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[GeyserAdminTools] SQLite Connected");
+                Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[GeyserAdminTools] SQLite Mute Connected");
             } catch (Exception e) {
                 System.out.println("SQLite Error");
                 e.printStackTrace();
@@ -56,7 +56,7 @@ public class MySQLandSQL {
     public static void createTable() {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + MySQLandSQL.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + MuteDatabaseSetup.Mutetable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,6 +67,6 @@ public class MySQLandSQL {
     }
 
     public void setConnection(Connection connection) {
-        MySQLandSQL.connection = connection;
+        MuteDatabaseSetup.connection = connection;
     }
 }

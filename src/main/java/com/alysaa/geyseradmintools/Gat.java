@@ -1,7 +1,8 @@
 package com.alysaa.geyseradmintools;
 
 import com.alysaa.geyseradmintools.commands.GatCommand;
-import com.alysaa.geyseradmintools.database.MySQLandSQL;
+import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
+import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
 import com.alysaa.geyseradmintools.listeners.*;
 import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import com.alysaa.geyseradmintools.utils.bstats.Metrics;
@@ -25,13 +26,14 @@ public class Gat extends JavaPlugin {
         new Metrics(this, 10943);
         plugin = this;
         logger = getLogger();
-        new MySQLandSQL().mysqlSetup();
+        new BanDatabaseSetup().mysqlSetup();
+        new MuteDatabaseSetup().mysqlSetup();
         createFiles();
         checkConfigVer();
         ItemStackFactory.createStarTool();
         this.getCommand("gadmin").setExecutor(new GatCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new AdminLockChat(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolChat(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnRespawn(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnDeath(), this);

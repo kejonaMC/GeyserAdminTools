@@ -11,7 +11,7 @@ import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
 import java.util.UUID;
 
-import static com.alysaa.geyseradmintools.listeners.AdminLockChat.isMuted;
+import static com.alysaa.geyseradmintools.listeners.AdminToolChat.isMuted;
 
 public class ServerToolsForm {
     public void STList(Player player) {
