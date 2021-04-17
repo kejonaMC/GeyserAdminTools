@@ -26,6 +26,7 @@ public class ModToolsForm {
                             .button("Fly")//6
                             .button("Clear Inventory")//7
                             .button("Ban/Unban player")
+                            .button("Mute/Unmute player")
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -55,6 +56,11 @@ public class ModToolsForm {
                                 if (response.getClickedButtonId() == 5) {
                                     if (player.hasPermission("geyseradmintools.banplayer")) {
                                         BanPlayerForm.banList(player);
+                                    }
+                                }
+                                if (response.getClickedButtonId() == 6) {
+                                    if (player.hasPermission("geyseradmintools.muteplayer")) {
+                                        MutePlayerForm.MuteList(player);
                                     }
                                 }
                             }));

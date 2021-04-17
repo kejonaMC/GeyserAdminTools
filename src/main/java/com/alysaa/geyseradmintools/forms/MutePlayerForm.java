@@ -1,5 +1,6 @@
 package com.alysaa.geyseradmintools.forms;
 
+import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
@@ -16,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -42,14 +44,14 @@ public class MutePlayerForm {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         MutePlayers(player);
                                     } else {
-                                        player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
+                                        player.sendMessage("[GeyserAdminTools] You do not have the permission to use this button!");
                                     }
                                 }
                                 if (response.getClickedButtonId() == 1) {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         unMutePlayers(player);
                                     } else {
-                                        player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
+                                        player.sendMessage("[GeyserAdminTools] You do not have the permission to ise this button!");
                                     }
                                 }
                             }));
@@ -68,7 +70,7 @@ public class MutePlayerForm {
                         CustomForm.builder()
                                 .title("Mute tool")
                                 .dropdown("Select Player", playerlist)
-                                .input("Hours Muted")
+                                .input("Day's Muted")
                                 .input("Mute Reason")
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
@@ -76,26 +78,28 @@ public class MutePlayerForm {
                                         return;
                                     }
                                     int clickedIndex = response.getDropdown(0);
-                                    String hours = response.getInput(1);
+                                    String day = response.getInput(1);
+                                    String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
                                     String reason = response.getInput(2);
                                     String name = names.get(clickedIndex);
                                     Player player1 = Bukkit.getPlayer(name);
                                     player.sendMessage("[GeyserAdminTools] Player " + name + " is muted");
                                     //database code
                                     try {
-                                        String sql = "(UUID,REASON,USERNAME,HOURS) VALUES (?,?,?,?)";
+                                        String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
                                         PreparedStatement insert = MuteDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + MuteDatabaseSetup.Mutetable
                                                 + sql);
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, reason);
                                         insert.setString(3, name);
-                                        insert.setString(4, hours);
+                                        insert.setString(4, time);
                                         insert.executeUpdate();
                                         // Player inserted now
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
-                                    player1.sendMessage("You are Muted! for: " + hours + "Hours, Reason: " + reason);
+                                    player1.sendMessage("You are Muted till " + time + " for Reason: " + reason);
+                                    Gat.logger.info("Player " + player.getName() + " has muted " + player1.getName() + " till: " + time + " for reason: " + reason);
                                     //end
                                 }));
             }

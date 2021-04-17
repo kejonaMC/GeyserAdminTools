@@ -43,7 +43,7 @@ public class BanDatabaseSetup {
             try {
                 Class.forName("org.sqlite.JDBC");
                 setConnection(DriverManager.getConnection("jdbc:sqlite:plugins/GeyserAdminTools/database.db"));
-                String cmd = "CREATE TABLE IF NOT EXISTS " + BanDatabaseSetup.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))";
+                String cmd = "CREATE TABLE IF NOT EXISTS " + BanDatabaseSetup.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))";
                 PreparedStatement stmt = connection.prepareStatement(cmd);
                 stmt.execute();
                 Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[GeyserAdminTools] SQLite Ban Connected");
@@ -56,7 +56,7 @@ public class BanDatabaseSetup {
     public static void createTable() {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + BanDatabaseSetup.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), Hours varchar(500))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + BanDatabaseSetup.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
         } catch (SQLException e) {
             e.printStackTrace();
         }

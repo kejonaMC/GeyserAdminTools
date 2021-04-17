@@ -32,4 +32,7 @@ permissions:
   geyseradmintools.banplayer:
     description: Allows to open ban form
     default: op
+  geyseradmintools.muteplayer:
+    description: Allows to open mute form
+    default: op
 

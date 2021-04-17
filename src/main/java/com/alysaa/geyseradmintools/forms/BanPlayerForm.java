@@ -1,5 +1,6 @@
 package com.alysaa.geyseradmintools.forms;
 
+import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
@@ -16,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,14 +42,14 @@ public class BanPlayerForm {
                                     if (player.hasPermission("geyseradmintools.banplayer")) {
                                         banPlayers(player);
                                     } else {
-                                        player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
+                                        player.sendMessage("[GeyserAdminTools] You do not have the permission to use this button!");
                                     }
                                 }
                                 if (response.getClickedButtonId() == 1) {
                                     if (player.hasPermission("geyseradmintools.banplayer")) {
                                         unbanPlayers(player);
                                     } else {
-                                        player.sendMessage("[GeyserAdminTool] You do not have the permission to ise this button!");
+                                        player.sendMessage("[GeyserAdminTools] You do not have the permission to ise this button!");
                                     }
                                 }
                             }));
@@ -66,7 +68,7 @@ public class BanPlayerForm {
                         CustomForm.builder()
                                 .title("Ban tool")
                                 .dropdown("Select Player", playerlist)
-                                .input("Hours banned")
+                                .input("Days banned")
                                 .input("Ban Reason")
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
@@ -74,26 +76,28 @@ public class BanPlayerForm {
                                         return;
                                     }
                                     int clickedIndex = response.getDropdown(0);
-                                    String hours = response.getInput(1);
+                                    String day = response.getInput(1);
+                                    String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
                                     String reason = response.getInput(2);
                                     String name = names.get(clickedIndex);
                                     Player player1 = Bukkit.getPlayer(name);
                                     player.sendMessage("[GeyserAdminTools] Player " + name + " is banned");
                                     //database code
                                     try {
-                                        String sql = "(UUID,REASON,USERNAME,HOURS) VALUES (?,?,?,?)";
+                                        String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
                                         PreparedStatement insert = BanDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + BanDatabaseSetup.Bantable
                                                 + sql);
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, reason);
                                         insert.setString(3, name);
-                                        insert.setString(4, hours);
+                                        insert.setString(4, time);
                                         insert.executeUpdate();
                                         // Player inserted now
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
                                     player1.kickPlayer("you where banned for: " + reason);
+                                    Gat.logger.info("Player " + player.getName() + " has banned " + player1.getName() + " till: " + time + " for reason: " + reason);
                                     //end
                                 }));
             }

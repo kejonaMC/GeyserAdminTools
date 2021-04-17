@@ -20,13 +20,13 @@ public class AdminToolOnLogin implements Listener {
             PreparedStatement statement = BanDatabaseSetup.getConnection()
                     .prepareStatement("SELECT * FROM " + BanDatabaseSetup.Bantable + " WHERE UUID=?");
             statement.setString(1, uuid.toString());
-
             ResultSet results = statement.executeQuery();
             while (results.next()) {
                 String reason = results.getString("Reason");
+                String enddate = results.getString("EndDate");
                     e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED
-                            + "You are banned:" + ChatColor.RED + "\n Reason: "
-                            + ChatColor.AQUA + reason);
+                            + "You are banned till: "+"\n" + ChatColor.WHITE + enddate + ChatColor.RED + "\n Reason: "
+                            + ChatColor.WHITE + reason);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
