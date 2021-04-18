@@ -18,38 +18,6 @@ import java.util.Date;
 import java.util.UUID;
 
 public class AdminToolOnLogin implements Listener {
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void checkMute(AsyncPlayerPreLoginEvent e) {
-        UUID uuid = e.getUniqueId();
-        try {
-            PreparedStatement statement = MuteDatabaseSetup.getConnection()
-                    .prepareStatement("SELECT * FROM " + MuteDatabaseSetup.Mutetable + " WHERE UUID=?");
-            statement.setString(1, uuid.toString());
-            ResultSet results = statement.executeQuery();
-            while (results.next()) {
-                String enddate = results.getString("EndDate");
-                Date datadate = new SimpleDateFormat("yyyy-MM-dd").parse(enddate);
-                String curdate = LocalDate.now().toString();
-                Date currdate = new SimpleDateFormat("yyyy-MM-dd").parse(curdate);
-                if (datadate.compareTo(currdate) > 0) {
-                   return;
-                } else if (datadate.compareTo(currdate) < 0) {
-                    try {
-                        statement = MuteDatabaseSetup.getConnection()
-                                .prepareStatement("DELETE FROM " + MuteDatabaseSetup.Mutetable + " WHERE UUID=?");
-                        statement.setString(1, e.getUniqueId().toString());
-                        statement.execute();
-
-                    } catch (SQLException exe) {
-                        exe.printStackTrace();
-                    }
-                }
-
-            }
-        } catch (SQLException | ParseException throwables) {
-            throwables.printStackTrace();
-        }
-    }
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void checkBan(AsyncPlayerPreLoginEvent e) {
         UUID uuid = e.getUniqueId();
