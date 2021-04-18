@@ -1,6 +1,7 @@
 package com.alysaa.geyseradmintools;
 
-import com.alysaa.geyseradmintools.commands.GatCommand;
+import com.alysaa.geyseradmintools.commands.BanCommand;
+import com.alysaa.geyseradmintools.commands.FormCommand;
 import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
 import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
 import com.alysaa.geyseradmintools.listeners.*;
@@ -31,7 +32,8 @@ public class Gat extends JavaPlugin {
         createFiles();
         checkConfigVer();
         ItemStackFactory.createStarTool();
-        this.getCommand("gadmin").setExecutor(new GatCommand());
+        this.getCommand("gadmin").setExecutor(new FormCommand());
+        this.getCommand("gban").setExecutor(new BanCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolChat(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);

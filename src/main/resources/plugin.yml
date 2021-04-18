@@ -10,6 +10,10 @@ commands:
     description: open admin panel
     permission: geyseradmintools.gadmin
     aliases: /gadmin
+  gban:
+    description: ban player command for java
+    permission: geyseradmintools.gban
+    aliases: /gban
 permissions:
   geyseradmintools.admintool:
     description: Allows to open admin form
