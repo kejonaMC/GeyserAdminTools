@@ -23,15 +23,11 @@ public class UnbanCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         if (cmd.getName().equalsIgnoreCase("gunban") && player.hasPermission("geyseradmintools.gunban")) {
-            String uname = args[0];
-            OfflinePlayer target = Bukkit.getOfflinePlayer(uname);
-            System.out.println("this is the username: " + uname);
-            if (target == null) {
-                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Could not find player!");
-                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Perhaps wrong usage ? /gunban <username>");
-                return true;
-            }
-            try {
+            OfflinePlayer offplayer = Bukkit.getOfflinePlayer(args[0]);
+            if (!offplayer.hasPlayedBefore()) {
+                for (OfflinePlayer target : Bukkit.getOfflinePlayers()) {
+                    if (args[0].equalsIgnoreCase(target.getName())) {
+                        try {
                 PreparedStatement statement = BanDatabaseSetup.getConnection()
                         .prepareStatement("DELETE FROM " + BanDatabaseSetup.Bantable + " WHERE UUID=?");
                 statement.setString(1, target.getUniqueId().toString());
@@ -41,8 +37,12 @@ public class UnbanCommand implements CommandExecutor {
                 player.sendMessage(target.getUniqueId().toString());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                        }
+                    }
+                }
             }
         }
-        return true;
+        return false;
     }
 }
+
