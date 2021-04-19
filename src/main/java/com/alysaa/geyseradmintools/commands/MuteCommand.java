@@ -28,7 +28,7 @@ public class MuteCommand implements CommandExecutor {
             String reason = args[2];
             if (target == null) {
                 player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Could not find player!");
-                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Perhaps wrong usage ? /gmute <username> <amount of days> <reason>");
+                player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Perhaps wrong usage ? /gmute <username> <amount of days> <reason>");
                 return true;
             }
             try {

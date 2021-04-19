@@ -23,7 +23,12 @@ public class UnmuteCommand implements CommandExecutor {
         Player player = (Player) sender;
         if (cmd.getName().equalsIgnoreCase("gunmute") && player.hasPermission("geyseradmintools.gunmute")) {
             Player target = Bukkit.getPlayer(args[0]);
-                        try {
+            if (target == null) {
+                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Could not find player!");
+                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Perhaps wrong usage ? /gunmute <username>");
+                return true;
+            }
+            try {
                             PreparedStatement statement = BanDatabaseSetup.getConnection()
                                     .prepareStatement("DELETE FROM " + MuteDatabaseSetup.Mutetable + " WHERE UUID=?");
                             statement.setString(1, target.getUniqueId().toString());
