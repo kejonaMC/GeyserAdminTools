@@ -11,7 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class UnbanCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -21,7 +23,9 @@ public class UnbanCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         if (cmd.getName().equalsIgnoreCase("gunban") && player.hasPermission("geyseradmintools.gunban")) {
-            OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+            String uname = args[0];
+            OfflinePlayer target = Bukkit.getOfflinePlayer(uname);
+            System.out.println("this is the username: " + uname);
             if (target == null) {
                 player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Could not find player!");
                 player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Perhaps wrong usage ? /gunban <username>");
@@ -32,13 +36,12 @@ public class UnbanCommand implements CommandExecutor {
                         .prepareStatement("DELETE FROM " + BanDatabaseSetup.Bantable + " WHERE UUID=?");
                 statement.setString(1, target.getUniqueId().toString());
                 statement.execute();
-
-            } catch (SQLException exe) {
-                exe.printStackTrace();
+                player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is unbanned");
+                Gat.logger.info("Player " + player.getName() + " has unbanned " + target.getName());
+                player.sendMessage(target.getUniqueId().toString());
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
-            player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is unbanned");
-            Gat.logger.info("Player " + player.getName() + " has been unbanned " + target.getName());
-            //end
         }
         return true;
     }

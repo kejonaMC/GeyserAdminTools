@@ -44,7 +44,7 @@ public class MuteCommand implements CommandExecutor {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            target.kickPlayer("you where muted for: " + reason);
+            target.sendMessage("you where muted for: " + reason);
             player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is muted");
             Gat.logger.info("Player " + player.getName() + " has muted " + target.getName() + " till: " + time + " for reason: " + reason);
             //end
