@@ -14,6 +14,14 @@ commands:
     description: ban player command for java
     permission: geyseradmintools.gban
     aliases: /gban
+  gunban:
+    description: unban player command for java
+    permission: geyseradmintools.gunban
+    aliases: /gunban
+  gmute:
+    description: mute player command for java
+    permission: geyseradmintools.gmute
+    aliases: /gmute
 permissions:
   geyseradmintools.admintool:
     description: Allows to open admin form

@@ -81,7 +81,6 @@ public class BanPlayerForm {
                                     String reason = response.getInput(2);
                                     String name = names.get(clickedIndex);
                                     Player player1 = Bukkit.getPlayer(name);
-                                    player.sendMessage("[GeyserAdminTools] Player " + name + " is banned");
                                     //database code
                                     try {
                                         String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
@@ -97,6 +96,7 @@ public class BanPlayerForm {
                                         throwables.printStackTrace();
                                     }
                                     player1.kickPlayer("you where banned for: " + reason);
+                                    player.sendMessage("[GeyserAdminTools] Player " + name + " is banned");
                                     Gat.logger.info("Player " + player.getName() + " has banned " + player1.getName() + " till: " + time + " for reason: " + reason);
                                     //end
                                 }));

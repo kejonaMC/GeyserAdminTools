@@ -44,6 +44,7 @@ public class BanCommand implements CommandExecutor {
                 throwables.printStackTrace();
             }
             target.kickPlayer("you where banned for: " + reason);
+            player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is banned");
             Gat.logger.info("Player " + player.getName() + " has banned " + target.getName() + " till: " + time + " for reason: " + reason);
             //end
         }
