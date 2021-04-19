@@ -34,7 +34,6 @@ public class UnbanCommand implements CommandExecutor {
                 statement.execute();
                 player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is unbanned");
                 Gat.logger.info("Player " + player.getName() + " has unbanned " + target.getName());
-                player.sendMessage(target.getUniqueId().toString());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                         }

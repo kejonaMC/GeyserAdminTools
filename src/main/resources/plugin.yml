@@ -22,6 +22,10 @@ commands:
     description: mute player command for java
     permission: geyseradmintools.gmute
     aliases: /gmute
+  gunmute:
+    description: unmute player command for java
+    permission: geyseradmintools.gunmute
+    aliases: /gunmute
 permissions:
   geyseradmintools.admintool:
     description: Allows to open admin form

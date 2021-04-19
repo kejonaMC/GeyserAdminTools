@@ -1,9 +1,6 @@
 package com.alysaa.geyseradmintools;
 
-import com.alysaa.geyseradmintools.commands.BanCommand;
-import com.alysaa.geyseradmintools.commands.FormCommand;
-import com.alysaa.geyseradmintools.commands.MuteCommand;
-import com.alysaa.geyseradmintools.commands.UnbanCommand;
+import com.alysaa.geyseradmintools.commands.*;
 import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
 import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
 import com.alysaa.geyseradmintools.listeners.*;
@@ -38,6 +35,7 @@ public class Gat extends JavaPlugin {
         this.getCommand("gban").setExecutor(new BanCommand());
         this.getCommand("gunban").setExecutor(new UnbanCommand());
         this.getCommand("gmute").setExecutor(new MuteCommand());
+        this.getCommand("gunmute").setExecutor(new UnmuteCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolChat(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);
