@@ -28,20 +28,20 @@ public class UnbanCommand implements CommandExecutor {
                 for (OfflinePlayer target : Bukkit.getOfflinePlayers()) {
                     if (args[0].equalsIgnoreCase(target.getName())) {
                         try {
-                PreparedStatement statement = BanDatabaseSetup.getConnection()
-                        .prepareStatement("DELETE FROM " + BanDatabaseSetup.Bantable + " WHERE UUID=?");
-                statement.setString(1, target.getUniqueId().toString());
-                statement.execute();
-                player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is unbanned");
-                Gat.logger.info("Player " + player.getName() + " has unbanned " + target.getName());
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                            PreparedStatement statement = BanDatabaseSetup.getConnection()
+                                    .prepareStatement("DELETE FROM " + BanDatabaseSetup.Bantable + " WHERE UUID=?");
+                            statement.setString(1, target.getUniqueId().toString());
+                            statement.execute();
+                            player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is unbanned");
+                            Gat.logger.info("Player " + player.getName() + " has unbanned " + target.getName());
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
                         }
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
 }
 
