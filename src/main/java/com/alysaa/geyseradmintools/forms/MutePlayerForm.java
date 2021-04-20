@@ -58,10 +58,8 @@ public class MutePlayerForm {
                             }));
         }
     }
-
     public static void MutePlayers(Player player) {
         Runnable runnable = () -> {
-            final String[] time = new String[1];
             UUID uuid = player.getUniqueId();
             List<String> names = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
             String[] playerlist = names.toArray(new String[0]);
@@ -80,11 +78,13 @@ public class MutePlayerForm {
                                         return;
                                     }
                                     int clickedIndex = response.getDropdown(0);
-                                    try {
                                     String day = response.getInput(1);
-                                    time[0] = LocalDate.now().plusDays(Long.parseLong(day)).toString();
+                                    String time;
+                                    try {
+                                        time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
                                     } catch (NumberFormatException | NullPointerException e) {
                                         player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] wrong usage ! <username> <amount of days> <reason>");
+                                        return;
                                     }
                                     String reason = response.getInput(2);
                                     String name = names.get(clickedIndex);
@@ -97,14 +97,14 @@ public class MutePlayerForm {
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, reason);
                                         insert.setString(3, name);
-                                        insert.setString(4, time[0]);
+                                        insert.setString(4, time);
                                         insert.executeUpdate();
                                         // Player inserted now
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
-                                    player1.sendMessage(ChatColor.RED + "You are Muted till " + time[0] + " for Reason: " + reason);
-                                    Gat.logger.info("Player " + player.getName() + " has muted " + player1.getName() + " till: " + time[0] + " for reason: " + reason);
+                                    player1.sendMessage(ChatColor.RED + "You are Muted till " + time + " for Reason: " + reason);
+                                    Gat.logger.info("Player " + player.getName() + " has muted " + player1.getName() + " till: " + time + " for reason: " + reason);
                                     player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] Player " + name + " is muted");
                                     //end
                                 }));
@@ -113,7 +113,6 @@ public class MutePlayerForm {
         Thread thread = new Thread(runnable);
         thread.start();
     }
-
     public static void unMutePlayers(Player player) {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();

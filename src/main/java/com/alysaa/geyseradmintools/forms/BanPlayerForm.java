@@ -59,7 +59,6 @@ public class BanPlayerForm {
 
     public static void banPlayers(Player player) {
         Runnable runnable = () -> {
-            final String[] time = new String[1];
             UUID uuid = player.getUniqueId();
             List<String> names = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
             String[] playerlist = names.toArray(new String[0]);
@@ -79,10 +78,12 @@ public class BanPlayerForm {
                                     }
                                     int clickedIndex = response.getDropdown(0);
                                     String day = response.getInput(1);
+                                    String time;
                                     try {
-                                        time[0] = LocalDate.now().plusDays(Long.parseLong(day)).toString();
+                                        time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
                                     } catch (NumberFormatException | NullPointerException  e) {
                                         player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] wrong usage ! <username> <amount of days> <reason>");
+                                   return;
                                     }
                                     String reason = response.getInput(2);
                                     String name = names.get(clickedIndex);
@@ -95,7 +96,7 @@ public class BanPlayerForm {
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, reason);
                                         insert.setString(3, name);
-                                        insert.setString(4, time[0]);
+                                        insert.setString(4, time);
                                         insert.executeUpdate();
                                         // Player inserted now
                                     } catch (SQLException throwables) {
