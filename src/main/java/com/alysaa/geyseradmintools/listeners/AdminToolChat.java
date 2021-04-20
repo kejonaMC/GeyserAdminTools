@@ -1,13 +1,10 @@
 package com.alysaa.geyseradmintools.listeners;
 
-import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
 import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
-import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -123,7 +123,7 @@ public class BanPlayerForm {
                     FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                     fplayer.sendForm(
                             CustomForm.builder()
-                                    .title("unban tool")
+                                    .title("Unban tool")
                                     .dropdown("Select Player to unban", playerlist)
                                     .responseHandler((form, responseData) -> {
                                         CustomFormResponse response = form.parseResponse(responseData);

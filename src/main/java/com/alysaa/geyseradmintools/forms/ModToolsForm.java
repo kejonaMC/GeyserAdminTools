@@ -35,23 +35,23 @@ public class ModToolsForm {
                                 }
                                 if (response.getClickedButtonId() == 0) {
                                     player.setGameMode(GameMode.SURVIVAL);
-                                    player.sendMessage("[GeyserAdminTool] Gamemode set on Survival");
+                                    player.sendMessage("[GeyserAdminTools] Gamemode set on Survival");
                                 }
                                 if (response.getClickedButtonId() == 1) {
                                     player.setGameMode(GameMode.SPECTATOR);
-                                    player.sendMessage("[GeyserAdminTool] Gamemode set in Spectator");
+                                    player.sendMessage("[GeyserAdminTools] Gamemode set in Spectator");
                                 }
                                 if (response.getClickedButtonId() == 2) {
                                     player.hidePlayer(player);
-                                    player.sendMessage("[GeyserAdminTool] Vanish Enabled");
+                                    player.sendMessage("[GeyserAdminTools] Vanish Enabled");
                                 }
                                 if (response.getClickedButtonId() == 3) {
                                     player.setAllowFlight(true);
-                                    player.sendMessage("[GeyserAdminTool] Flying enabled");
+                                    player.sendMessage("[GeyserAdminTools] Flying enabled");
                                 }
                                 if (response.getClickedButtonId() == 4) {
                                     player.getInventory().clear();
-                                    player.sendMessage("[GeyserAdminTool] Inventory cleared");
+                                    player.sendMessage("[GeyserAdminTools] Inventory cleared");
                                 }
                                 if (response.getClickedButtonId() == 5) {
                                     if (player.hasPermission("geyseradmintools.banplayer")) {
