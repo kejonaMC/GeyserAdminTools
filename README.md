@@ -1,40 +1,67 @@
+[![Build Status](https://ci.alysaa.net/job/GeyserAdminTools/job/master/badge/icon)](https://ci.alysaa.net/job/GeyserAdminTools/job/master)
+[![License](https://img.shields.io/badge/License-GPL-orange)](https://github.com/ProjectG-Plugins/GeyserAdminTools/blob/master/LICENSE)
+[![bStats Spigot](https://img.shields.io/bstats/servers/10943?color=yellow&label=Spigot%20servers)](https://bstats.org/plugin/bukkit/GeyserAdminTools/10943)
+[![Discord](https://img.shields.io/discord/806179549498966058?color=7289da&label=discord&logo=discord&logoColor=white)](https://discord.gg/xXzzdAXa2b)
+
 # GeyserAdminTools
+### GeyserAdmintools is a plugin that makes server management easier on a bedrock client!
 
-Download Link : https://ci.alysaa.net/job/GeyserAdminTools/job/master/
+[Here](https://discord.gg/xXzzdAXa2b) is our Discord link, you can come to get support, get GitHub feeds, or just hang out. Don't ping anyone that doesn't have the pingable role!
 
-permissions:
-  description: open admin panel
-    permission: geyseradmintools.gadmin
-    aliases: /gadmin
+Note: This is NOT an official GeyserMC plugin. It is made to work with GeyserMC but it is not maintained or produced by GeyserMC. If you need support with this plugin, do not ask Geyser devs, and instead, go to our Discord server linked above.
 
-permissions:
+## Downloading
+
+you can download the plugin [our CI](https://ci.alysaa.net/job/GeyserAdminTools/job/master/).
+
+## Installation
+
+GeyserAdmintools is a spigot only plugin, just put the GeyserAdminTools jar in your servers plugins folder and restart the server. Admintools will generate a config.yml and a database file. pleqse do not remove the db file!
+
+## Usage
+
+| Commands | Permission |
+| --- | --- |
+| `/gadmin` | `geyseradmintools.gadmin` |
+| `/gban <playername> <days> <reason>` | `geyseradmintools.gban` |
+| `/gunban <playername>` | `geyseradmintools.gunban` |
+| `/gmute <playername> <days> <reason>` | `geyseradmintools.gmute` |
+| `/gunmute <playername>` | `geyseradmintools.gunmute` |
+
+## Form Permission
+
   geyseradmintools.admintools:
     description: Allows to open admin form
-    default: op
-
+    
   geyseradmintools.modtools:
     description: Allows to open mod form
-    default: op
 
   geyseradmintools.mobtools:
     description: Allows to open mob form
-    default: op
 
   geyseradmintools.servertools:
     description: Allows to open server form
-    default: op
 
   geyseradmintools.item:
     description: gives player admin item on join
-    default: op
 
   geyseradmintools.customcommands:
     description: Allows to open Custom Commands form
-    default: op
 
   geyseradmintools.banplayer:
     description: Allows to open ban form
-    default: op
 
 
-command : gadmin (to open main menu without items)
+
+## bStats
+[Spigot stats](https://bstats.org/plugin/bukkit/GeyserAdminTools/10943)
+
+## Release History
+* 1.1.0
+  Official beta testing release. Added Mysql/SQLite support for ban/mute 
+
+## Meta
+
+The project is owned by:
+- [ProjectG](https://github.com/ProjectG-Plugins)
+</br>
