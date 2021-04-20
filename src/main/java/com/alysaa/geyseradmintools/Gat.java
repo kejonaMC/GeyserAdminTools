@@ -1,11 +1,9 @@
 package com.alysaa.geyseradmintools;
 
-import com.alysaa.geyseradmintools.commands.GatCommand;
-import com.alysaa.geyseradmintools.listeners.AdminLockChat;
-import com.alysaa.geyseradmintools.listeners.AdminToolInventory;
-import com.alysaa.geyseradmintools.listeners.AdminToolOnDeath;
-import com.alysaa.geyseradmintools.listeners.AdminToolOnJoin;
-import com.alysaa.geyseradmintools.listeners.AdminToolOnRespawn;
+import com.alysaa.geyseradmintools.commands.*;
+import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
+import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
+import com.alysaa.geyseradmintools.listeners.*;
 import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import com.alysaa.geyseradmintools.utils.bstats.Metrics;
 import org.bukkit.Bukkit;
@@ -28,17 +26,22 @@ public class Gat extends JavaPlugin {
         new Metrics(this, 10943);
         plugin = this;
         logger = getLogger();
-
+        new BanDatabaseSetup().mysqlSetup();
+        new MuteDatabaseSetup().mysqlSetup();
         createFiles();
         checkConfigVer();
         ItemStackFactory.createStarTool();
-        this.getCommand("gadmin").setExecutor(new GatCommand());
+        this.getCommand("gadmin").setExecutor(new FormCommand());
+        this.getCommand("gban").setExecutor(new BanCommand());
+        this.getCommand("gunban").setExecutor(new UnbanCommand());
+        this.getCommand("gmute").setExecutor(new MuteCommand());
+        this.getCommand("gunmute").setExecutor(new UnmuteCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new AdminLockChat(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolChat(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnRespawn(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnDeath(), this);
-
+        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnLogin(), this);
         getLogger().info("Plugin has been enabled - Provided by ProjectG");
 
     }

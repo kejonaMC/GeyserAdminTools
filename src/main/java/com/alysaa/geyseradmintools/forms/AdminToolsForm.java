@@ -28,8 +28,8 @@ public class AdminToolsForm {
                             .button("God Mode")//5
                             .button("Fly")//6
                             .button("Clear Inventory")//7
-                            .button("Heal")//8
                             .button("Ban/Unban player")
+                            .button("Mute/Unmute Player")
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -65,11 +65,10 @@ public class AdminToolsForm {
                                     player.sendMessage("[GeyserAdminTool] Inventory cleared");
                                 }
                                 if (response.getClickedButtonId() == 7) {
-                                    player.setHealth(20);
-                                    player.sendMessage("[GeyserAdminTool] Health regenerated");
+                                    BanPlayerForm.banList(player);
                                 }
                                 if (response.getClickedButtonId() == 8) {
-                                    BanPlayerForm.banList(player);
+                                    MutePlayerForm.MuteList(player);
                                 }
                             }));
         }

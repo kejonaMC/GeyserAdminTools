@@ -12,12 +12,12 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class GatCommand implements CommandExecutor {
+public class FormCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (!player.hasPermission("geyseradmintools.gadmin")) {
-                return false;
+                return true;
             }
 
             UUID uuid = player.getUniqueId();
@@ -35,6 +35,6 @@ public class GatCommand implements CommandExecutor {
         } else if (sender instanceof ConsoleCommandSender) {
             Gat.plugin.getLogger().info("This command only works in-game!");
         }
-        return false;
+        return true;
     }
 }
