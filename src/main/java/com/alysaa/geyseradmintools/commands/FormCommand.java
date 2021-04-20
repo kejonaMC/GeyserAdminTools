@@ -30,7 +30,7 @@ public class FormCommand implements CommandExecutor {
                     e.printStackTrace();
                 }
             } else {
-                sender.sendMessage(ChatColor.RED + "[GeyserAdminTool] Sorry, this command only works for bedrock players!");
+                sender.sendMessage(ChatColor.YELLOW + "[GeyserAdminTool] Sorry, this command only works for bedrock players!");
             }
         } else if (sender instanceof ConsoleCommandSender) {
             Gat.plugin.getLogger().info("This command only works in-game!");

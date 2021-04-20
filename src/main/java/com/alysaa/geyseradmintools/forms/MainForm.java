@@ -2,6 +2,8 @@ package com.alysaa.geyseradmintools.forms;
 
 import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.SimpleForm;
@@ -39,7 +41,7 @@ public class MainForm {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableAdminForm")) {
                                             new AdminToolsForm().ATList(player);
                                         } else {
-                                            player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
+                                            player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
                                         }
                                     }
                                 }
@@ -48,7 +50,7 @@ public class MainForm {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableModForm")) {
                                             new ModToolsForm().ModList(player);
                                         } else {
-                                            player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
+                                            player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
                                         }
                                     }
                                 }
@@ -58,7 +60,7 @@ public class MainForm {
                                             new CustomCommandsForm().CustomCommands(player);
 
                                         } else {
-                                            player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
+                                            player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
                                         }
                                     }
                                 }
@@ -67,7 +69,7 @@ public class MainForm {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm")) {
                                             new MobsToolsForm().preMTList(player);
                                         } else {
-                                            player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
+                                            player.sendMessage(ChatColor.RED + "[GeyserAdminTool] You do not have the permission to use this button!");
                                         }
                                     }
                                 }
@@ -76,7 +78,7 @@ public class MainForm {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
                                             new ServerToolsForm().STList(player);
                                         } else {
-                                            player.sendMessage("[GeyserAdminTool] You do not have the permission to use this button!");
+                                            player.sendMessage(ChatColor.RED + "[GeyserAdminTool] You do not have the permission to use this button!");
                                         }
                                     }
                                 }
@@ -84,8 +86,10 @@ public class MainForm {
                                     player.setInvulnerable(false);
                                     player.setAllowFlight(false);
                                     player.setGameMode(GameMode.SURVIVAL);
-                                    player.showPlayer(player);
-                                    player.sendMessage("[GeyserAdminTool] All effects have been cleared");
+                                    for (Player target : Bukkit.getOnlinePlayers()) {
+                                    target.showPlayer(player);
+                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTool] All effects have been cleared");
+                                    }
                                 }
                             }));
         }

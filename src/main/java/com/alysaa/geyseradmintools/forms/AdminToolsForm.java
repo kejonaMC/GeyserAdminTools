@@ -1,6 +1,8 @@
 package com.alysaa.geyseradmintools.forms;
 
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.SimpleForm;
@@ -38,31 +40,33 @@ public class AdminToolsForm {
                                 }
                                 if (response.getClickedButtonId() == 0) {
                                     player.setGameMode(GameMode.CREATIVE);
-                                    player.sendMessage("[GeyserAdminTool] Gamemode set on Creative");
+                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Gamemode set on Creative");
                                 }
                                 if (response.getClickedButtonId() == 1) {
                                     player.setGameMode(GameMode.SURVIVAL);
-                                    player.sendMessage("[GeyserAdminTool] Gamemode set on Survival");
+                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Gamemode set on Survival");
                                 }
                                 if (response.getClickedButtonId() == 2) {
                                     player.setGameMode(GameMode.SPECTATOR);
-                                    player.sendMessage("[GeyserAdminTool] Gamemode set in Spectator");
+                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Gamemode set in Spectator");
                                 }
                                 if (response.getClickedButtonId() == 3) {
-                                    player.hidePlayer(player);
-                                    player.sendMessage("[GeyserAdminTool] Vanish Enabled");
+                                    for (Player target : Bukkit.getOnlinePlayers()) {
+                                        target.hidePlayer(player);
+                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Vanish Enabled");
+                                    }
                                 }
                                 if (response.getClickedButtonId() == 4) {
                                     player.setInvulnerable(true);
-                                    player.sendMessage("[GeyserAdminTool] God mode enabled");
+                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] God mode enabled");
                                 }
                                 if (response.getClickedButtonId() == 5) {
                                     player.setAllowFlight(true);
-                                    player.sendMessage("[GeyserAdminTool] Flying enabled");
+                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Flying enabled");
                                 }
                                 if (response.getClickedButtonId() == 6) {
                                     player.getInventory().clear();
-                                    player.sendMessage("[GeyserAdminTool] Inventory cleared");
+                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Inventory cleared");
                                 }
                                 if (response.getClickedButtonId() == 7) {
                                     BanPlayerForm.banList(player);
@@ -74,3 +78,4 @@ public class AdminToolsForm {
         }
     }
 }
+

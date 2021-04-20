@@ -23,7 +23,7 @@ public class UnmuteCommand implements CommandExecutor {
         if (cmd.getName().equalsIgnoreCase("gunmute") && player.hasPermission("geyseradmintools.gunmute")) {
             Player target = Bukkit.getPlayer(args[0]);
             if (target == null) {
-                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Could not find player! Perhaps wrong usage ? /gunmute <username>");
+                player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Could not find player! Perhaps wrong usage ? /gunmute <username>");
                 return true;
             }
             try {

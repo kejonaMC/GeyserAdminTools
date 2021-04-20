@@ -1,6 +1,7 @@
 package com.alysaa.geyseradmintools.forms;
 
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.geysermc.cumulus.CustomForm;
@@ -19,7 +20,6 @@ public class MobsToolsForm {
         Random random = new Random();
         return random.nextInt((upper - lower) + 1) + lower;
     }
-
     public void preMTList(Player player) {
         UUID uuid = player.getUniqueId();
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
@@ -65,211 +65,238 @@ public class MobsToolsForm {
     }
 
     public void AGMobs(Player player) {
-        UUID uuid = player.getUniqueId();
-        Location target = player.getEyeLocation().add(player.getLocation().getDirection().multiply(4 /* distance in blocks */));
-        boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
-        if (isFloodgatePlayer) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-            fplayer.sendForm(
-                    CustomForm.builder()
-                            .title("Aggressive Mobs Spawning")
-                            .dropdown("Spawn Mobs", "Zombie", "Skeleton", "Spider", "Creeper", "Blaze", "Vex", "Wither Skeleton","Slime","Ghast")
-                            .input("Amount of mobs")
-                            .responseHandler((form, responseData) -> {
-                                CustomFormResponse response = form.parseResponse(responseData);
-                                if (!response.isCorrect()) {
-                                    // player closed the form or returned invalid info (see FormResponse)
-                                    return;
-                                }
-                                String s = response.getInput(1);
-                                int in = Integer.parseInt(s);
-                                if (response.getDropdown(0) == 0) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.ZOMBIE);
+        final int[] in = {0};
+        try {
+            UUID uuid = player.getUniqueId();
+            Location target = player.getEyeLocation().add(player.getLocation().getDirection().multiply(4 /* distance in blocks */));
+            boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
+            if (isFloodgatePlayer) {
+                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
+                fplayer.sendForm(
+                        CustomForm.builder()
+                                .title("Aggressive Mobs Spawning")
+                                .dropdown("Spawn Mobs", "Zombie", "Skeleton", "Spider", "Creeper", "Blaze", "Vex", "Wither Skeleton", "Slime", "Ghast")
+                                .input("Amount of mobs")
+                                .responseHandler((form, responseData) -> {
+                                    CustomFormResponse response = form.parseResponse(responseData);
+                                    if (!response.isCorrect()) {
+                                        // player closed the form or returned invalid info (see FormResponse)
+                                        return;
                                     }
-                                }
-                                if (response.getDropdown(0) == 1) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.SKELETON);
+                                    String s = response.getInput(1);
+                                    try {
+                                        in[0] = Integer.parseInt(s);
+                                    }catch (NumberFormatException e) {
+                                        player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Could not spawn entity due to wrong usage");
                                     }
-                                }
-                                if (response.getDropdown(0) == 2) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.SPIDER);
+                                    if (response.getDropdown(0) == 0) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.ZOMBIE);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 3) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.CREEPER);
+                                    if (response.getDropdown(0) == 1) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.SKELETON);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 4) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.BLAZE);
+                                    if (response.getDropdown(0) == 2) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.SPIDER);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 5) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.VEX);
+                                    if (response.getDropdown(0) == 3) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.CREEPER);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 6) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.WITHER_SKELETON);
+                                    if (response.getDropdown(0) == 4) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.BLAZE);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 7) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.SLIME);
+                                    if (response.getDropdown(0) == 5) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.VEX);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 8) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.GHAST);
+                                    if (response.getDropdown(0) == 6) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.WITHER_SKELETON);
+                                        }
                                     }
-                                }
-                            }));
+                                    if (response.getDropdown(0) == 7) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.SLIME);
+                                        }
+                                    }
+                                    if (response.getDropdown(0) == 8) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.GHAST);
+                                        }
+                                    }
+                                }));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void PAMobs(Player player) {
-        UUID uuid = player.getUniqueId();
-        Location target = player.getEyeLocation().add(player.getLocation().getDirection().multiply(4 /* distance in blocks */));
-        boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
-        if (isFloodgatePlayer) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-            fplayer.sendForm(
-                    CustomForm.builder()
-                            .title("Passive Mobs Spawning")
-                            .dropdown("Spawn Mobs", "Pig", "Chicken", "Cow", "Horse", "Sheep", "Rabbit", "Donkey", "Bat", "Wolf", "Snowman", "Villager", "Squid", "Parrot", "Polar Bear", "Mushroom Cow")
-                            .input("Amount of mobs")
-                            .responseHandler((form, responseData) -> {
-                                CustomFormResponse response = form.parseResponse(responseData);
-                                if (!response.isCorrect()) {
-                                    // player closed the form or returned invalid info (see FormResponse)
-                                    return;
-                                }
-                                String s = response.getInput(1);
-                                int in = Integer.parseInt(s);
-                                if (response.getDropdown(0) == 0) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.PIG);
+        final int[] in = {0};
+        try {
+            UUID uuid = player.getUniqueId();
+            Location target = player.getEyeLocation().add(player.getLocation().getDirection().multiply(4 /* distance in blocks */));
+            boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
+            if (isFloodgatePlayer) {
+                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
+                fplayer.sendForm(
+                        CustomForm.builder()
+                                .title("Passive Mobs Spawning")
+                                .dropdown("Spawn Mobs", "Pig", "Chicken", "Cow", "Horse", "Sheep", "Rabbit", "Donkey", "Bat", "Wolf", "Snowman", "Villager", "Squid", "Parrot", "Polar Bear", "Mushroom Cow")
+                                .input("Amount of mobs")
+                                .responseHandler((form, responseData) -> {
+                                    CustomFormResponse response = form.parseResponse(responseData);
+                                    if (!response.isCorrect()) {
+                                        // player closed the form or returned invalid info (see FormResponse)
+                                        return;
                                     }
-                                }
-                                if (response.getDropdown(0) == 1) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.CHICKEN);
+                                    String s = response.getInput(1);
+                                    try {
+                                        in[0] = Integer.parseInt(s);
+                                    }catch (NumberFormatException e) {
+                                        player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Could not spawn entity due to wrong usage");
                                     }
-                                }
-                                if (response.getDropdown(0) == 2) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.COW);
+                                    if (response.getDropdown(0) == 0) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.PIG);
+                                        }
                                     }
-                                }
+                                    if (response.getDropdown(0) == 1) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.CHICKEN);
+                                        }
+                                    }
+                                    if (response.getDropdown(0) == 2) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.COW);
+                                        }
+                                    }
 
-                                if (response.getDropdown(0) == 3) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.HORSE);
+                                    if (response.getDropdown(0) == 3) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.HORSE);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 4) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.SHEEP);
+                                    if (response.getDropdown(0) == 4) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.SHEEP);
+                                        }
                                     }
-                                }
 
-                                if (response.getDropdown(0) == 5) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.RABBIT);
+                                    if (response.getDropdown(0) == 5) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.RABBIT);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 6) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.DONKEY);
+                                    if (response.getDropdown(0) == 6) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.DONKEY);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 7) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.BAT);
+                                    if (response.getDropdown(0) == 7) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.BAT);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 8) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.WOLF);
+                                    if (response.getDropdown(0) == 8) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.WOLF);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 9) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.SNOWMAN);
+                                    if (response.getDropdown(0) == 9) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.SNOWMAN);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 10) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.VILLAGER);
+                                    if (response.getDropdown(0) == 10) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.VILLAGER);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 11) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.SQUID);
+                                    if (response.getDropdown(0) == 11) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.SQUID);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 12) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.PARROT);
+                                    if (response.getDropdown(0) == 12) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.PARROT);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 13) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.POLAR_BEAR);
+                                    if (response.getDropdown(0) == 13) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.POLAR_BEAR);
+                                        }
                                     }
-                                }
-                                if (response.getDropdown(0) == 14) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(target, EntityType.MUSHROOM_COW);
+                                    if (response.getDropdown(0) == 14) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(target, EntityType.MUSHROOM_COW);
+                                        }
                                     }
-                                }
-                            }));
+                                }));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void BOMobs(Player player) {
-        UUID uuid = player.getUniqueId();
-        boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
-        if (isFloodgatePlayer) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-            fplayer.sendForm(
-                    CustomForm.builder()
-                            .title("Boss Mobs Spawning")
-                            .dropdown("Spawn Mobs", "Ender Dragon", "Wither", "Guardians")
-                            .input("Amount of mobs")
-                            .responseHandler((form, responseData) -> {
-                                CustomFormResponse response = form.parseResponse(responseData);
-                                if (!response.isCorrect()) {
-                                    // player closed the form or returned invalid info (see FormResponse)
-                                    return;
-                                }
-                                int x = getRandom(10, 10);
-                                int y = getRandom(10, 10);
-                                int z = getRandom(10, 10);
-                                Location location = player.getLocation().add(x, y, z);
-                                String s = response.getInput(1);
-                                int in = Integer.parseInt(s);
-                                if (response.getDropdown(0) == 0) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(location, EntityType.ENDER_DRAGON);
+        final int[] in = {0};
+        try {
+            UUID uuid = player.getUniqueId();
+            boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
+            if (isFloodgatePlayer) {
+                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
+                fplayer.sendForm(
+                        CustomForm.builder()
+                                .title("Boss Mobs Spawning")
+                                .dropdown("Spawn Mobs", "Ender Dragon", "Wither", "Guardians")
+                                .input("Amount of mobs")
+                                .responseHandler((form, responseData) -> {
+                                    CustomFormResponse response = form.parseResponse(responseData);
+                                    if (!response.isCorrect()) {
+                                        // player closed the form or returned invalid info (see FormResponse)
+                                        return;
                                     }
-                                }
-                                if (response.getDropdown(0) == 1) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(location, EntityType.WITHER);
+                                    int x = getRandom(10, 10);
+                                    int y = getRandom(10, 10);
+                                    int z = getRandom(10, 10);
+                                    Location location = player.getLocation().add(x, y, z);
+                                    String s = response.getInput(1);
+                                    try {
+                                        in[0] = Integer.parseInt(s);
+                                    }catch (NumberFormatException e) {
+                                        player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Could not spawn entity due to wrong usage");
                                     }
-                                }
-                                if (response.getDropdown(0) == 2) {
-                                    for (int i = 0; i < in; i++) {
-                                        player.getWorld().spawnEntity(location, EntityType.GUARDIAN);
+                                    if (response.getDropdown(0) == 0) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(location, EntityType.ENDER_DRAGON);
+                                        }
                                     }
-                                }
-                            }));
+                                    if (response.getDropdown(0) == 1) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(location, EntityType.WITHER);
+                                        }
+                                    }
+                                    if (response.getDropdown(0) == 2) {
+                                        for (int i = 0; i < in[0]; i++) {
+                                            player.getWorld().spawnEntity(location, EntityType.GUARDIAN);
+                                        }
+                                    }
+                                }));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

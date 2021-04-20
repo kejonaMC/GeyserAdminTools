@@ -4,6 +4,7 @@ import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.CustomForm;
@@ -44,14 +45,14 @@ public class MutePlayerForm {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         MutePlayers(player);
                                     } else {
-                                        player.sendMessage("[GeyserAdminTools] You do not have the permission to use this button!");
+                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
                                     }
                                 }
                                 if (response.getClickedButtonId() == 1) {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         unMutePlayers(player);
                                     } else {
-                                        player.sendMessage("[GeyserAdminTools] You do not have the permission to ise this button!");
+                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to ise this button!");
                                     }
                                 }
                             }));
@@ -60,6 +61,7 @@ public class MutePlayerForm {
 
     public static void MutePlayers(Player player) {
         Runnable runnable = () -> {
+            final String[] time = new String[1];
             UUID uuid = player.getUniqueId();
             List<String> names = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
             String[] playerlist = names.toArray(new String[0]);
@@ -78,12 +80,15 @@ public class MutePlayerForm {
                                         return;
                                     }
                                     int clickedIndex = response.getDropdown(0);
+                                    try {
                                     String day = response.getInput(1);
-                                    String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
+                                    time[0] = LocalDate.now().plusDays(Long.parseLong(day)).toString();
+                                    } catch (NumberFormatException | NullPointerException e) {
+                                        player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] wrong usage ! <username> <amount of days> <reason>");
+                                    }
                                     String reason = response.getInput(2);
                                     String name = names.get(clickedIndex);
                                     Player player1 = Bukkit.getPlayer(name);
-                                    player.sendMessage("[GeyserAdminTools] Player " + name + " is muted");
                                     //database code
                                     try {
                                         String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
@@ -92,14 +97,15 @@ public class MutePlayerForm {
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, reason);
                                         insert.setString(3, name);
-                                        insert.setString(4, time);
+                                        insert.setString(4, time[0]);
                                         insert.executeUpdate();
                                         // Player inserted now
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
-                                    player1.sendMessage("You are Muted till " + time + " for Reason: " + reason);
-                                    Gat.logger.info("Player " + player.getName() + " has muted " + player1.getName() + " till: " + time + " for reason: " + reason);
+                                    player1.sendMessage(ChatColor.RED + "You are Muted till " + time[0] + " for Reason: " + reason);
+                                    Gat.logger.info("Player " + player.getName() + " has muted " + player1.getName() + " till: " + time[0] + " for reason: " + reason);
+                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] Player " + name + " is muted");
                                     //end
                                 }));
             }
@@ -125,8 +131,8 @@ public class MutePlayerForm {
                     FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                     fplayer.sendForm(
                             CustomForm.builder()
-                                    .title("unban tool")
-                                    .dropdown("Select Player to unban", playerlist)
+                                    .title("unmute tool")
+                                    .dropdown("Select Player to unmute", playerlist)
                                     .responseHandler((form, responseData) -> {
                                         CustomFormResponse response = form.parseResponse(responseData);
                                         if (!response.isCorrect()) {
@@ -134,14 +140,15 @@ public class MutePlayerForm {
                                         }
                                         int clickedIndex = response.getDropdown(0);
                                         String name = names.get(clickedIndex);
-                                        OfflinePlayer player1 = Bukkit.getOfflinePlayer(name);
-                                        player.sendMessage("[GeyserAdminTools] Player " + name + " is unmuted");
+                                        Player player1 = Bukkit.getPlayer(name);
                                         //MySQL code
                                         try {
                                             PreparedStatement statement = MuteDatabaseSetup.getConnection()
                                                     .prepareStatement("DELETE FROM " + MuteDatabaseSetup.Mutetable + " WHERE UUID=?");
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
+                                            player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] Player " + name + " is unmuted");
+                                            player1.sendMessage(ChatColor.GOLD + "Your mute has been lifted by an admin!");
 
                                         } catch (SQLException exe) {
                                             exe.printStackTrace();

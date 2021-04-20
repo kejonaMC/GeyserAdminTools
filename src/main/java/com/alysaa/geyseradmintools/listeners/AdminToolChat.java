@@ -1,6 +1,7 @@
 package com.alysaa.geyseradmintools.listeners;
 
 import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -23,7 +24,7 @@ public class AdminToolChat implements Listener {
     public void onChat(AsyncPlayerChatEvent e) {
         if (isMuted) {
             e.setCancelled(true);
-            e.getPlayer().sendMessage("shhhhhhhhh!");
+            e.getPlayer().sendMessage(ChatColor.GOLD + "shhhhhhhhh!");
         }
     }
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -41,7 +42,7 @@ public class AdminToolChat implements Listener {
                 Date currdate = new SimpleDateFormat("yyyy-MM-dd").parse(curdate);
                 if (datadate.compareTo(currdate) > 0) {
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage("You are still muted. Mute will lift on: " + enddate);
+                    e.getPlayer().sendMessage(ChatColor.GOLD + "You are still muted. Mute will lift on: " + enddate);
                 } else if (datadate.compareTo(currdate) < 0) {
                     try {
                         statement = MuteDatabaseSetup.getConnection()
