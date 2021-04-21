@@ -23,6 +23,7 @@ public class ModToolsForm {
                             .content("List of Mod Tools")
                             .button("Gamemode Survival")//2
                             .button("Gamemode Spectator")//3
+                            .button("Player Teleport")
                             .button("Vanish")//4
                             .button("Fly")//6
                             .button("Clear Inventory")//7
@@ -43,32 +44,35 @@ public class ModToolsForm {
                                     player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Gamemode set in Spectator");
                                 }
                                 if (response.getClickedButtonId() == 2) {
+                                    TeleportForm.tpPlayer(player);
+                                }
+                                if (response.getClickedButtonId() == 3) {
                                     player.hidePlayer(player);
                                     player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Vanish Enabled");
                                 }
-                                if (response.getClickedButtonId() == 3) {
+                                if (response.getClickedButtonId() == 4) {
                                     player.setAllowFlight(true);
                                     player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Flying enabled");
                                 }
-                                if (response.getClickedButtonId() == 4) {
+                                if (response.getClickedButtonId() == 5) {
                                     player.getInventory().clear();
                                     player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Inventory cleared");
                                 }
-                                if (response.getClickedButtonId() == 5) {
+                                if (response.getClickedButtonId() == 6) {
                                     if (player.hasPermission("geyseradmintools.banplayer")) {
                                         BanPlayerForm.banList(player);
                                     }
                                 }
                                 else {  player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
                                 }
-                                if (response.getClickedButtonId() == 6) {
+                                if (response.getClickedButtonId() == 7) {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         MutePlayerForm.MuteList(player);
                                     }
                                     else {  player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
                                     }
                                 }
-                                if (response.getClickedButtonId() == 7) {
+                                if (response.getClickedButtonId() == 8) {
                                     if (player.hasPermission("geyseradmintools.viewreportplayer")) {
                                     ReportForm.reportList(player);
                                     }

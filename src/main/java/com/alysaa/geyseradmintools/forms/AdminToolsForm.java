@@ -26,6 +26,7 @@ public class AdminToolsForm {
                             .button("Gamemode Creative")//1
                             .button("Gamemode Survival")//2
                             .button("Gamemode Spectator")//3
+                            .button("Player Teleport")
                             .button("Vanish")//4
                             .button("God Mode")//5
                             .button("Fly")//6
@@ -52,30 +53,33 @@ public class AdminToolsForm {
                                     player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Gamemode set in Spectator");
                                 }
                                 if (response.getClickedButtonId() == 3) {
+                                    TeleportForm.tpPlayer(player);
+                                }
+                                if (response.getClickedButtonId() == 4) {
                                     for (Player target : Bukkit.getOnlinePlayers()) {
                                         target.hidePlayer(player);
                                     player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Vanish Enabled");
                                     }
                                 }
-                                if (response.getClickedButtonId() == 4) {
+                                if (response.getClickedButtonId() == 5) {
                                     player.setInvulnerable(true);
                                     player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] God mode enabled");
                                 }
-                                if (response.getClickedButtonId() == 5) {
+                                if (response.getClickedButtonId() == 6) {
                                     player.setAllowFlight(true);
                                     player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Flying enabled");
                                 }
-                                if (response.getClickedButtonId() == 6) {
+                                if (response.getClickedButtonId() == 7) {
                                     player.getInventory().clear();
                                     player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Inventory cleared");
                                 }
-                                if (response.getClickedButtonId() == 7) {
+                                if (response.getClickedButtonId() == 8) {
                                     BanPlayerForm.banList(player);
                                 }
-                                if (response.getClickedButtonId() == 8) {
+                                if (response.getClickedButtonId() == 9) {
                                     MutePlayerForm.MuteList(player);
                                 }
-                                if (response.getClickedButtonId() == 9) {
+                                if (response.getClickedButtonId() == 10) {
                                     ReportForm.reportList(player);
                                 }
                             }));
