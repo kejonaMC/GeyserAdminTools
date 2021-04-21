@@ -3,6 +3,7 @@ package com.alysaa.geyseradmintools;
 import com.alysaa.geyseradmintools.commands.*;
 import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
 import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
+import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
 import com.alysaa.geyseradmintools.listeners.*;
 import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import com.alysaa.geyseradmintools.utils.bstats.Metrics;
@@ -28,6 +29,7 @@ public class Gat extends JavaPlugin {
         logger = getLogger();
         new BanDatabaseSetup().mysqlSetup();
         new MuteDatabaseSetup().mysqlSetup();
+        new ReportDatabaseSetup().mysqlSetup();
         createFiles();
         checkConfigVer();
         ItemStackFactory.createStarTool();
@@ -36,6 +38,7 @@ public class Gat extends JavaPlugin {
         this.getCommand("gunban").setExecutor(new UnbanCommand());
         this.getCommand("gmute").setExecutor(new MuteCommand());
         this.getCommand("gunmute").setExecutor(new UnmuteCommand());
+        this.getCommand("greport").setExecutor(new ReportCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolChat(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);

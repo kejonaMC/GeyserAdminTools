@@ -26,6 +26,10 @@ commands:
     description: unmute player command for java
     permission: geyseradmintools.gunmute
     aliases: /gunmute
+  greport:
+    description: report command for java and bedrock
+    permission: geyseradmintools.greport
+    aliases: /greport
 permissions:
   geyseradmintools.admintool:
     description: Allows to open admin form
@@ -51,4 +55,9 @@ permissions:
   geyseradmintools.muteplayer:
     description: Allows to open mute form
     default: op
-
+  geyseradmintools.viewreportplayer:
+    description: Allows to use view button
+    default: op
+  geyseradmintools.reportplayer:
+    description: Allows to use view button
+    default: op

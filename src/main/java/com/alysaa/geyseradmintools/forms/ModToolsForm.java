@@ -68,6 +68,11 @@ public class ModToolsForm {
                                     else {  player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
                                     }
                                 }
+                                if (response.getClickedButtonId() == 7) {
+                                    if (player.hasPermission("geyseradmintools.viewreportplayer")) {
+                                    ReportForm.reportList(player);
+                                    }
+                                }
                             }));
         }
     }

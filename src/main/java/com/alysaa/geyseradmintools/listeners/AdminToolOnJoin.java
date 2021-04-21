@@ -1,6 +1,8 @@
 package com.alysaa.geyseradmintools.listeners;
 
 import com.alysaa.geyseradmintools.Gat;
+import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
+import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import org.bukkit.ChatColor;
@@ -10,6 +12,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class AdminToolOnJoin implements Listener {
 
@@ -47,3 +54,5 @@ public class AdminToolOnJoin implements Listener {
         }
     }
 }
+
+

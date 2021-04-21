@@ -50,7 +50,7 @@ public class BanPlayerForm {
                                     if (player.hasPermission("geyseradmintools.banplayer")) {
                                         unbanPlayers(player);
                                     } else {
-                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to ise this button!");
+                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
                                     }
                                 }
                             }));

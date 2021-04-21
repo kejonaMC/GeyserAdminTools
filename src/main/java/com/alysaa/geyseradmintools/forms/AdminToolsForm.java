@@ -30,8 +30,9 @@ public class AdminToolsForm {
                             .button("God Mode")//5
                             .button("Fly")//6
                             .button("Clear Inventory")//7
-                            .button("Ban/Unban player")
+                            .button("Ban/Unban Player")
                             .button("Mute/Unmute Player")
+                            .button("Report Tools")
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -73,6 +74,9 @@ public class AdminToolsForm {
                                 }
                                 if (response.getClickedButtonId() == 8) {
                                     MutePlayerForm.MuteList(player);
+                                }
+                                if (response.getClickedButtonId() == 9) {
+                                    ReportForm.reportList(player);
                                 }
                             }));
         }

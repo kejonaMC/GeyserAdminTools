@@ -52,7 +52,7 @@ public class MutePlayerForm {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         unMutePlayers(player);
                                     } else {
-                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to ise this button!");
+                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
                                     }
                                 }
                             }));
