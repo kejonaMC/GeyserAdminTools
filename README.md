@@ -50,6 +50,12 @@ GeyserAdmintools is a spigot only plugin, just put the GeyserAdminTools jar in y
 
   geyseradmintools.banplayer:
     description: Allows to open ban form
+    
+  geyseradmintools.viewreportplayer:
+    description: Allows to use view and delete button
+ 
+  geyseradmintools.reportplayer:
+    description: Allows to use view button
 
 
 
