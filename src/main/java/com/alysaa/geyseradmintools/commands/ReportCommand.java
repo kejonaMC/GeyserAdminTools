@@ -1,16 +1,16 @@
 package com.alysaa.geyseradmintools.commands;
 
 import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.forms.MainForm;
+import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
 import com.alysaa.geyseradmintools.forms.ReportForm;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.UUID;
 
 public class ReportCommand implements CommandExecutor {
@@ -31,7 +31,31 @@ public class ReportCommand implements CommandExecutor {
                     e.printStackTrace();
                 }
             } else {
-                sender.sendMessage(ChatColor.YELLOW + "[GeyserAdminTool] Sorry, this command only works for bedrock players!");
+                    Player player1 = Bukkit.getServer().getPlayer(args[0]);
+                    if (player1 == null) {
+                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] The player you are trying to report is not online or wrong usage of the command. /greport <Username> <What to report>");
+                        return true;
+                    }
+                    String report = args[1];
+                try {
+                    String sql = "(UUID,REPORT,USERNAME) VALUES (?,?,?)";
+                    PreparedStatement insert = ReportDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + ReportDatabaseSetup.Reporttable
+                            + sql);
+                    insert.setString(1, player1.getUniqueId().toString());
+                    insert.setString(2, report);
+                    insert.setString(3, player1.getName());
+                    insert.executeUpdate();
+                    // Player inserted now
+                    player.sendMessage(ChatColor.GREEN + "Report has been delivered");
+                    for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
+                        if (player.hasPermission("geyseradmintools.viewreportplayer")) {
+                            onlinePlayers.sendMessage(ChatColor.AQUA + "New report from " + player.getName() + " has been received ");
+                        }
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                return true;
             }
         } else if (sender instanceof ConsoleCommandSender) {
             Gat.plugin.getLogger().info("This command only works in-game!");
