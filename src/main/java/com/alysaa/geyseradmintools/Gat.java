@@ -4,6 +4,7 @@ import com.alysaa.geyseradmintools.commands.*;
 import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
 import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
 import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
+import com.alysaa.geyseradmintools.javamenu.PlayerMenuUtility;
 import com.alysaa.geyseradmintools.listeners.*;
 import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import com.alysaa.geyseradmintools.utils.bstats.Metrics;
@@ -11,13 +12,17 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 public class Gat extends JavaPlugin {
+
+    private static final HashMap<Player, PlayerMenuUtility> playerMenuUtilityMap = new HashMap<>();
 
     public static Gat plugin;
     public static Logger logger;
@@ -71,5 +76,21 @@ public class Gat extends JavaPlugin {
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
+    }
+    public static PlayerMenuUtility getPlayerMenuUtility(Player p) {
+        PlayerMenuUtility playerMenuUtility;
+        if (!(playerMenuUtilityMap.containsKey(p))) { //See if the player has a playermenuutility "saved" for them
+
+            //This player doesn't. Make one for them add add it to the hashmap
+            playerMenuUtility = new PlayerMenuUtility(p);
+            playerMenuUtilityMap.put(p, playerMenuUtility);
+
+            return playerMenuUtility;
+        } else {
+            return playerMenuUtilityMap.get(p); //Return the object by using the provided player
+        }
+    }
+    public static Gat getPlugin() {
+        return plugin;
     }
 }
