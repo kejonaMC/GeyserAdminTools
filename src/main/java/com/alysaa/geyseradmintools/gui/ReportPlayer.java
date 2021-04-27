@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ReportPlayer {
+public class ReportPlayer<reportMe, whoToReport> {
     public static void openReportMenu(Player player){
 
         ArrayList<String> list = new ArrayList<>();
@@ -47,8 +47,9 @@ public class ReportPlayer {
             throwables.printStackTrace();
         }
     }
+    public static Player reportMe;
 
-        public static void openPlayerMenu(Player player1, Player whoToReport){
+    public static void openPlayerMenu(Player player1, Player whoToReport){
 
         Player reportMe = whoToReport;
         Inventory reportPlayerMenu = Bukkit.createInventory(player1, 9, "Player Info");
@@ -61,7 +62,7 @@ public class ReportPlayer {
 
         ItemStack ticket = new ItemStack(Material.PAPER, 1);
         ItemMeta player_meta = ticket.getItemMeta();
-        player_meta.setDisplayName(reportMe.getDisplayName());
+        player_meta.setDisplayName(reportMe.getPlayer().getDisplayName());
         ticket.setItemMeta(player_meta);
         reportPlayerMenu.setItem(4, ticket);
 

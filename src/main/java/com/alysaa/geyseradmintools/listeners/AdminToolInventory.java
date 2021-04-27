@@ -6,6 +6,7 @@ import com.alysaa.geyseradmintools.gui.ReportPlayer;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import com.alysaa.geyseradmintools.utils.ItemStackFactory;
 import org.bukkit.BanList;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -60,10 +61,10 @@ public class AdminToolInventory  implements Listener {
         @EventHandler
         public void onMenuClick(InventoryClickEvent e){
             Player player = (Player) e.getWhoClicked();
-            if (e.getView().getTitle().equalsIgnoreCase(ChatColor.BLUE + "Player List")){
+            if (e.getView().getTitle().equalsIgnoreCase(ChatColor.BLUE + "Report List")){
                 if (e.getCurrentItem().getType() == Material.PAPER){
-
-                    Player whoToReport = Gat.plugin.getServer().getPlayer(e.getCurrentItem().getItemMeta().getDisplayName());
+                    Player whoToReport = Bukkit.getPlayer(e.getCurrentItem().getItemMeta().getDisplayName());
+                    System.out.println(whoToReport.getName());
                     ReportPlayer.openPlayerMenu(player, whoToReport);
                 }
 
