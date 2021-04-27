@@ -63,6 +63,7 @@ public class AdminToolInventory  implements Listener {
             Player player = (Player) e.getWhoClicked();
             if (e.getView().getTitle().equalsIgnoreCase(ChatColor.BLUE + "Report List")){
                 if (e.getCurrentItem().getType() == Material.PAPER){
+                    System.out.println(e.getCurrentItem().getItemMeta().getDisplayName());
                     Player whoToReport = Bukkit.getPlayer(e.getCurrentItem().getItemMeta().getDisplayName());
                     System.out.println(whoToReport.getName());
                     ReportPlayer.openPlayerMenu(player, whoToReport);

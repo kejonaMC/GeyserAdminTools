@@ -4,7 +4,11 @@ import com.alysaa.geyseradmintools.Gat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.*;
+import java.util.logging.Level;
 
 public class ReportDatabaseSetup {
     private static Connection connection;
@@ -41,8 +45,16 @@ public class ReportDatabaseSetup {
             }
         } else {
             try {
+                File dataFolder = new File(Gat.plugin.getDataFolder(), "PlayerData.db");
+                if (!dataFolder.exists()){
+                    try {
+                        dataFolder.createNewFile();
+                    } catch (IOException e) {
+                        Gat.plugin.getLogger().log(Level.SEVERE, "File write error: PlayerData.db");
+                    }
+                }
                 Class.forName("org.sqlite.JDBC");
-                setConnection(DriverManager.getConnection("jdbc:sqlite:plugins/GeyserAdminTools/database.db"));
+                setConnection(DriverManager.getConnection("jdbc:sqlite:" + dataFolder));
                 String cmd = "CREATE TABLE IF NOT EXISTS " + ReportDatabaseSetup.Reporttable + " (UUID char(36), REPORT varchar(500), USERNAME varchar(16))";
                 PreparedStatement stmt = connection.prepareStatement(cmd);
                 stmt.execute();

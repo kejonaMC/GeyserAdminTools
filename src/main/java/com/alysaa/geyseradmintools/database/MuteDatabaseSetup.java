@@ -4,7 +4,11 @@ import com.alysaa.geyseradmintools.Gat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.*;
+import java.util.logging.Level;
 
 public class MuteDatabaseSetup {
     private static Connection connection;
@@ -14,6 +18,7 @@ public class MuteDatabaseSetup {
     public String password;
     public static String Mutetable;
     public int port;
+
 
     public void mysqlSetup() {
         host = Gat.plugin.getConfig().getString("host");
@@ -41,8 +46,16 @@ public class MuteDatabaseSetup {
             }
         } else {
             try {
+                File dataFolder = new File(Gat.plugin.getDataFolder(), "PlayerData.db");
+                if (!dataFolder.exists()){
+                    try {
+                        dataFolder.createNewFile();
+                    } catch (IOException e) {
+                        Gat.plugin.getLogger().log(Level.SEVERE, "File write error: PlayerData.db");
+                    }
+                }
                 Class.forName("org.sqlite.JDBC");
-                setConnection(DriverManager.getConnection("jdbc:sqlite:plugins/GeyserAdminTools/database.db"));
+                setConnection(DriverManager.getConnection("jdbc:sqlite:" + dataFolder));
                 String cmd = "CREATE TABLE IF NOT EXISTS " + MuteDatabaseSetup.Mutetable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))";
                 PreparedStatement stmt = connection.prepareStatement(cmd);
                 stmt.execute();
