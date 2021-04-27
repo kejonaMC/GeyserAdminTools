@@ -2,7 +2,12 @@ package com.alysaa.geyseradmintools.listeners;
 
 import com.alysaa.geyseradmintools.forms.MainForm;
 import com.alysaa.geyseradmintools.Gat;
+import com.alysaa.geyseradmintools.gui.ReportPlayer;
+import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import com.alysaa.geyseradmintools.utils.ItemStackFactory;
+import org.bukkit.BanList;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,6 +18,8 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.UUID;
+
 
 public class AdminToolInventory  implements Listener {
 
@@ -21,11 +28,15 @@ public class AdminToolInventory  implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
+        UUID uuid = e.getWhoClicked().getUniqueId();
+        boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
+        if (isFloodgatePlayer) {
         if (config.getBoolean("DisableItemMove")) {
             if (e.getCurrentItem().equals(starTool)) {
                 e.setCancelled(true);
             }
         }
+    }
     }
 
     @EventHandler
@@ -46,4 +57,29 @@ public class AdminToolInventory  implements Listener {
             }
         }
     }
-}
+        @EventHandler
+        public void onMenuClick(InventoryClickEvent e){
+            Player player = (Player) e.getWhoClicked();
+            if (e.getView().getTitle().equalsIgnoreCase(ChatColor.BLUE + "Player List")){
+                if (e.getCurrentItem().getType() == Material.PAPER){
+
+                    Player whoToReport = Gat.plugin.getServer().getPlayer(e.getCurrentItem().getItemMeta().getDisplayName());
+                    ReportPlayer.openPlayerMenu(player, whoToReport);
+                }
+
+            }else if(e.getView().getTitle().equalsIgnoreCase("Player Info")){
+                switch(e.getCurrentItem().getType()){
+                    case BARRIER:
+                         ReportPlayer.openReportMenu(player);
+                        break;
+                    case DIAMOND:
+                        String name = e.getClickedInventory().getItem(4).getItemMeta().getDisplayName();
+                        player.getServer().getBanList(BanList.Type.NAME).addBan(name, "I said so", null, "The allfather");
+                        player.sendMessage(ChatColor.GREEN + "Banned Player");
+                        break;
+                }
+            }
+            e.setCancelled(true);
+        }
+
+    }

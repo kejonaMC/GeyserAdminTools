@@ -30,6 +30,10 @@ commands:
     description: report command for java and bedrock
     permission: geyseradmintools.greport
     aliases: /greport
+  gviewreport:
+    description: report command for java and bedrock
+    permission: geyseradmintools.gviewreport
+    aliases: /gviewreport
 permissions:
   geyseradmintools.admintool:
     description: Allows to open admin form
