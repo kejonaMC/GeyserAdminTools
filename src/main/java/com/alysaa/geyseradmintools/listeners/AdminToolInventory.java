@@ -63,9 +63,7 @@ public class AdminToolInventory  implements Listener {
             Player player = (Player) e.getWhoClicked();
             if (e.getView().getTitle().equalsIgnoreCase(ChatColor.BLUE + "Report List")){
                 if (e.getCurrentItem().getType() == Material.PAPER){
-                    System.out.println(e.getCurrentItem().getItemMeta().getDisplayName());
-                    Player whoToReport = Bukkit.getPlayer(e.getCurrentItem().getItemMeta().getDisplayName());
-                    System.out.println(whoToReport.getName());
+                    Player whoToReport = Gat.plugin.getServer().getPlayer((e.getCurrentItem().getItemMeta().getDisplayName()));
                     ReportPlayer.openPlayerMenu(player, whoToReport);
                 }
 
@@ -74,10 +72,15 @@ public class AdminToolInventory  implements Listener {
                     case BARRIER:
                          ReportPlayer.openReportMenu(player);
                         break;
-                    case DIAMOND:
-                        String name = e.getClickedInventory().getItem(4).getItemMeta().getDisplayName();
-                        player.getServer().getBanList(BanList.Type.NAME).addBan(name, "I said so", null, "The allfather");
-                        player.sendMessage(ChatColor.GREEN + "Banned Player");
+                    case BOOK:
+                        Player whoToReport = Gat.plugin.getServer().getPlayer((e.getCurrentItem().getItemMeta().getDisplayName()));
+                        player.sendMessage(ChatColor.AQUA + "#-------------------------------------------------#");
+                        player.sendMessage(ChatColor.AQUA + "   PlayerName: " + ChatColor.WHITE + whoToReport.getName());
+                        player.sendMessage(ChatColor.AQUA + "   PlayerUUID: " + ChatColor.WHITE + whoToReport.getUniqueId());
+                        player.sendMessage(ChatColor.AQUA + "   HomeLocation: " + ChatColor.WHITE + whoToReport.getBedSpawnLocation());
+                        player.sendMessage(ChatColor.AQUA + "   PlayerLevel: " + ChatColor.WHITE + whoToReport.getLevel());
+                        player.sendMessage(ChatColor.AQUA + "#-------------------------------------------------#");
+
                         break;
                 }
             }

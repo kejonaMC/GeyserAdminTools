@@ -5,6 +5,7 @@ import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -16,9 +17,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class ReportPlayer<reportMe, whoToReport> {
+public class ReportPlayer {
     public static void openReportMenu(Player player){
 
         ArrayList<String> list = new ArrayList<>();
@@ -30,13 +32,11 @@ public class ReportPlayer<reportMe, whoToReport> {
             }
             Inventory reportgui = Bukkit.createInventory(player, 45, ChatColor.BLUE + "Report List");
             for (Player value : convert(list)) {
-
                 ItemStack ticket = new ItemStack(Material.PAPER, 1);
                 ItemMeta meta = ticket.getItemMeta();
-                meta.setDisplayName(value.getDisplayName());
-
+                meta.setDisplayName(value.getName());
                 ArrayList<String> lore = new ArrayList<>();
-                lore.add(ChatColor.GOLD + "Player: " + player.getName() +ChatColor.WHITE + " has reported player: " +ChatColor.DARK_RED + value.getName());
+                lore.add(ChatColor.AQUA +"has reported player: " +ChatColor.GOLD + value.getName());
                 lore.add(ChatColor.AQUA + "Click for more information " );
                 meta.setLore(lore);
                 ticket.setItemMeta(meta);
@@ -47,22 +47,24 @@ public class ReportPlayer<reportMe, whoToReport> {
             throwables.printStackTrace();
         }
     }
-    public static Player reportMe;
 
     public static void openPlayerMenu(Player player1, Player whoToReport){
 
-        Player reportMe = whoToReport;
         Inventory reportPlayerMenu = Bukkit.createInventory(player1, 9, "Player Info");
 
-        ItemStack report = new ItemStack(Material.ARROW, 1);
+        ItemStack report = new ItemStack(Material.BOOK, 1);
         ItemMeta report_meta = report.getItemMeta();
-        report_meta.setDisplayName(ChatColor.DARK_GREEN + "Ban");
+        report_meta.setDisplayName(whoToReport.getName());
         report.setItemMeta(report_meta);
         reportPlayerMenu.setItem(0, report);
+        ArrayList<String> lore = new ArrayList<>();
+        lore.add(ChatColor.AQUA + "Click for more information about the player " );
+        report_meta.setLore(lore);
+        report.setItemMeta(report_meta);
 
         ItemStack ticket = new ItemStack(Material.PAPER, 1);
         ItemMeta player_meta = ticket.getItemMeta();
-        player_meta.setDisplayName(reportMe.getPlayer().getDisplayName());
+        player_meta.setDisplayName(whoToReport.getPlayer().getDisplayName());
         ticket.setItemMeta(player_meta);
         reportPlayerMenu.setItem(4, ticket);
 
