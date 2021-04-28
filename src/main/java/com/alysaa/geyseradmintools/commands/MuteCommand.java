@@ -40,7 +40,7 @@ public class MuteCommand implements CommandExecutor {
                 insert.setString(3, target.getName());
                 insert.setString(4, time);
                 insert.executeUpdate();
-                target.sendMessage("you where muted till: " + time + "for: " + reason);
+                target.sendMessage("You where muted till: " + time + "for: " + reason);
                 player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is muted");
                 Gat.logger.info("Player " + player.getName() + " has muted " + target.getName() + " till: " + time + " for reason: " + reason);
             }catch (IllegalArgumentException | CommandException e) {

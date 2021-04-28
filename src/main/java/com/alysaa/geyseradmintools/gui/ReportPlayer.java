@@ -5,7 +5,6 @@ import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -17,7 +16,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class ReportPlayer {
@@ -37,7 +35,7 @@ public class ReportPlayer {
                 meta.setDisplayName(value.getName());
                 ArrayList<String> lore = new ArrayList<>();
                 lore.add(ChatColor.AQUA +"has reported player: " +ChatColor.GOLD + value.getName());
-                lore.add(ChatColor.AQUA + "Click for more information " );
+                lore.add(ChatColor.AQUA + "Click to open the ticket " );
                 meta.setLore(lore);
                 ticket.setItemMeta(meta);
                 reportgui.addItem(ticket);
@@ -56,17 +54,34 @@ public class ReportPlayer {
         ItemMeta report_meta = report.getItemMeta();
         report_meta.setDisplayName(whoToReport.getName());
         report.setItemMeta(report_meta);
-        reportPlayerMenu.setItem(0, report);
         ArrayList<String> lore = new ArrayList<>();
+        lore.add(ChatColor.AQUA + " " );
         lore.add(ChatColor.AQUA + "Click for more information about the player " );
         report_meta.setLore(lore);
         report.setItemMeta(report_meta);
+        reportPlayerMenu.setItem(0, report);
 
-        ItemStack ticket = new ItemStack(Material.PAPER, 1);
-        ItemMeta player_meta = ticket.getItemMeta();
-        player_meta.setDisplayName(whoToReport.getPlayer().getDisplayName());
-        ticket.setItemMeta(player_meta);
-        reportPlayerMenu.setItem(4, ticket);
+        ItemStack mute = new ItemStack(Material.NOTE_BLOCK, 1);
+        ItemMeta mute_meta = mute.getItemMeta();
+        mute_meta.setDisplayName(whoToReport.getName());
+        ArrayList<String> loremute = new ArrayList<>();
+        loremute.add(ChatColor.AQUA + " " );
+        loremute.add(ChatColor.DARK_RED + "Mute Player " );
+        loremute.add(ChatColor.AQUA + "Click to temp mute player for a day " );
+        mute_meta.setLore(loremute);
+        mute.setItemMeta(mute_meta);
+        reportPlayerMenu.setItem(4, mute);
+
+        ItemStack banhammer = new ItemStack(Material.ANVIL, 1);
+        ItemMeta hammer_meta = banhammer.getItemMeta();
+        hammer_meta.setDisplayName(whoToReport.getName());
+        ArrayList<String> lorehammer = new ArrayList<>();
+        lorehammer.add(ChatColor.AQUA + " " );
+        lorehammer.add(ChatColor.DARK_RED + "Ban Hammer " );
+        lorehammer.add(ChatColor.AQUA + "Click to temp ban player for a day " );
+        hammer_meta.setLore(lorehammer);
+        banhammer.setItemMeta(hammer_meta);
+        reportPlayerMenu.setItem(2, banhammer);
 
         ItemStack cancel = new ItemStack(Material.BARRIER, 1);
         ItemMeta cancel_meta = cancel.getItemMeta();
