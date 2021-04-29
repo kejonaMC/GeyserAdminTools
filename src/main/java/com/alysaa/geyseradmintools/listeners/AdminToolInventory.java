@@ -32,18 +32,27 @@ public class AdminToolInventory  implements Listener {
 
     private static final FileConfiguration config = Gat.plugin.getConfig();
     private static final ItemStack starTool = ItemStackFactory.getStarTool();
+    PreparedStatement statement;
+    {
+        try {
+            statement = ReportDatabaseSetup.getConnection()
+                    .prepareStatement("DELETE FROM " + ReportDatabaseSetup.Reporttable + " WHERE UUID=?");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         UUID uuid = e.getWhoClicked().getUniqueId();
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
-        if (config.getBoolean("DisableItemMove")) {
-            if (e.getCurrentItem().equals(starTool)) {
-                e.setCancelled(true);
+            if (config.getBoolean("DisableItemMove")) {
+                if (e.getCurrentItem().equals(starTool)) {
+                    e.setCancelled(true);
+                }
             }
         }
-    }
     }
 
     @EventHandler
@@ -64,76 +73,24 @@ public class AdminToolInventory  implements Listener {
             }
         }
     }
-        @EventHandler
-        public void onMenuClick(InventoryClickEvent e){
-            Player player = (Player) e.getWhoClicked();
-            Player whoToReport = Gat.plugin.getServer().getPlayer((e.getCurrentItem().getItemMeta().getDisplayName()));
-            if (e.getView().getTitle().equalsIgnoreCase(ChatColor.BLUE + "Report List")){
-                if (e.getCurrentItem().getType() == Material.PAPER){
-                    //ReportPlayer.openPlayerMenu(player, whoToReport);
-                    try {
-                        PreparedStatement statement = ReportDatabaseSetup.getConnection()
-                                .prepareStatement("DELETE FROM " + ReportDatabaseSetup.Reporttable + " WHERE UUID=?");
-                        statement.setString(1, whoToReport.getUniqueId().toString());
-                        statement.execute();
-                        player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Reports from player " + whoToReport.getName() + " has been deleted!");
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-                }
 
-            }else if(e.getView().getTitle().equalsIgnoreCase("Player Info")){
-                switch(e.getCurrentItem().getType()){
-                    case BARRIER:
-                         ReportPlayer.openReportMenu(player);
-                        break;
-                    case BOOK:
-                        player.sendMessage(ChatColor.AQUA + "#-------------------------------------------------#");
-                        player.sendMessage(ChatColor.AQUA + "   PlayerName: " + ChatColor.WHITE + whoToReport.getName());
-                        player.sendMessage(ChatColor.AQUA + "   PlayerUUID: " + ChatColor.WHITE + whoToReport.getUniqueId());
-                        player.sendMessage(ChatColor.AQUA + "   HomeLocation: " + ChatColor.WHITE + whoToReport.getBedSpawnLocation());
-                        player.sendMessage(ChatColor.AQUA + "   PlayerLevel: " + ChatColor.WHITE + whoToReport.getLevel());
-                        player.sendMessage(ChatColor.AQUA + "#-------------------------------------------------#");
-
-                        break;
-                    case ANVIL:
-                        try {
-                        String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                        PreparedStatement insert = BanDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + BanDatabaseSetup.Bantable
-                                + sql);
-                        insert.setString(1, whoToReport.getUniqueId().toString());
-                        insert.setString(2, "Temp ban from ticket");
-                        insert.setString(3, whoToReport.getName());
-                        insert.setString(4, LocalDate.now().plusDays(1).toString());
-                        insert.executeUpdate();
-                            whoToReport.kickPlayer("You where banned for: " + ChatColor.DARK_RED + "Temp ban from report.");
-                            player.sendMessage("[GeyserAdminTools] " +ChatColor.AQUA + "Player " + whoToReport.getName() + " is banned");
-                            Gat.logger.info("Player " + player.getName() + " has banned " + whoToReport.getName() + " till tomorrow " + " for reason: temp ban from report");
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
-                        break;
-
-                    case NOTE_BLOCK:
-                        try {
-                            String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                            PreparedStatement insert = MuteDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + MuteDatabaseSetup.Mutetable
-                                    + sql);
-                            insert.setString(1, whoToReport.getUniqueId().toString());
-                            insert.setString(2, "Temp mute from ticket");
-                            insert.setString(3, whoToReport.getName());
-                            insert.setString(4, LocalDate.now().plusDays(1).toString());
-                            insert.executeUpdate();
-                            whoToReport.sendMessage("You where muted for: " + ChatColor.DARK_RED + "Temp mute from report.");
-                            player.sendMessage("[GeyserAdminTools] " +ChatColor.AQUA + "Player " + whoToReport.getName() + " is muted");
-                            Gat.logger.info("Player " + player.getName() + " has muted " + whoToReport.getName() + " till tomorrow " + " for reason: temp mute from report");
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
-                        break;
+    @EventHandler
+    public void onMenuClick(InventoryClickEvent e) {
+        Player player = (Player) e.getWhoClicked();
+        Player whoToReport = Gat.plugin.getServer().getPlayer((e.getCurrentItem().getItemMeta().getDisplayName()));
+        if (e.getView().getTitle().equalsIgnoreCase(ChatColor.BLUE + "Report List")) {
+            if (e.getCurrentItem().getType() == Material.PAPER) {
+                //ReportPlayer.openPlayerMenu(player, whoToReport);
+                try {
+                    statement.setString(1, whoToReport.getUniqueId().toString());
+                    statement.execute();
+                    statement.close();
+                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Reports from player " + whoToReport.getName() + " has been deleted!");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
             }
-            e.setCancelled(true);
         }
-
     }
+}
+

@@ -46,7 +46,7 @@ public class ReportPlayer {
                     lore.add(ChatColor.DARK_AQUA + "Reporter: " + ChatColor.AQUA + player.getName());
                     lore.add(ChatColor.DARK_AQUA + "Offender: " + ChatColor.AQUA + value.getName());
                     lore.add(ChatColor.DARK_AQUA + "Reason: " + ChatColor.AQUA + report);
-                   lore.add(ChatColor.GRAY + "Click on the ticket to remove it");
+                    lore.add(ChatColor.GRAY + "Click on the ticket to remove it");
                     meta.setLore(lore);
                     ticket.setItemMeta(meta);
                     reportgui.addItem(ticket);
@@ -56,52 +56,6 @@ public class ReportPlayer {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
-
-        public static void openPlayerMenu(Player player1, Player whoToReport){
-
-        Inventory reportPlayerMenu = Bukkit.createInventory(player1, 9, "Player Info");
-
-        ItemStack report = new ItemStack(Material.BOOK, 1);
-        ItemMeta report_meta = report.getItemMeta();
-        report_meta.setDisplayName(whoToReport.getName());
-        report.setItemMeta(report_meta);
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.AQUA + " " );
-        lore.add(ChatColor.AQUA + "Click for more information about the player " );
-        report_meta.setLore(lore);
-        report.setItemMeta(report_meta);
-        reportPlayerMenu.setItem(0, report);
-
-        ItemStack mute = new ItemStack(Material.NOTE_BLOCK, 1);
-        ItemMeta mute_meta = mute.getItemMeta();
-        mute_meta.setDisplayName(whoToReport.getName());
-        ArrayList<String> loremute = new ArrayList<>();
-        loremute.add(ChatColor.AQUA + " " );
-        loremute.add(ChatColor.DARK_RED + "Mute Player " );
-        loremute.add(ChatColor.AQUA + "Click to temp mute player for a day " );
-        mute_meta.setLore(loremute);
-        mute.setItemMeta(mute_meta);
-        reportPlayerMenu.setItem(4, mute);
-
-        ItemStack banhammer = new ItemStack(Material.ANVIL, 1);
-        ItemMeta hammer_meta = banhammer.getItemMeta();
-        hammer_meta.setDisplayName(whoToReport.getName());
-        ArrayList<String> lorehammer = new ArrayList<>();
-        lorehammer.add(ChatColor.AQUA + " " );
-        lorehammer.add(ChatColor.DARK_RED + "Ban Hammer " );
-        lorehammer.add(ChatColor.AQUA + "Click to temp ban player for a day " );
-        hammer_meta.setLore(lorehammer);
-        banhammer.setItemMeta(hammer_meta);
-        reportPlayerMenu.setItem(2, banhammer);
-
-        ItemStack cancel = new ItemStack(Material.BARRIER, 1);
-        ItemMeta cancel_meta = cancel.getItemMeta();
-        cancel_meta.setDisplayName(ChatColor.RED + "Go Back!");
-        cancel.setItemMeta(cancel_meta);
-        reportPlayerMenu.setItem(8, cancel);
-
-        player1.openInventory(reportPlayerMenu);
     }
     public static List<Player> convert(ArrayList<String> list)
     {
