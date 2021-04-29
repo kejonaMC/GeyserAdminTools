@@ -2,6 +2,7 @@ package com.alysaa.geyseradmintools.listeners;
 
 import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
 import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
+import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
 import com.alysaa.geyseradmintools.forms.MainForm;
 import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.gui.ReportPlayer;
@@ -69,7 +70,16 @@ public class AdminToolInventory  implements Listener {
             Player whoToReport = Gat.plugin.getServer().getPlayer((e.getCurrentItem().getItemMeta().getDisplayName()));
             if (e.getView().getTitle().equalsIgnoreCase(ChatColor.BLUE + "Report List")){
                 if (e.getCurrentItem().getType() == Material.PAPER){
-                    ReportPlayer.openPlayerMenu(player, whoToReport);
+                    //ReportPlayer.openPlayerMenu(player, whoToReport);
+                    try {
+                        PreparedStatement statement = ReportDatabaseSetup.getConnection()
+                                .prepareStatement("DELETE FROM " + ReportDatabaseSetup.Reporttable + " WHERE UUID=?");
+                        statement.setString(1, whoToReport.getUniqueId().toString());
+                        statement.execute();
+                        player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Reports from player " + whoToReport.getName() + " has been deleted!");
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
                 }
 
             }else if(e.getView().getTitle().equalsIgnoreCase("Player Info")){

@@ -1,6 +1,7 @@
 package com.alysaa.geyseradmintools.gui;
 
 import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
+import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
 import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,6 +11,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +21,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ReportPlayer {
-    public static void openReportMenu(Player player){
+    public static void openReportMenu(Player player) {
 
         ArrayList<String> list = new ArrayList<>();
         String query = "SELECT * FROM " + ReportDatabaseSetup.Reporttable;
@@ -30,23 +32,33 @@ public class ReportPlayer {
             }
             Inventory reportgui = Bukkit.createInventory(player, 45, ChatColor.BLUE + "Report List");
             for (Player value : convert(list)) {
-                ItemStack ticket = new ItemStack(Material.PAPER, 1);
-                ItemMeta meta = ticket.getItemMeta();
-                meta.setDisplayName(value.getName());
-                ArrayList<String> lore = new ArrayList<>();
-                lore.add(ChatColor.AQUA +"has reported player: " +ChatColor.GOLD + value.getName());
-                lore.add(ChatColor.AQUA + "Click to open the ticket " );
-                meta.setLore(lore);
-                ticket.setItemMeta(meta);
-                reportgui.addItem(ticket);
+                PreparedStatement statement = MuteDatabaseSetup.getConnection()
+                        .prepareStatement("SELECT * FROM " + ReportDatabaseSetup.Reporttable + " WHERE UUID=?");
+                statement.setString(1, value.getUniqueId().toString());
+                ResultSet rst = statement.executeQuery();
+
+                if (rst.next()) {
+                    String report = rst.getString("REPORT");
+                    ItemStack ticket = new ItemStack(Material.PAPER, 1);
+                    ItemMeta meta = ticket.getItemMeta();
+                    meta.setDisplayName(value.getName());
+                    ArrayList<String> lore = new ArrayList<>();
+                    lore.add(ChatColor.DARK_AQUA + "Reporter: " + ChatColor.AQUA + player.getName());
+                    lore.add(ChatColor.DARK_AQUA + "Offender: " + ChatColor.AQUA + value.getName());
+                    lore.add(ChatColor.DARK_AQUA + "Reason: " + ChatColor.AQUA + report);
+                   lore.add(ChatColor.GRAY + "Click on the ticket to remove it");
+                    meta.setLore(lore);
+                    ticket.setItemMeta(meta);
+                    reportgui.addItem(ticket);
+                }
+                player.openInventory(reportgui);
             }
-            player.openInventory(reportgui);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    public static void openPlayerMenu(Player player1, Player whoToReport){
+        public static void openPlayerMenu(Player player1, Player whoToReport){
 
         Inventory reportPlayerMenu = Bukkit.createInventory(player1, 9, "Player Info");
 
