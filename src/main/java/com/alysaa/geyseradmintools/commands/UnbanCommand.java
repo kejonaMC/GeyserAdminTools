@@ -30,7 +30,7 @@ public class UnbanCommand implements CommandExecutor {
                                     .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
                             statement.setString(1, target.getUniqueId().toString());
                             statement.execute();
-                            player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is unbanned");
+                            player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Player " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA +  " is unbanned");
                             Gat.logger.info("Player " + player.getName() + " has unbanned " + target.getName());
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();

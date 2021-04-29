@@ -22,7 +22,7 @@ public class UnmuteCommand implements CommandExecutor {
         if (cmd.getName().equalsIgnoreCase("gunmute") && player.hasPermission("geyseradmintools.gunmute")) {
             Player target = Bukkit.getPlayer(args[0]);
             if (target == null) {
-                player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Could not find player! Perhaps wrong usage ? /gunmute <username>");
+                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Could not find player! Perhaps wrong usage ? /gunmute <username>");
                 return true;
             }
             try {
@@ -30,9 +30,9 @@ public class UnmuteCommand implements CommandExecutor {
                                     .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
                             statement.setString(1, target.getUniqueId().toString());
                             statement.execute();
-                            player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is unmuted");
+                            player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Player " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + " is unmuted");
                             Gat.logger.info("Player " + player.getName() + " has unmuted " + target.getName());
-                            target.sendMessage("Your mute has been lifted by an admin!");
+                            target.sendMessage(ChatColor.GOLD + "Your mute has been lifted by an admin!");
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
                         }

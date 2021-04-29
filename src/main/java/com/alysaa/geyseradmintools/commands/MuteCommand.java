@@ -39,11 +39,11 @@ public class MuteCommand implements CommandExecutor {
                 insert.setString(3, target.getName());
                 insert.setString(4, time);
                 insert.executeUpdate();
-                target.sendMessage("You where muted till: " + time + "for: " + reason);
-                player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is muted");
+                target.sendMessage(ChatColor.GOLD + "You where muted till: " + ChatColor.WHITE + time + ChatColor.GOLD + "for: " + ChatColor.GOLD + reason);
+                player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Player " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + " is muted");
                 Gat.logger.info("Player " + player.getName() + " has muted " + target.getName() + " till: " + time + " for reason: " + reason);
             }catch (IllegalArgumentException | CommandException e) {
-                player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Perhaps wrong usage ? /gmute <username> <amount of days> <reason>");
+                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Perhaps wrong usage ? /gmute <username> <amount of days> <reason>");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

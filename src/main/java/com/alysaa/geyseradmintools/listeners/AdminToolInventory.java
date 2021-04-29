@@ -71,20 +71,22 @@ public class AdminToolInventory  implements Listener {
     @EventHandler
     public void onMenuClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
+        try {
         Player whoToReport = Gat.plugin.getServer().getPlayer((e.getCurrentItem().getItemMeta().getDisplayName()));
         if (e.getView().getTitle().equalsIgnoreCase(ChatColor.BLUE + "Report List")) {
-            if (e.getCurrentItem().getType() == Material.PAPER) {
-                //ReportPlayer.openPlayerMenu(player, whoToReport);
-                try {
+                if (e.getCurrentItem().getType() == Material.PAPER) {
+                    //ReportPlayer.openPlayerMenu(player, whoToReport);
                     statement.setString(1, whoToReport.getUniqueId().toString());
                     statement.execute();
                     statement.close();
-                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Reports from player " + whoToReport.getName() + " has been deleted!");
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                    player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Reports from " + ChatColor.AQUA + whoToReport.getName() + ChatColor.DARK_AQUA +" has been deleted!");
+                    e.setCancelled(true);
+                    player.closeInventory();
                 }
-            }
         }
+            } catch (SQLException | NullPointerException exception) {
+                exception.getSuppressed();
+            }
     }
 }
 

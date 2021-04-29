@@ -49,7 +49,7 @@ public class ReportCommand implements CommandExecutor {
                     player.sendMessage(ChatColor.GREEN + "Report has been delivered");
                     for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
                         if (player.hasPermission("geyseradmintools.viewreportplayer")) {
-                            onlinePlayers.sendMessage(ChatColor.AQUA + "New report from " + player.getName() + " has been received ");
+                            onlinePlayers.sendMessage(ChatColor.DARK_AQUA + "New report from "  + ChatColor.AQUA + player.getName() +ChatColor.DARK_AQUA + " has been received ");
                         }
                     }
                 } catch (SQLException throwables) {
