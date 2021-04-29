@@ -1,15 +1,10 @@
 package com.alysaa.geyseradmintools.listeners;
 
-import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
-import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
-import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import com.alysaa.geyseradmintools.forms.MainForm;
 import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.gui.ReportPlayer;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import com.alysaa.geyseradmintools.utils.ItemStackFactory;
-import org.bukkit.BanList;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,7 +19,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.UUID;
 
 
@@ -35,8 +29,8 @@ public class AdminToolInventory  implements Listener {
     PreparedStatement statement;
     {
         try {
-            statement = ReportDatabaseSetup.getConnection()
-                    .prepareStatement("DELETE FROM " + ReportDatabaseSetup.Reporttable + " WHERE UUID=?");
+            statement = DatabaseSetup.getConnection()
+                    .prepareStatement("DELETE FROM " + DatabaseSetup.Reporttable + " WHERE UUID=?");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

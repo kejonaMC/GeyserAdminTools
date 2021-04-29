@@ -1,8 +1,7 @@
 package com.alysaa.geyseradmintools.commands;
 
 import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
-import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -27,8 +26,8 @@ public class UnmuteCommand implements CommandExecutor {
                 return true;
             }
             try {
-                            PreparedStatement statement = BanDatabaseSetup.getConnection()
-                                    .prepareStatement("DELETE FROM " + MuteDatabaseSetup.Mutetable + " WHERE UUID=?");
+                            PreparedStatement statement = DatabaseSetup.getConnection()
+                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
                             statement.setString(1, target.getUniqueId().toString());
                             statement.execute();
                             player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is unmuted");

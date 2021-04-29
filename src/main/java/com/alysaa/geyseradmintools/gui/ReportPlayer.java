@@ -1,8 +1,6 @@
 package com.alysaa.geyseradmintools.gui;
 
-import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
-import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
-import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -24,16 +22,16 @@ public class ReportPlayer {
     public static void openReportMenu(Player player) {
 
         ArrayList<String> list = new ArrayList<>();
-        String query = "SELECT * FROM " + ReportDatabaseSetup.Reporttable;
-        try (Statement stmt = BanDatabaseSetup.getConnection().createStatement()) {
+        String query = "SELECT * FROM " + DatabaseSetup.Reporttable;
+        try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 list.add(rs.getString("USERNAME"));
             }
             Inventory reportgui = Bukkit.createInventory(player, 45, ChatColor.BLUE + "Report List");
             for (Player value : convert(list)) {
-                PreparedStatement statement = MuteDatabaseSetup.getConnection()
-                        .prepareStatement("SELECT * FROM " + ReportDatabaseSetup.Reporttable + " WHERE UUID=?");
+                PreparedStatement statement = DatabaseSetup.getConnection()
+                        .prepareStatement("SELECT * FROM " + DatabaseSetup.Reporttable + " WHERE UUID=?");
                 statement.setString(1, value.getUniqueId().toString());
                 ResultSet rst = statement.executeQuery();
 

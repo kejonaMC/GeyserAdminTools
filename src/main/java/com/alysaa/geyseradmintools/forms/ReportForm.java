@@ -1,9 +1,7 @@
 package com.alysaa.geyseradmintools.forms;
 
 import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
-import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
-import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -71,8 +69,8 @@ public class ReportForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + ReportDatabaseSetup.Reporttable;
-            try (Statement stmt = ReportDatabaseSetup.getConnection().createStatement()) {
+            String query = "SELECT * FROM " + DatabaseSetup.Reporttable;
+            try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
                     names.add(rs.getString("USERNAME"));
@@ -96,8 +94,8 @@ public class ReportForm {
                                         String name = names.get(clickedIndex);
                                         Player player1 = Bukkit.getPlayer(name);
                                         //MySQL code
-                                            PreparedStatement statement = ReportDatabaseSetup.getConnection()
-                                                    .prepareStatement("DELETE FROM " + ReportDatabaseSetup.Reporttable + " WHERE UUID=?");
+                                            PreparedStatement statement = DatabaseSetup.getConnection()
+                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Reporttable + " WHERE UUID=?");
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
                                             player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Reports from player "+player1.getName() +" has been deleted!");
@@ -118,8 +116,8 @@ public class ReportForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + ReportDatabaseSetup.Reporttable;
-            try (Statement stmt = ReportDatabaseSetup.getConnection().createStatement()) {
+            String query = "SELECT * FROM " + DatabaseSetup.Reporttable;
+            try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
                     names.add(rs.getString("USERNAME"));
@@ -143,8 +141,8 @@ public class ReportForm {
                                         Player player1 = Bukkit.getPlayer(name);
                                         //MySQL code
                                         try {
-                                            PreparedStatement statement = BanDatabaseSetup.getConnection()
-                                                    .prepareStatement("SELECT * FROM " + ReportDatabaseSetup.Reporttable + " WHERE UUID=?");
+                                            PreparedStatement statement = DatabaseSetup.getConnection()
+                                                    .prepareStatement("SELECT * FROM " + DatabaseSetup.Reporttable + " WHERE UUID=?");
                                             statement.setString(1, player1.getUniqueId().toString());
                                             ResultSet results = statement.executeQuery();
                                             while (results.next()) {
@@ -192,7 +190,7 @@ public class ReportForm {
                                     //database code
                                     try {
                                         String sql = "(UUID,REPORT,USERNAME) VALUES (?,?,?)";
-                                        PreparedStatement insert = ReportDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + ReportDatabaseSetup.Reporttable
+                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Reporttable
                                                 + sql);
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, report);

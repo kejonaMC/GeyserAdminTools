@@ -1,8 +1,7 @@
 package com.alysaa.geyseradmintools.commands;
 
 import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
-import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -33,7 +32,7 @@ public class MuteCommand implements CommandExecutor {
                 String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
                 String reason = args[2];
                 String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                PreparedStatement insert = BanDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + MuteDatabaseSetup.Mutetable
+                PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Mutetable
                         + sql);
                 insert.setString(1, target.getUniqueId().toString());
                 insert.setString(2, reason);

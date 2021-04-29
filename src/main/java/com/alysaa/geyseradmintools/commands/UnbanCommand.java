@@ -1,7 +1,7 @@
 package com.alysaa.geyseradmintools.commands;
 
 import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -26,8 +26,8 @@ public class UnbanCommand implements CommandExecutor {
                 for (OfflinePlayer target : Bukkit.getOfflinePlayers()) {
                     if (args[0].equalsIgnoreCase(target.getName())) {
                         try {
-                            PreparedStatement statement = BanDatabaseSetup.getConnection()
-                                    .prepareStatement("DELETE FROM " + BanDatabaseSetup.Bantable + " WHERE UUID=?");
+                            PreparedStatement statement = DatabaseSetup.getConnection()
+                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
                             statement.setString(1, target.getUniqueId().toString());
                             statement.execute();
                             player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is unbanned");

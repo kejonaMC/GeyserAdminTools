@@ -1,7 +1,7 @@
 package com.alysaa.geyseradmintools.commands;
 
 import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.database.ReportDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import com.alysaa.geyseradmintools.forms.ReportForm;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
@@ -39,7 +39,7 @@ public class ReportCommand implements CommandExecutor {
                     String report = args[1];
                 try {
                     String sql = "(UUID,REPORT,USERNAME) VALUES (?,?,?)";
-                    PreparedStatement insert = ReportDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + ReportDatabaseSetup.Reporttable
+                    PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Reporttable
                             + sql);
                     insert.setString(1, player1.getUniqueId().toString());
                     insert.setString(2, report);
