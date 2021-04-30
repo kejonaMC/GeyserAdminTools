@@ -3,6 +3,7 @@ package com.alysaa.geyseradmintools.gui.menu;
 import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import com.alysaa.geyseradmintools.gui.PaginatedMenu;
 import com.alysaa.geyseradmintools.gui.PlayerMenuUtility;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,9 +16,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-
-import static com.alysaa.geyseradmintools.gui.ReportPlayer.convert;
+import java.util.stream.Collectors;
 
 public class TicketMenu extends PaginatedMenu {
 
@@ -117,5 +118,9 @@ public class TicketMenu extends PaginatedMenu {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+    public static List<Player> convert(ArrayList<String> list)
+    {
+        return list.stream().map(Bukkit::getPlayer).filter(Objects::nonNull).collect(Collectors.toList());
     }
 }
