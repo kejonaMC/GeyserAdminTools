@@ -1,11 +1,10 @@
 package com.alysaa.geyseradmintools.forms;
 
 import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.CustomForm;
 import org.geysermc.cumulus.SimpleForm;
@@ -92,8 +91,9 @@ public class MutePlayerForm {
                                     //database code
                                     try {
                                         String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                                        PreparedStatement insert = MuteDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + MuteDatabaseSetup.Mutetable
+                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Mutetable
                                                 + sql);
+                                        assert player1 != null;
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, reason);
                                         insert.setString(3, name);
@@ -103,6 +103,7 @@ public class MutePlayerForm {
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
+                                    assert player1 != null;
                                     player1.sendMessage(ChatColor.RED + "You are Muted till " + time + " for Reason: " + reason);
                                     Gat.logger.info("Player " + player.getName() + " has muted " + player1.getName() + " till: " + time + " for reason: " + reason);
                                     player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] Player " + name + " is muted");
@@ -117,8 +118,8 @@ public class MutePlayerForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + MuteDatabaseSetup.Mutetable;
-            try (Statement stmt = MuteDatabaseSetup.getConnection().createStatement()) {
+            String query = "SELECT * FROM " + DatabaseSetup.Mutetable;
+            try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
                     names.add(rs.getString("Username"));
@@ -142,8 +143,9 @@ public class MutePlayerForm {
                                         Player player1 = Bukkit.getPlayer(name);
                                         //MySQL code
                                         try {
-                                            PreparedStatement statement = MuteDatabaseSetup.getConnection()
-                                                    .prepareStatement("DELETE FROM " + MuteDatabaseSetup.Mutetable + " WHERE UUID=?");
+                                            PreparedStatement statement = DatabaseSetup.getConnection()
+                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
+                                            assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
                                             player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] Player " + name + " is unmuted");

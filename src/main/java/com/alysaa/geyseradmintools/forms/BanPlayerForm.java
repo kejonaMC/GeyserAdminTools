@@ -1,7 +1,7 @@
 package com.alysaa.geyseradmintools.forms;
 
 import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -91,7 +91,7 @@ public class BanPlayerForm {
                                     //database code
                                     try {
                                         String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                                        PreparedStatement insert = BanDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + BanDatabaseSetup.Bantable
+                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Bantable
                                                 + sql);
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, reason);
@@ -117,8 +117,8 @@ public class BanPlayerForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + BanDatabaseSetup.Bantable;
-            try (Statement stmt = BanDatabaseSetup.getConnection().createStatement()) {
+            String query = "SELECT * FROM " + DatabaseSetup.Bantable;
+            try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
                     names.add(rs.getString("Username"));
@@ -142,8 +142,8 @@ public class BanPlayerForm {
                                         OfflinePlayer player1 = Bukkit.getOfflinePlayer(name);
                                         //MySQL code
                                         try {
-                                            PreparedStatement statement = BanDatabaseSetup.getConnection()
-                                                    .prepareStatement("DELETE FROM " + BanDatabaseSetup.Bantable + " WHERE UUID=?");
+                                            PreparedStatement statement = DatabaseSetup.getConnection()
+                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
                                             player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Player " + name + " is unbanned");

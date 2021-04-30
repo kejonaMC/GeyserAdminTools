@@ -1,6 +1,6 @@
 package com.alysaa.geyseradmintools.listeners;
 
-import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -31,8 +31,8 @@ public class AdminToolChat implements Listener {
     public void checkMute(AsyncPlayerChatEvent e) {
         UUID uuid = e.getPlayer().getUniqueId();
         try {
-            PreparedStatement statement = MuteDatabaseSetup.getConnection()
-                    .prepareStatement("SELECT * FROM " + MuteDatabaseSetup.Mutetable + " WHERE UUID=?");
+            PreparedStatement statement = DatabaseSetup.getConnection()
+                    .prepareStatement("SELECT * FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
             statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
             while (results.next()) {
@@ -45,8 +45,8 @@ public class AdminToolChat implements Listener {
                     e.getPlayer().sendMessage(ChatColor.GOLD + "You are still muted. Mute will lift on: " + enddate);
                 } else if (datadate.compareTo(currdate) < 0) {
                     try {
-                        statement = MuteDatabaseSetup.getConnection()
-                                .prepareStatement("DELETE FROM " + MuteDatabaseSetup.Mutetable + " WHERE UUID=?");
+                        statement = DatabaseSetup.getConnection()
+                                .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
                         statement.setString(1, e.getPlayer().getUniqueId().toString());
                         statement.execute();
 

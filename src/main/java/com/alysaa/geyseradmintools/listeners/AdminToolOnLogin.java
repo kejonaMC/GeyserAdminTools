@@ -1,7 +1,6 @@
 package com.alysaa.geyseradmintools.listeners;
 
-import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
-import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,8 +21,8 @@ public class AdminToolOnLogin implements Listener {
     public void checkBan(AsyncPlayerPreLoginEvent e) {
         UUID uuid = e.getUniqueId();
         try {
-            PreparedStatement statement = BanDatabaseSetup.getConnection()
-                    .prepareStatement("SELECT * FROM " + BanDatabaseSetup.Bantable + " WHERE UUID=?");
+            PreparedStatement statement = DatabaseSetup.getConnection()
+                    .prepareStatement("SELECT * FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
             statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
             while (results.next()) {
@@ -35,8 +34,8 @@ public class AdminToolOnLogin implements Listener {
                     return;
                 } else if (datadate.compareTo(currdate) < 0) {
                     try {
-                        statement = MuteDatabaseSetup.getConnection()
-                                .prepareStatement("DELETE FROM " + BanDatabaseSetup.Bantable + " WHERE UUID=?");
+                        statement = DatabaseSetup.getConnection()
+                                .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
                         statement.setString(1, e.getUniqueId().toString());
                         statement.execute();
 
@@ -54,8 +53,8 @@ public class AdminToolOnLogin implements Listener {
     public void onPlayerLogin(AsyncPlayerPreLoginEvent e) {
         UUID uuid = e.getUniqueId();
         try {
-            PreparedStatement statement = BanDatabaseSetup.getConnection()
-                    .prepareStatement("SELECT * FROM " + BanDatabaseSetup.Bantable + " WHERE UUID=?");
+            PreparedStatement statement = DatabaseSetup.getConnection()
+                    .prepareStatement("SELECT * FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
             statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
             while (results.next()) {

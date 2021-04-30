@@ -1,8 +1,7 @@
 package com.alysaa.geyseradmintools.commands;
 
 import com.alysaa.geyseradmintools.Gat;
-import com.alysaa.geyseradmintools.database.BanDatabaseSetup;
-import com.alysaa.geyseradmintools.database.MuteDatabaseSetup;
+import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -10,13 +9,14 @@ import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class MuteCommand implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String commandLabel, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "The console cannot use this command");
             return true;
@@ -33,18 +33,18 @@ public class MuteCommand implements CommandExecutor {
                 String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
                 String reason = args[2];
                 String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                PreparedStatement insert = BanDatabaseSetup.getConnection().prepareStatement("INSERT INTO " + MuteDatabaseSetup.Mutetable
+                PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Mutetable
                         + sql);
                 insert.setString(1, target.getUniqueId().toString());
                 insert.setString(2, reason);
                 insert.setString(3, target.getName());
                 insert.setString(4, time);
                 insert.executeUpdate();
-                target.sendMessage("you where muted till: " + time + "for: " + reason);
-                player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is muted");
+                target.sendMessage(ChatColor.GOLD + "You where muted till: " + ChatColor.WHITE + time + ChatColor.GOLD + "for: " + ChatColor.GOLD + reason);
+                player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Player " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + " is muted");
                 Gat.logger.info("Player " + player.getName() + " has muted " + target.getName() + " till: " + time + " for reason: " + reason);
             }catch (IllegalArgumentException | CommandException e) {
-                player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Perhaps wrong usage ? /gmute <username> <amount of days> <reason>");
+                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Perhaps wrong usage ? /gmute <username> <amount of days> <reason>");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
