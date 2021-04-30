@@ -34,6 +34,7 @@ public class TeleportForm {
                                 int clickedIndex = response.getDropdown(0);
                                 String name = names.get(clickedIndex);
                                 Player player1 = Bukkit.getPlayer(name);
+                                assert player1 != null;
                                 player.teleport(player1);
                             }));
         }

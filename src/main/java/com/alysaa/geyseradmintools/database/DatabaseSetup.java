@@ -49,16 +49,16 @@ public class DatabaseSetup {
             }
         } else {
             try {
-                File dataFolder = new File(Gat.plugin.getDataFolder(), "PlayerData.db");
-                if (!dataFolder.exists()){
-                    try {
-                        dataFolder.createNewFile();
-                    } catch (IOException e) {
-                        Gat.plugin.getLogger().log(Level.SEVERE, "File write error: PlayerData.db");
-                    }
+                File datafolder = new File(Gat.plugin.getDataFolder(), "PlayerData.db");
+                boolean status = datafolder.createNewFile();
+
+                if (status) {
+                    Gat.logger.info("SQLite file successfully created");
+                } else {
+                    Gat.logger.info("SQLite file was not created");
                 }
                 Class.forName("org.sqlite.JDBC");
-                setConnection(DriverManager.getConnection("jdbc:sqlite:" + dataFolder));
+                setConnection(DriverManager.getConnection("jdbc:sqlite:" + datafolder));
                 PreparedStatement stmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
                 PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Mutetable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
                 PreparedStatement stmt3 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Reporttable + " (UUID char(36), Report varchar(500), Username varchar(16))");

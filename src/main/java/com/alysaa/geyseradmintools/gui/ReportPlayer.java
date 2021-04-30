@@ -39,7 +39,7 @@ public class ReportPlayer {
                     String report = rst.getString("REPORT");
                     ItemStack ticket = new ItemStack(Material.PAPER, 1);
                     ItemMeta meta = ticket.getItemMeta();
-                    meta.setDisplayName(value.getName());
+                    Objects.requireNonNull(meta).setDisplayName(value.getName());
                     ArrayList<String> lore = new ArrayList<>();
                     lore.add(ChatColor.DARK_AQUA + "Reporter: " + ChatColor.AQUA + player.getName());
                     lore.add(ChatColor.DARK_AQUA + "Offender: " + ChatColor.AQUA + value.getName());

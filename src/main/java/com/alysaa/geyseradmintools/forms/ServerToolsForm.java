@@ -9,6 +9,7 @@ import org.geysermc.cumulus.response.SimpleFormResponse;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import static com.alysaa.geyseradmintools.listeners.AdminToolChat.isMuted;
@@ -51,7 +52,7 @@ public class ServerToolsForm {
                                     player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Time set on Day");
                                 }
                                 if (response.getClickedButtonId() == 3) {
-                                    Bukkit.getWorld("world").setTime(14000);
+                                    Objects.requireNonNull(Bukkit.getWorld("world")).setTime(14000);
                                     player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Time set on Night");
                                 }
                                 if (response.getClickedButtonId() == 4) {
@@ -74,7 +75,6 @@ public class ServerToolsForm {
                                     if (player.hasPermission("geyseradmintools.gadmin")) {
                                         if (!isMuted) {
                                             // Disables chat
-                                            isMuted = false;
                                             Bukkit.broadcastMessage(ChatColor.GREEN + "Chat has been unlocked by an admin! ");
                                         }
                                     }

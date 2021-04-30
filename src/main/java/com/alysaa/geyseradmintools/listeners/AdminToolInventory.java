@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -42,7 +43,7 @@ public class AdminToolInventory  implements Listener {
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
             if (config.getBoolean("DisableItemMove")) {
-                if (e.getCurrentItem().equals(starTool)) {
+                if (Objects.requireNonNull(e.getCurrentItem()).equals(starTool)) {
                     e.setCancelled(true);
                 }
             }
@@ -72,10 +73,11 @@ public class AdminToolInventory  implements Listener {
     public void onMenuClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
         try {
-        Player whoToReport = Gat.plugin.getServer().getPlayer((e.getCurrentItem().getItemMeta().getDisplayName()));
-        if (e.getView().getTitle().equalsIgnoreCase(ChatColor.BLUE + "Report List")) {
+        Player whoToReport = Gat.plugin.getServer().getPlayer((Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getDisplayName()));
+        if (e.getView().getTitle().equalsIgnoreCase("View Report Tickets")) {
                 if (e.getCurrentItem().getType() == Material.PAPER) {
                     //ReportPlayer.openPlayerMenu(player, whoToReport);
+                    assert whoToReport != null;
                     statement.setString(1, whoToReport.getUniqueId().toString());
                     statement.execute();
                     statement.close();

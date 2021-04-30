@@ -93,6 +93,7 @@ public class MutePlayerForm {
                                         String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
                                         PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Mutetable
                                                 + sql);
+                                        assert player1 != null;
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, reason);
                                         insert.setString(3, name);
@@ -102,6 +103,7 @@ public class MutePlayerForm {
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
+                                    assert player1 != null;
                                     player1.sendMessage(ChatColor.RED + "You are Muted till " + time + " for Reason: " + reason);
                                     Gat.logger.info("Player " + player.getName() + " has muted " + player1.getName() + " till: " + time + " for reason: " + reason);
                                     player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] Player " + name + " is muted");
@@ -143,6 +145,7 @@ public class MutePlayerForm {
                                         try {
                                             PreparedStatement statement = DatabaseSetup.getConnection()
                                                     .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
+                                            assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
                                             player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] Player " + name + " is unmuted");

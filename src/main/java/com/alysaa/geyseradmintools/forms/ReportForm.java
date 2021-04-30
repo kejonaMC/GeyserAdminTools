@@ -96,6 +96,7 @@ public class ReportForm {
                                         //MySQL code
                                             PreparedStatement statement = DatabaseSetup.getConnection()
                                                     .prepareStatement("DELETE FROM " + DatabaseSetup.Reporttable + " WHERE UUID=?");
+                                            assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
                                             player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Reports from player "+player1.getName() +" has been deleted!");
