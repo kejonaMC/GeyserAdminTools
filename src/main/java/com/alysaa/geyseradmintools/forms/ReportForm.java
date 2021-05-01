@@ -73,7 +73,7 @@ public class ReportForm {
             try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
-                    names.add(rs.getString("USERNAME"));
+                    names.add(rs.getString("REPORTED"));
                 }
                 rs.close();
                 String[] playerlist = names.toArray(new String[0]);
@@ -121,7 +121,7 @@ public class ReportForm {
             try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
-                    names.add(rs.getString("USERNAME"));
+                    names.add(rs.getString("REPORTED"));
                 }
                 rs.close();
                 String[] playerlist = names.toArray(new String[0]);
@@ -144,11 +144,12 @@ public class ReportForm {
                                         try {
                                             PreparedStatement statement = DatabaseSetup.getConnection()
                                                     .prepareStatement("SELECT * FROM " + DatabaseSetup.Reporttable + " WHERE UUID=?");
+                                            assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             ResultSet results = statement.executeQuery();
                                             while (results.next()) {
                                                 String report = results.getString("REPORT");
-                                                String username = results.getString("USERNAME");
+                                                String username = results.getString("REPORTED");
                                                 player.sendMessage(ChatColor.GREEN + "Player " + username + " has been reported for: " + report);
                                             }
                                         } catch (SQLException throwables) {
@@ -190,12 +191,14 @@ public class ReportForm {
                                     Player player1 = Bukkit.getPlayer(name);
                                     //database code
                                     try {
-                                        String sql = "(UUID,REPORT,USERNAME) VALUES (?,?,?)";
+                                        String sql = "(UUID,REPORT,REPORTED,REPORTING) VALUES (?,?,?,?)";
                                         PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Reporttable
                                                 + sql);
+                                        assert player1 != null;
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, report);
                                         insert.setString(3, name);
+                                        insert.setString(4, player.getName());
                                         insert.executeUpdate();
                                         // Player inserted now
                                     } catch (SQLException throwables) {

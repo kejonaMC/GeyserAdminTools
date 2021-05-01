@@ -1,5 +1,6 @@
 package com.alysaa.geyseradmintools.gui.menu;
 
+import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import com.alysaa.geyseradmintools.gui.PaginatedMenu;
 import com.alysaa.geyseradmintools.gui.PlayerMenuUtility;
@@ -45,7 +46,7 @@ public class TicketMenu extends PaginatedMenu {
         try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                list.add(rs.getString("USERNAME"));
+                list.add(rs.getString("REPORTED"));
             }
 
             if (Objects.requireNonNull(e.getCurrentItem()).getType().equals(Material.BARRIER)) {
@@ -84,7 +85,7 @@ public class TicketMenu extends PaginatedMenu {
         try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                list.add(rs.getString("USERNAME"));
+                list.add(rs.getString("REPORTED"));
             }
 
             for (int i = 0; i < getMaxItemsPerPage(); i++) {
@@ -100,12 +101,16 @@ public class TicketMenu extends PaginatedMenu {
 
                         if (rst.next()) {
                             String report = rst.getString("REPORT");
+                            String reporter = rst.getString("REPORTING");
+                            Player reportingP = Gat.plugin.getServer().getPlayer(reporter);
                             ItemStack ticket = new ItemStack(Material.PAPER, 1);
                             ItemMeta meta = ticket.getItemMeta();
                             assert meta != null;
                             meta.setDisplayName(value.getName());
                             ArrayList<String> lore = new ArrayList<>();
-                            lore.add(ChatColor.DARK_AQUA + "Offender: " + ChatColor.AQUA + value.getName());
+                            assert reportingP != null;
+                            lore.add(ChatColor.DARK_AQUA + "Submitted by: " + ChatColor.AQUA + reportingP.getName());
+                            lore.add(ChatColor.DARK_AQUA + "Reported: " + ChatColor.AQUA + value.getName());
                             lore.add(ChatColor.DARK_AQUA + "Reason: " + ChatColor.AQUA + report);
                             lore.add(ChatColor.GRAY + "Click on the ticket to remove it");
                             meta.setLore(lore);

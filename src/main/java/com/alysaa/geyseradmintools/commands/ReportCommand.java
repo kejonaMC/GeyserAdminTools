@@ -32,31 +32,40 @@ public class ReportCommand implements CommandExecutor {
                     e.printStackTrace();
                 }
             } else {
+                try {
                     Player player1 = Bukkit.getServer().getPlayer(args[0]);
                     if (player1 == null) {
                         player.sendMessage(ChatColor.RED + "[GeyserAdminTools] The player you are trying to report is not online or wrong usage of the command. /greport <Username> <What to report>");
                         return true;
                     }
-                    String report = args[1];
-                try {
-                    String sql = "(UUID,REPORT,USERNAME) VALUES (?,?,?)";
-                    PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Reporttable
-                            + sql);
-                    insert.setString(1, player1.getUniqueId().toString());
-                    insert.setString(2, report);
-                    insert.setString(3, player1.getName());
-                    insert.executeUpdate();
-                    // Player inserted now
-                    player.sendMessage(ChatColor.GREEN + "Report has been delivered");
-                    for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
-                        if (player.hasPermission("geyseradmintools.viewreportplayer")) {
-                            onlinePlayers.sendMessage(ChatColor.DARK_AQUA + "New report from "  + ChatColor.AQUA + player.getName() +ChatColor.DARK_AQUA + " has been received ");
+                    try {
+                        StringBuilder message = new StringBuilder(args[1]);
+                        for (int arg = 2; arg < args.length; arg++) {
+                            message.append(" ").append(args[arg]);
                         }
+                        String report = message.toString();
+                        String sql = "(UUID,REPORT,REPORTED,REPORTING) VALUES (?,?,?,?)";
+                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Reporttable
+                                + sql);
+                        insert.setString(1, player1.getUniqueId().toString());
+                        insert.setString(2, report);
+                        insert.setString(3, player1.getName());
+                        insert.setString(4, player.getName());
+                        insert.executeUpdate();
+                        // Player inserted now
+                        player.sendMessage(ChatColor.GREEN + "Report has been delivered");
+                        for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
+                            if (player.hasPermission("geyseradmintools.viewreportplayer")) {
+                                onlinePlayers.sendMessage(ChatColor.DARK_AQUA + "New report from " + ChatColor.AQUA + player.getName() + ChatColor.DARK_AQUA + " has been received ");
+                            }
+                        }
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
                     }
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                    return true;
+                } catch (Exception e) {
+                    player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Wrong usage of the command. /greport <Username> <What to report>");
                 }
-                return true;
             }
         } else if (sender instanceof ConsoleCommandSender) {
             Gat.plugin.getLogger().info("This command only works in-game!");

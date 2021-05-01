@@ -61,7 +61,7 @@ public class DatabaseSetup {
                 setConnection(DriverManager.getConnection("jdbc:sqlite:" + datafolder));
                 PreparedStatement stmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
                 PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Mutetable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
-                PreparedStatement stmt3 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Reporttable + " (UUID char(36), Report varchar(500), Username varchar(16))");
+                PreparedStatement stmt3 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Reporttable + " (UUID char(36), Report varchar(500), Reported varchar(16), Reporting varchar(16))");
                 stmt.execute();
                 stmt2.execute();
                 stmt3.execute();
@@ -77,7 +77,7 @@ public class DatabaseSetup {
             Statement statement = connection.createStatement();
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Mutetable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Reporttable + " (UUID char(36), Report varchar(500), Username varchar(16))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Reporttable + " (UUID char(36), Report varchar(500), Reported varchar(16), Reporting varchar(16))");
         } catch (SQLException e) {
             e.printStackTrace();
         }
