@@ -20,20 +20,7 @@ public abstract class PaginatedMenu extends Menu {
 
         inventory.setItem(50, makeItem(Material.DARK_OAK_BUTTON, ChatColor.GREEN + "Right"));
 
-        for (int i = 0; i < 10; i++) {
-            if (inventory.getItem(i) == null) {
-                inventory.setItem(i, super.FILLER_GLASS);
-            }
-        }
-
-        inventory.setItem(17, super.FILLER_GLASS);
-        inventory.setItem(18, super.FILLER_GLASS);
-        inventory.setItem(26, super.FILLER_GLASS);
-        inventory.setItem(27, super.FILLER_GLASS);
-        inventory.setItem(35, super.FILLER_GLASS);
-        inventory.setItem(36, super.FILLER_GLASS);
-
-        for (int i = 44; i < 54; i++) {
+        for (int i = 45; i < 54; i++) {
             if (inventory.getItem(i) == null) {
                 inventory.setItem(i, super.FILLER_GLASS);
             }
