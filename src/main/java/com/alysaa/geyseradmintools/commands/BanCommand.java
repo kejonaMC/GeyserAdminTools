@@ -22,16 +22,17 @@ public class BanCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if (cmd.getName().equalsIgnoreCase("gban") && player.hasPermission("geyseradmintools.gban")) {
+        if (cmd.getName().equalsIgnoreCase("gban") && player.hasPermission("geyseradmintools.banplayer")) {
             Player target = Bukkit.getServer().getPlayer(args[0]);
             if (target == null) {
                 player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Perhaps wrong usage ? /gban <username> <amount of days> <reason>");
                 return true;
             }
+            try {
             String day = args[1];
             String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
             String reason = args[2];
-            try {
+
                 String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
                 PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Bantable
                         + sql);

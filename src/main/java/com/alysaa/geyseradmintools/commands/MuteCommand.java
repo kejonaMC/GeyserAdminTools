@@ -22,7 +22,7 @@ public class MuteCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if (cmd.getName().equalsIgnoreCase("gmute") && player.hasPermission("geyseradmintools.gmute")) {
+        if (cmd.getName().equalsIgnoreCase("gmute") && player.hasPermission("geyseradmintools.muteplayer")) {
             try {
                 Player target = Bukkit.getServer().getPlayer(args[0]);
                 if (target == null) {

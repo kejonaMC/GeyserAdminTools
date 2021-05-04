@@ -42,7 +42,8 @@ public class Gat extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("gmute")).setExecutor(new MuteCommand());
         Objects.requireNonNull(this.getCommand("gunmute")).setExecutor(new UnmuteCommand());
         Objects.requireNonNull(this.getCommand("greport")).setExecutor(new ReportCommand());
-        this.getCommand("gviewreport").setExecutor(new ViewReportCommand());
+        Objects.requireNonNull(this.getCommand("gviewreport")).setExecutor(new ViewReportCommand());
+        Objects.requireNonNull(this.getCommand("gviewbans")).setExecutor(new ViewBansCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolChat(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);

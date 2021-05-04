@@ -5,9 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.*;
-import java.util.logging.Level;
 
 public class DatabaseSetup {
 
@@ -54,8 +52,6 @@ public class DatabaseSetup {
 
                 if (status) {
                     Gat.logger.info("SQLite file successfully created");
-                } else {
-                    Gat.logger.info("SQLite file was not created");
                 }
                 Class.forName("org.sqlite.JDBC");
                 setConnection(DriverManager.getConnection("jdbc:sqlite:" + datafolder));

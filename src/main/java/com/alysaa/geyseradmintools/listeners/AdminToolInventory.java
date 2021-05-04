@@ -27,11 +27,20 @@ public class AdminToolInventory  implements Listener {
 
     private static final FileConfiguration config = Gat.plugin.getConfig();
     private static final ItemStack starTool = ItemStackFactory.getStarTool();
-    PreparedStatement statement;
+    PreparedStatement reportstatement;
     {
         try {
-            statement = DatabaseSetup.getConnection()
+            reportstatement = DatabaseSetup.getConnection()
                     .prepareStatement("DELETE FROM " + DatabaseSetup.Reporttable + " WHERE UUID=?");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    PreparedStatement banstatement;
+    {
+        try {
+            banstatement = DatabaseSetup.getConnection()
+                    .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -70,7 +79,7 @@ public class AdminToolInventory  implements Listener {
     }
 
     @EventHandler
-    public void onMenuClick(InventoryClickEvent e) {
+    public void onreportMenuClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
         try {
         OfflinePlayer whoToReport = Bukkit.getOfflinePlayer((UUID.fromString(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(Gat.getPlugin(), "reporteduuid"), PersistentDataType.STRING)))));
@@ -79,9 +88,9 @@ public class AdminToolInventory  implements Listener {
             if (e.getView().getTitle().equalsIgnoreCase("View Report Tickets")) {
                 if (e.getCurrentItem().getType() == Material.PAPER) {
                     //ReportPlayer.openPlayerMenu(player, whoToReport);
-                    statement.setString(1, whoToReport.getUniqueId().toString());
-                    statement.execute();
-                    statement.close();
+                    reportstatement.setString(1, whoToReport.getUniqueId().toString());
+                    reportstatement.execute();
+                    reportstatement.close();
                     player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Reports from " + ChatColor.AQUA + whoToReport.getName() + ChatColor.DARK_AQUA +" has been deleted!");
                     e.setCancelled(true);
                     player.closeInventory();
@@ -90,6 +99,28 @@ public class AdminToolInventory  implements Listener {
             } catch (SQLException | NullPointerException exception) {
                 exception.getSuppressed();
             }
+    }
+    @EventHandler
+    public void onbanMenuClick(InventoryClickEvent e) {
+        Player player = (Player) e.getWhoClicked();
+        try {
+            OfflinePlayer whoToReport = Bukkit.getOfflinePlayer((UUID.fromString(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(Gat.getPlugin(), "banuuid"), PersistentDataType.STRING)))));
+
+
+            if (e.getView().getTitle().equalsIgnoreCase("View Banned Players")) {
+                if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
+                    //ReportPlayer.openPlayerMenu(player, whoToReport);
+                    banstatement.setString(1, whoToReport.getUniqueId().toString());
+                    banstatement.execute();
+                    banstatement.close();
+                    player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Player: " + ChatColor.AQUA + whoToReport.getName() + ChatColor.DARK_AQUA +" has been unbanned");
+                    e.setCancelled(true);
+                    player.closeInventory();
+                }
+            }
+        } catch (SQLException | NullPointerException exception) {
+            exception.getSuppressed();
+        }
     }
 }
 

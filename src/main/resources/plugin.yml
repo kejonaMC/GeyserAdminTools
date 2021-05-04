@@ -12,7 +12,7 @@ commands:
     aliases: /gadmin
   gban:
     description: ban player command for java
-    permission: geyseradmintools.gban
+    permission: geyseradmintools.banplayer
     aliases: /gban
   gunban:
     description: unban player command for java
@@ -20,7 +20,7 @@ commands:
     aliases: /gunban
   gmute:
     description: mute player command for java
-    permission: geyseradmintools.gmute
+    permission: geyseradmintools.muteplayer
     aliases: /gmute
   gunmute:
     description: unmute player command for java
@@ -28,11 +28,15 @@ commands:
     aliases: /gunmute
   greport:
     description: report command for java and bedrock
-    permission: geyseradmintools.greport
+    permission: geyseradmintools.reportplayer
     aliases: /greport
   gviewreport:
-    description: report command for java and bedrock
-    permission: geyseradmintools.gviewreport
+    description: View report gui with tickets
+    permission: geyseradmintools.viewreports
+    aliases: /gviewreport
+  gviewbans:
+    description: View ban gui with playerheads
+    permission: geyseradmintools.viewbans
     aliases: /gviewreport
 permissions:
   geyseradmintools.admintool:
@@ -54,14 +58,17 @@ permissions:
     description: Allows to open Custom Commands form
     default: op
   geyseradmintools.banplayer:
-    description: Allows to open ban form
+    description: Allows to open ban form & use gban command
     default: op
   geyseradmintools.muteplayer:
-    description: Allows to open mute form
-    default: op
-  geyseradmintools.viewreportplayer:
-    description: Allows to use view button/ticket gui
+    description: Allows to open mute form & use gmute command
     default: op
   geyseradmintools.reportplayer:
-    description: Allows to use report player java command
+    description: Allows to use report player java command & report form
+    default: op
+  geyseradmintools.viewreports:
+    description: Allows to use view button/ticket gui
+    default: op
+  geyseradmintools.viewbans:
+    description: Allows to use view bans gui
     default: op
