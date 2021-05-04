@@ -22,11 +22,12 @@ public class MuteCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
+        try {
         if (cmd.getName().equalsIgnoreCase("gmute") && player.hasPermission("geyseradmintools.muteplayer")) {
             try {
                 Player target = Bukkit.getServer().getPlayer(args[0]);
                 if (target == null) {
-                    player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Could not find player! Perhaps wrong usage ? /gmute <username> <days> <reason>");
+                    player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Could not find player! Perhaps wrong usage ? /gmute <username> <days> <reason>");
                     return true;
                 }
                 String day = args[1];
@@ -43,12 +44,14 @@ public class MuteCommand implements CommandExecutor {
                 target.sendMessage(ChatColor.GOLD + "You where muted till: " + ChatColor.WHITE + time + ChatColor.GOLD + "for: " + ChatColor.GOLD + reason);
                 player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Player " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + " is muted");
                 Gat.logger.info("Player " + player.getName() + " has muted " + target.getName() + " till: " + time + " for reason: " + reason);
-            }catch (IllegalArgumentException | CommandException e) {
-                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Perhaps wrong usage ? /gmute <username> <amount of days> <reason>");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         }
+        } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
+            player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Perhaps wrong usage ? /gmute <username> <amount of days> <reason>");
+        }
         return true;
     }
+
 }

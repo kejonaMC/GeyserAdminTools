@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,6 +22,7 @@ public class UnbanCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
+        try {
         if (cmd.getName().equalsIgnoreCase("gunban") && player.hasPermission("geyseradmintools.gunban")) {
             OfflinePlayer offplayer = Bukkit.getOfflinePlayer(args[0]);
             if (!offplayer.hasPlayedBefore()) {
@@ -40,7 +42,9 @@ public class UnbanCommand implements CommandExecutor {
                 }
             }
         }
+        } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
+                player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Wrong usage of the command. /gunban <Username>");
+        }
         return true;
     }
 }
-

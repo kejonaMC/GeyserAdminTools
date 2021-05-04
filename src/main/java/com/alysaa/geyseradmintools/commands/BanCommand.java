@@ -22,10 +22,11 @@ public class BanCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
+        try {
         if (cmd.getName().equalsIgnoreCase("gban") && player.hasPermission("geyseradmintools.banplayer")) {
             Player target = Bukkit.getServer().getPlayer(args[0]);
             if (target == null) {
-                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Perhaps wrong usage ? /gban <username> <amount of days> <reason>");
+                player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Perhaps wrong usage ? /gban <username> <amount of days> <reason>");
                 return true;
             }
             try {
@@ -41,16 +42,20 @@ public class BanCommand implements CommandExecutor {
                 insert.setString(3, target.getName());
                 insert.setString(4, time);
                 insert.executeUpdate();
-                target.kickPlayer("you where banned for: " + reason);
-                player.sendMessage("[GeyserAdminTools] Player " + target.getName() + " is banned");
+                target.kickPlayer(ChatColor.RED
+                        + "You are banned till: "+"\n" + ChatColor.WHITE + time + ChatColor.RED + "\n Reason: "
+                        + ChatColor.WHITE + reason);
+                player.sendMessage(ChatColor.GREEN+"[GeyserAdminTools] " + target.getName() + " is banned");
                 Gat.logger.info("Player " + player.getName() + " has banned " + target.getName() + " till: " + time + " for reason: " + reason);
                 //end
-            } catch (IllegalArgumentException | CommandException e) {
-                player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Perhaps wrong usage ? /gban <username> <amount of days> <reason>");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         }
+        } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
+            player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Perhaps wrong usage ? /gban <username> <amount of days> <reason>");
+        }
         return true;
     }
+
 }

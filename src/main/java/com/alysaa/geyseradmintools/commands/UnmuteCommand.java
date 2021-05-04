@@ -5,6 +5,7 @@ import com.alysaa.geyseradmintools.database.DatabaseSetup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,10 +21,11 @@ public class UnmuteCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
+        try {
         if (cmd.getName().equalsIgnoreCase("gunmute") && player.hasPermission("geyseradmintools.gunmute")) {
             Player target = Bukkit.getPlayer(args[0]);
             if (target == null) {
-                player.sendMessage(ChatColor.RED + "[GeyserAdminTools] Could not find player! Perhaps wrong usage ? /gunmute <username>");
+                player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Could not find player! Perhaps wrong usage ? /gunmute <username>");
                 return true;
             }
             try {
@@ -38,7 +40,9 @@ public class UnmuteCommand implements CommandExecutor {
                             throwables.printStackTrace();
                         }
         }
+    } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
+        player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Wrong usage of the command. /gumute <Username>");
+    }
         return true;
     }
 }
-
