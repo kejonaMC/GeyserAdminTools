@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class ReportCommand implements CommandExecutor {
@@ -44,13 +45,14 @@ public class ReportCommand implements CommandExecutor {
                             message.append(" ").append(args[arg]);
                         }
                         String report = message.toString();
-                        String sql = "(UUID,REPORT,REPORTED,REPORTING) VALUES (?,?,?,?)";
+                        String sql = "(UUID,REPORT,REPORTED,REPORTING,DATE) VALUES (?,?,?,?,?)";
                         PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Reporttable
                                 + sql);
                         insert.setString(1, player1.getUniqueId().toString());
                         insert.setString(2, report);
                         insert.setString(3, player1.getName());
                         insert.setString(4, player.getName());
+                        insert.setString(5, LocalDate.now().toString());
                         insert.executeUpdate();
                         // Player inserted now
                         player.sendMessage(ChatColor.GREEN + "Report has been delivered");

@@ -5,8 +5,7 @@ import com.alysaa.geyseradmintools.forms.MainForm;
 import com.alysaa.geyseradmintools.Gat;
 import com.alysaa.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import com.alysaa.geyseradmintools.utils.ItemStackFactory;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,6 +15,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -73,11 +73,12 @@ public class AdminToolInventory  implements Listener {
     public void onMenuClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
         try {
-        Player whoToReport = Gat.plugin.getServer().getPlayer((Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getDisplayName()));
-        if (e.getView().getTitle().equalsIgnoreCase("View Report Tickets")) {
+        OfflinePlayer whoToReport = Bukkit.getOfflinePlayer((UUID.fromString(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(Gat.getPlugin(), "reporteduuid"), PersistentDataType.STRING)))));
+
+
+            if (e.getView().getTitle().equalsIgnoreCase("View Report Tickets")) {
                 if (e.getCurrentItem().getType() == Material.PAPER) {
                     //ReportPlayer.openPlayerMenu(player, whoToReport);
-                    assert whoToReport != null;
                     statement.setString(1, whoToReport.getUniqueId().toString());
                     statement.execute();
                     statement.close();

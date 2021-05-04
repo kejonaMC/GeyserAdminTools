@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -150,7 +151,14 @@ public class ReportForm {
                                             while (results.next()) {
                                                 String report = results.getString("REPORT");
                                                 String username = results.getString("REPORTED");
-                                                player.sendMessage(ChatColor.GREEN + "Player " + username + " has been reported for: " + report);
+                                                String reporting = results.getString("REPORTING");
+                                                String date = results.getString("DATE");
+                                                player.sendMessage(ChatColor.AQUA + "#--------------------------------------------------#");
+                                                player.sendMessage(ChatColor.AQUA + "Player " + ChatColor.DARK_AQUA + reporting + ChatColor.AQUA +" has reported");
+                                                player.sendMessage(ChatColor.AQUA + "Player "+ ChatColor.DARK_AQUA+ username);
+                                                player.sendMessage(ChatColor.AQUA + "Reason for report: "+ ChatColor.DARK_AQUA + report);
+                                                player.sendMessage(ChatColor.AQUA + "Report date: "+ ChatColor.DARK_AQUA + date);
+                                                player.sendMessage(ChatColor.AQUA + "#--------------------------------------------------#");
                                             }
                                         } catch (SQLException throwables) {
                                             throwables.printStackTrace();
@@ -191,7 +199,7 @@ public class ReportForm {
                                     Player player1 = Bukkit.getPlayer(name);
                                     //database code
                                     try {
-                                        String sql = "(UUID,REPORT,REPORTED,REPORTING) VALUES (?,?,?,?)";
+                                        String sql = "(UUID,REPORT,REPORTED,REPORTING,DATE) VALUES (?,?,?,?,?)";
                                         PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Reporttable
                                                 + sql);
                                         assert player1 != null;
@@ -199,6 +207,7 @@ public class ReportForm {
                                         insert.setString(2, report);
                                         insert.setString(3, name);
                                         insert.setString(4, player.getName());
+                                        insert.setString(5, LocalDate.now().toString());
                                         insert.executeUpdate();
                                         // Player inserted now
                                     } catch (SQLException throwables) {
