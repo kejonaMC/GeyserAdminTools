@@ -1,5 +1,5 @@
 name: GeyserAdminTools
-main: com.alysaa.geyseradmintools.Gat
+main: com.projectg.geyseradmintools.Gat
 version: 1.2.0
 api-version: 1.15
 description: Geyser Plugin Addon.
