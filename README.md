@@ -16,46 +16,34 @@ you can download the plugin [our CI](https://ci.alysaa.net/job/GeyserAdminTools/
 
 ## Installation
 
-GeyserAdmintools is a spigot only plugin, just put the GeyserAdminTools jar in your servers plugins folder and restart the server. Admintools will generate a config.yml and a database file. pleqse do not remove the db file!
+GeyserAdmintools is a spigot only plugin, just put the GeyserAdminTools jar in your servers plugins folder and restart the server. Admintools will generate a config.yml and a database file. please do not remove the db file!
 
 ## Usage
 
 | Commands | Permission |
 | --- | --- |
 | `/gadmin` | `geyseradmintools.gadmin` |
-| `/gban <playername> <days> <reason>` | `geyseradmintools.gban` |
+| `/gban <playername> <days> <reason>` | `geyseradmintools.banplayer` |
 | `/gunban <playername>` | `geyseradmintools.gunban` |
-| `/gmute <playername> <days> <reason>` | `geyseradmintools.gmute` |
+| `/gmute <playername> <days> <reason>` | `geyseradmintools.muteplayer` |
 | `/gunmute <playername>` | `geyseradmintools.gunmute` |
 
-## Form Permission
+## Permission
 
-  geyseradmintools.admintools:
-    description: Allows to open admin form
-    
-  geyseradmintools.modtools:
-    description: Allows to open mod form
+| Permission | Description |
+| --- | --- |
+| `geyseradmintools.admintool` | `Allows to open admin form` |
+| `geyseradmintools.modtool` | `Allows to open mod form` |
+| `geyseradmintools.mobtool` | `Allows to open mob form` |
+| `geyseradmintools.servertool` | `Allows to open server form` |
+| `geyseradmintools.item` | `gives player admin item on join` |
+| `geyseradmintools.customcommands` | `Allows to open Custom Commands form` |
+| `geyseradmintools.banplayer` | `Allows to open ban form & use gban command` |
+| `geyseradmintools.muteplayer` | `Allows to open mute form & use gmute command` |
+| `geyseradmintools.reportplayer` | `Allows to use report player java command & report form` |
+| `geyseradmintools.viewreports` | `Allows to use view button/ticket gui` |
+| `geyseradmintools.viewbans` | `Allows to use view bans gui` |
 
-  geyseradmintools.mobtools:
-    description: Allows to open mob form
-
-  geyseradmintools.servertools:
-    description: Allows to open server form
-
-  geyseradmintools.item:
-    description: gives player admin item on join
-
-  geyseradmintools.customcommands:
-    description: Allows to open Custom Commands form
-
-  geyseradmintools.banplayer:
-    description: Allows to open ban form
-    
-  geyseradmintools.viewreportplayer:
-    description: Allows to use view and delete button
- 
-  geyseradmintools.reportplayer:
-    description: Allows to use view button
 
 
 
@@ -63,6 +51,8 @@ GeyserAdmintools is a spigot only plugin, just put the GeyserAdminTools jar in y
 [Spigot stats](https://bstats.org/plugin/bukkit/GeyserAdminTools/10943)
 
 ## Release History
+* 1.2.0
+  Added ban view and report view gui's for java players.
 * 1.1.0
   Official beta testing release. Added Mysql/SQLite support for ban/mute 
 
