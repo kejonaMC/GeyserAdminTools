@@ -27,6 +27,9 @@ GeyserAdmintools is a spigot only plugin, just put the GeyserAdminTools jar in y
 | `/gunban <playername>` | `geyseradmintools.gunban` |
 | `/gmute <playername> <days> <reason>` | `geyseradmintools.muteplayer` |
 | `/gunmute <playername>` | `geyseradmintools.gunmute` |
+| `/greport` | `geyseradmintools.geyseradmintools.reportplayer` |
+| `/gviewban` | `geyseradmintools.viewreports` |
+| `/gviewreport` | `geyseradmintools.viewbans` |
 
 ## Permission
 
