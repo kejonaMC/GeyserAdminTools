@@ -1,13 +1,11 @@
 package com.projectg.geyseradmintools;
 
-import com.alysaa.geyseradmintools.commands.*;
+import com.projectg.geyseradmintools.commands.*;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.gui.PlayerMenuUtility;
-import com.alysaa.geyseradmintools.listeners.*;
 import com.projectg.geyseradmintools.listeners.*;
 import com.projectg.geyseradmintools.utils.ItemStackFactory;
 import com.projectg.geyseradmintools.utils.bstats.Metrics;
-import com.projectg.geyseradmintools.commands.*;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
