@@ -29,6 +29,7 @@ public class ModToolsForm {
                             .button("Clear Inventory")//7
                             .button("Ban/Unban player")
                             .button("Mute/Unmute player")
+                            .button("Report Tools")
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -73,8 +74,8 @@ public class ModToolsForm {
                                     }
                                 }
                                 if (response.getClickedButtonId() == 8) {
-                                    if (player.hasPermission("geyseradmintools.viewreportplayer")) {
-                                    ReportForm.reportList(player);
+                                    if (player.hasPermission("geyseradmintools.viewreports")) {
+                                        ReportForm.reportList(player);
                                     }
                                 }
                             }));

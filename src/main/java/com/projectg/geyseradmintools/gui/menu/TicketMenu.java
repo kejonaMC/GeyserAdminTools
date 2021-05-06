@@ -74,7 +74,7 @@ public class TicketMenu extends PaginatedMenu {
 
     @Override
     public void setMenuItems() {
-
+        Runnable runnable = () -> {
         addMenuBorder();
 
         ArrayList<String> list = new ArrayList<>();
@@ -122,5 +122,8 @@ public class TicketMenu extends PaginatedMenu {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 }

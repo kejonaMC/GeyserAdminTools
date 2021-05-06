@@ -49,14 +49,14 @@ public class ReportForm {
                                     }
                                 }
                                 if (response.getClickedButtonId() == 1) {
-                                    if (player.hasPermission("geyseradmintools.viewreportplayer")) {
+                                    if (player.hasPermission("geyseradmintools.viewreports")) {
                                         viewReportPlayers(player);
                                     } else {
                                         player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to Use this button!");
                                     }
                                 }
                                 if (response.getClickedButtonId() == 2) {
-                                    if (player.hasPermission("geyseradmintools.viewreportplayer")) {
+                                    if (player.hasPermission("geyseradmintools.viewreports")) {
                                         deleteReportPlayers(player);
                                     } else {
                                         player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to Use this button!");

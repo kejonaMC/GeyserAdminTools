@@ -74,52 +74,56 @@ public class BanMenu extends PaginatedMenu {
 
     @Override
     public void setMenuItems() {
+        Runnable runnable = () -> {
 
-        addMenuBorder();
+            addMenuBorder();
 
-        ArrayList<String> list = new ArrayList<>();
-        String query = "SELECT * FROM " + DatabaseSetup.Bantable;
-        try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                list.add(rs.getString("USERNAME"));
-            }
+            ArrayList<String> list = new ArrayList<>();
+            String query = "SELECT * FROM " + DatabaseSetup.Bantable;
+            try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    list.add(rs.getString("USERNAME"));
+                }
 
-            for (int i = 0; i < getMaxItemsPerPage(); i++) {
-                index = getMaxItemsPerPage() * page + i;
-                if (index >= list.size()) break;
-                if (list.get(index) != null) {
+                for (int i = 0; i < getMaxItemsPerPage(); i++) {
+                    index = getMaxItemsPerPage() * page + i;
+                    if (index >= list.size()) break;
+                    if (list.get(index) != null) {
 
 
-                    for (@NotNull OfflinePlayer op : Bukkit.getServer().getOfflinePlayers()) {
-                        PreparedStatement statement = DatabaseSetup.getConnection()
-                                .prepareStatement("SELECT * FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
-                        statement.setString(1, op.getUniqueId().toString());
-                        ResultSet rst = statement.executeQuery();
+                        for (@NotNull OfflinePlayer op : Bukkit.getServer().getOfflinePlayers()) {
+                            PreparedStatement statement = DatabaseSetup.getConnection()
+                                    .prepareStatement("SELECT * FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
+                            statement.setString(1, op.getUniqueId().toString());
+                            ResultSet rst = statement.executeQuery();
 
-                        if (rst.next()) {
-                            String report = rst.getString("REASON");
-                            String date = rst.getString("ENDDATE");
-                            ItemStack banned = new ItemStack(Material.PLAYER_HEAD, 1);
-                            SkullMeta sm = (SkullMeta) banned.getItemMeta();
-                            assert sm != null;
-                            sm.setOwningPlayer(op);
-                            sm.setDisplayName("Banned Player");
-                            ArrayList<String> lore = new ArrayList<>();
-                            sm.getPersistentDataContainer().set(new NamespacedKey(Gat.getPlugin(), "banuuid"), PersistentDataType.STRING, op.getUniqueId().toString());
-                            lore.add(ChatColor.DARK_AQUA + "Banned player: " + ChatColor.AQUA + op.getName());
-                            lore.add(ChatColor.DARK_AQUA + "Ban reason: " + ChatColor.AQUA + report);
-                            lore.add(ChatColor.DARK_AQUA + "Banned till: " + ChatColor.AQUA + date);
-                            lore.add(ChatColor.WHITE + "Click on head to manually lift ban");
-                            sm.setLore(lore);
-                            banned.setItemMeta(sm);
-                            inventory.addItem(banned);
+                            if (rst.next()) {
+                                String report = rst.getString("REASON");
+                                String date = rst.getString("ENDDATE");
+                                ItemStack banned = new ItemStack(Material.PLAYER_HEAD, 1);
+                                SkullMeta sm = (SkullMeta) banned.getItemMeta();
+                                assert sm != null;
+                                sm.setOwningPlayer(op);
+                                sm.setDisplayName("Banned Player");
+                                ArrayList<String> lore = new ArrayList<>();
+                                sm.getPersistentDataContainer().set(new NamespacedKey(Gat.getPlugin(), "banuuid"), PersistentDataType.STRING, op.getUniqueId().toString());
+                                lore.add(ChatColor.DARK_AQUA + "Banned player: " + ChatColor.AQUA + op.getName());
+                                lore.add(ChatColor.DARK_AQUA + "Ban reason: " + ChatColor.AQUA + report);
+                                lore.add(ChatColor.DARK_AQUA + "Banned till: " + ChatColor.AQUA + date);
+                                lore.add(ChatColor.WHITE + "Click on head to manually lift ban");
+                                sm.setLore(lore);
+                                banned.setItemMeta(sm);
+                                inventory.addItem(banned);
+                            }
                         }
                     }
                 }
+            } catch (SQLException exception) {
+                exception.printStackTrace();
             }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 }
