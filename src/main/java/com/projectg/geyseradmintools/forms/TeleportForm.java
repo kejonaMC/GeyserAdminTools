@@ -1,5 +1,6 @@
 package com.projectg.geyseradmintools.forms;
 
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -23,8 +24,8 @@ public class TeleportForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     CustomForm.builder()
-                            .title("Teleport to player")
-                            .dropdown("Select Player", playerlist)
+                            .title(Messages.get("teleport.form.title"))
+                            .dropdown(Messages.get("teleport.form.dropdown"), playerlist)
                             .responseHandler((form, responseData) -> {
                                 CustomFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {

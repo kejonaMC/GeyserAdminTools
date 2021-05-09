@@ -1,5 +1,6 @@
 package com.projectg.geyseradmintools.forms;
 
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -19,17 +20,17 @@ public class ModToolsForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title("Mod Tools")
-                            .content("List of Mod Tools")
-                            .button("Gamemode Survival")//2
-                            .button("Gamemode Spectator")//3
-                            .button("Player Teleport")
-                            .button("Vanish")//4
-                            .button("Fly")//6
-                            .button("Clear Inventory")//7
-                            .button("Ban/Unban player")
-                            .button("Mute/Unmute player")
-                            .button("Report Tools")
+                            .title(Messages.get("mod.form.title"))
+                            .content(Messages.get("mod.form.content"))
+                            .button(Messages.get("mod.form.button1"))//2
+                            .button(Messages.get("mod.form.button2"))//3
+                            .button(Messages.get("mod.form.button3"))
+                            .button(Messages.get("mod.form.button4"))//4
+                            .button(Messages.get("mod.form.button5"))//6
+                            .button(Messages.get("mod.form.button6"))//7
+                            .button(Messages.get("mod.form.button7"))
+                            .button(Messages.get("mod.form.button8"))
+                            .button(Messages.get("mod.form.button9"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -38,44 +39,46 @@ public class ModToolsForm {
                                 }
                                 if (response.getClickedButtonId() == 0) {
                                     player.setGameMode(GameMode.SURVIVAL);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Gamemode set on Survival");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.gamemode.survival"));
                                 }
                                 if (response.getClickedButtonId() == 1) {
                                     player.setGameMode(GameMode.SPECTATOR);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Gamemode set in Spectator");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.gamemode.spectator"));
                                 }
                                 if (response.getClickedButtonId() == 2) {
                                     TeleportForm.tpPlayer(player);
                                 }
                                 if (response.getClickedButtonId() == 3) {
                                     player.hidePlayer(player);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Vanish Enabled");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.vanish"));
                                 }
                                 if (response.getClickedButtonId() == 4) {
                                     player.setAllowFlight(true);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Flying enabled");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.fly"));
                                 }
                                 if (response.getClickedButtonId() == 5) {
                                     player.getInventory().clear();
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Inventory cleared");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.inv.clear"));
                                 }
                                 if (response.getClickedButtonId() == 6) {
                                     if (player.hasPermission("geyseradmintools.banplayer")) {
                                         BanPlayerForm.banList(player);
                                     }
                                 }
-                                else {  player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
+                                else {  player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                 }
                                 if (response.getClickedButtonId() == 7) {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         MutePlayerForm.MuteList(player);
                                     }
-                                    else {  player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
+                                    else {  player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
                                 }
                                 if (response.getClickedButtonId() == 8) {
                                     if (player.hasPermission("geyseradmintools.viewreports")) {
                                         ReportForm.reportList(player);
+                                    }
+                                    else {  player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
                                 }
                             }));

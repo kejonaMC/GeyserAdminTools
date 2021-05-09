@@ -2,6 +2,7 @@ package com.projectg.geyseradmintools.forms;
 
 import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,9 +32,9 @@ public class MutePlayerForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title("Mute/Unmute Tool")
-                            .button("Mute Player")
-                            .button("Unmute Player")
+                            .title(Messages.get("main.mute.form.title"))
+                            .button(Messages.get("main.mute.form.button1"))
+                            .button(Messages.get("main.mute.form.button2"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -44,14 +45,14 @@ public class MutePlayerForm {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         MutePlayers(player);
                                     } else {
-                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
+                                        player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
                                 }
                                 if (response.getClickedButtonId() == 1) {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         unMutePlayers(player);
                                     } else {
-                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
+                                        player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
                                 }
                             }));
@@ -67,10 +68,10 @@ public class MutePlayerForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
-                                .title("Mute tool")
-                                .dropdown("Select Player", playerlist)
-                                .input("Day's Muted")
-                                .input("Mute Reason")
+                                .title(Messages.get("mute.mute.form.title"))
+                                .dropdown(Messages.get("mute.mute.form.dropdown"), playerlist)
+                                .input(Messages.get("mute.mute.form.input1"))
+                                .input(Messages.get("mute.mute.form.input2"))
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -82,7 +83,7 @@ public class MutePlayerForm {
                                     try {
                                         time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
                                     } catch (NumberFormatException | NullPointerException e) {
-                                        player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] wrong usage ! <username> <amount of days> <reason>");
+                                        player.sendMessage(ChatColor.YELLOW + Messages.get("mute.input.error"));
                                         return;
                                     }
                                     String reason = response.getInput(2);
@@ -104,9 +105,9 @@ public class MutePlayerForm {
                                         throwables.printStackTrace();
                                     }
                                     assert player1 != null;
-                                    player1.sendMessage(ChatColor.RED + "You are Muted till " + time + " for Reason: " + reason);
-                                    Gat.logger.info("Player " + player.getName() + " has muted " + player1.getName() + " till: " + time + " for reason: " + reason);
-                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] Player " + name + " is muted");
+                                    player1.sendMessage(ChatColor.RED + Messages.get("mute.mute.form.player.message1") + time);
+                                    player1.sendMessage(ChatColor.RED + Messages.get("mute.mute.form.player.message2") + reason);
+                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] " + name + Messages.get("mute.mute.form.player.message3"));
                                     //end
                                 }));
             }
@@ -131,8 +132,8 @@ public class MutePlayerForm {
                     FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                     fplayer.sendForm(
                             CustomForm.builder()
-                                    .title("unmute tool")
-                                    .dropdown("Select Player to unmute", playerlist)
+                                    .title(Messages.get("Unmute.mute.form.title"))
+                                    .dropdown(Messages.get("Unmute.mute.form.dropdown"), playerlist)
                                     .responseHandler((form, responseData) -> {
                                         CustomFormResponse response = form.parseResponse(responseData);
                                         if (!response.isCorrect()) {
@@ -148,8 +149,8 @@ public class MutePlayerForm {
                                             assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
-                                            player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] Player " + name + " is unmuted");
-                                            player1.sendMessage(ChatColor.GOLD + "Your mute has been lifted by an admin!");
+                                            player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] " + name + Messages.get("Unmute.mute.form.player.message1"));
+                                            player1.sendMessage(ChatColor.GOLD + Messages.get("Unmute.mute.form.player.message2"));
 
                                         } catch (SQLException exe) {
                                             exe.printStackTrace();

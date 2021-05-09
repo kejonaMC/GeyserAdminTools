@@ -1,5 +1,6 @@
 package com.projectg.geyseradmintools.forms;
 
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -21,19 +22,19 @@ public class AdminToolsForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title("Admin Tools")
-                            .content("List of Admin Tools")
-                            .button("Gamemode Creative")//1
-                            .button("Gamemode Survival")//2
-                            .button("Gamemode Spectator")//3
-                            .button("Player Teleport")
-                            .button("Vanish")//4
-                            .button("God Mode")//5
-                            .button("Fly")//6
-                            .button("Clear Inventory")//7
-                            .button("Ban/Unban Player")
-                            .button("Mute/Unmute Player")
-                            .button("Report Tools")
+                            .title(ChatColor.DARK_AQUA + Messages.get("admin.form.title"))
+                            .content(ChatColor.ITALIC + Messages.get("admin.form.content"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("admin.form.button1"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("admin.form.button2"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("admin.form.button3"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("admin.form.button4"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("admin.form.button5"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("admin.form.button6"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("admin.form.button7"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("admin.form.button8"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("admin.form.button9"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("admin.form.button10"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("admin.form.button11"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -42,15 +43,15 @@ public class AdminToolsForm {
                                 }
                                 if (response.getClickedButtonId() == 0) {
                                     player.setGameMode(GameMode.CREATIVE);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Gamemode set on Creative");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.gamemode.creative"));
                                 }
                                 if (response.getClickedButtonId() == 1) {
                                     player.setGameMode(GameMode.SURVIVAL);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Gamemode set on Survival");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.gamemode.survival"));
                                 }
                                 if (response.getClickedButtonId() == 2) {
                                     player.setGameMode(GameMode.SPECTATOR);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Gamemode set in Spectator");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.gamemode.spectator"));
                                 }
                                 if (response.getClickedButtonId() == 3) {
                                     TeleportForm.tpPlayer(player);
@@ -58,20 +59,20 @@ public class AdminToolsForm {
                                 if (response.getClickedButtonId() == 4) {
                                     for (Player target : Bukkit.getOnlinePlayers()) {
                                         target.hidePlayer(player);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Vanish Enabled");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.vanish"));
                                     }
                                 }
                                 if (response.getClickedButtonId() == 5) {
                                     player.setInvulnerable(true);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] God mode enabled");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.godmode"));
                                 }
                                 if (response.getClickedButtonId() == 6) {
                                     player.setAllowFlight(true);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Flying enabled");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.fly"));
                                 }
                                 if (response.getClickedButtonId() == 7) {
                                     player.getInventory().clear();
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Inventory cleared");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.inv.clear"));
                                 }
                                 if (response.getClickedButtonId() == 8) {
                                     BanPlayerForm.banList(player);

@@ -1,6 +1,7 @@
 package com.projectg.geyseradmintools.listeners;
 
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -42,7 +43,7 @@ public class AdminToolChat implements Listener {
                 Date currdate = new SimpleDateFormat("yyyy-MM-dd").parse(curdate);
                 if (datadate.compareTo(currdate) > 0) {
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage(ChatColor.GOLD + "You are still muted. Mute will lift on: " + enddate);
+                    e.getPlayer().sendMessage(ChatColor.GOLD + Messages.get("mute.join.text1") + enddate);
                 } else if (datadate.compareTo(currdate) < 0) {
                     try {
                         statement = DatabaseSetup.getConnection()

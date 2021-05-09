@@ -1,5 +1,6 @@
 package com.projectg.geyseradmintools.forms;
 
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -27,12 +28,12 @@ public class MobsToolsForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title("Mobs Tools")
-                            .content("List of Mobs")
-                            .button("Passive Mobs")
-                            .button("Aggressive Mobs")
-                            .button("Boss Mobs")
-                            .button("Kill all Mobs")
+                            .title(Messages.get("mob.form.title"))
+                            .content(Messages.get("mob.form.content"))
+                            .button(Messages.get("mob.form.button1"))
+                            .button(Messages.get("mob.form.button2"))
+                            .button(Messages.get("mob.form.button3"))
+                            .button(Messages.get("mob.form.button4"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -74,9 +75,18 @@ public class MobsToolsForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
-                                .title("Aggressive Mobs Spawning")
-                                .dropdown("Spawn Mobs", "Zombie", "Skeleton", "Spider", "Creeper", "Blaze", "Vex", "Wither Skeleton", "Slime", "Ghast")
-                                .input("Amount of mobs")
+                                .title(Messages.get("agro.mob.form.title"))
+                                .dropdown(Messages.get("agro.mob.form.dropdown")
+                                        , Messages.get("agro.mob.form.mob1")
+                                        , Messages.get("agro.mob.form.mob2")
+                                        , Messages.get("agro.mob.form.mob3")
+                                        , Messages.get("agro.mob.form.mob4")
+                                        , Messages.get("agro.mob.form.mob5")
+                                        , Messages.get("agro.mob.form.mob6")
+                                        , Messages.get("agro.mob.form.mob7")
+                                        , Messages.get("agro.mob.form.mob8")
+                                        , Messages.get("agro.mob.form.mob9"))
+                                .input(Messages.get("agro.mob.form.input"))
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -87,7 +97,7 @@ public class MobsToolsForm {
                                     try {
                                         in[0] = Integer.parseInt(s);
                                     }catch (NumberFormatException e) {
-                                        player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Could not spawn entity due to wrong usage");
+                                        player.sendMessage(ChatColor.YELLOW + Messages.get("mob.input.error"));
                                     }
                                     if (response.getDropdown(0) == 0) {
                                         for (int i = 0; i < in[0]; i++) {
@@ -151,9 +161,24 @@ public class MobsToolsForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
-                                .title("Passive Mobs Spawning")
-                                .dropdown("Spawn Mobs", "Pig", "Chicken", "Cow", "Horse", "Sheep", "Rabbit", "Donkey", "Bat", "Wolf", "Snowman", "Villager", "Squid", "Parrot", "Polar Bear", "Mushroom Cow")
-                                .input("Amount of mobs")
+                                .title(Messages.get("nonagro.mob.form.title"))
+                                .dropdown(Messages.get("nonagro.mob.form.dropdown")
+                                        , Messages.get("nonagro.mob.form.mob1")
+                                        , Messages.get("nonagro.mob.form.mob2")
+                                        , Messages.get("nonagro.mob.form.mob3")
+                                        , Messages.get("nonagro.mob.form.mob4")
+                                        , Messages.get("nonagro.mob.form.mob5")
+                                        , Messages.get("nonagro.mob.form.mob6")
+                                        , Messages.get("nonagro.mob.form.mob7")
+                                        , Messages.get("nonagro.mob.form.mob8")
+                                        , Messages.get("nonagro.mob.form.mob9")
+                                        , Messages.get("nonagro.mob.form.mob10")
+                                        , Messages.get("nonagro.mob.form.mob11")
+                                        , Messages.get("nonagro.mob.form.mob12")
+                                        , Messages.get("nonagro.mob.form.mob13")
+                                        , Messages.get("nonagro.mob.form.mob14")
+                                        , Messages.get("nonagro.mob.form.mob15"))
+                                .input(Messages.get("nonagro.mob.form.input"))
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -164,7 +189,7 @@ public class MobsToolsForm {
                                     try {
                                         in[0] = Integer.parseInt(s);
                                     }catch (NumberFormatException e) {
-                                        player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Could not spawn entity due to wrong usage");
+                                        player.sendMessage(ChatColor.YELLOW + Messages.get("mob.input.error"));
                                     }
                                     if (response.getDropdown(0) == 0) {
                                         for (int i = 0; i < in[0]; i++) {
@@ -259,9 +284,12 @@ public class MobsToolsForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
-                                .title("Boss Mobs Spawning")
-                                .dropdown("Spawn Mobs", "Ender Dragon", "Wither", "Guardians")
-                                .input("Amount of mobs")
+                                .title(Messages.get("boss.mob.form.title"))
+                                .dropdown(Messages.get("boss.mob.form.dropdown")
+                                        , Messages.get("boss.mob.form.mob1")
+                                        , Messages.get("boss.mob.form.mob2")
+                                        , Messages.get("boss.mob.form.mob3"))
+                                .input(Messages.get("boss.mob.form.input"))
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -276,7 +304,7 @@ public class MobsToolsForm {
                                     try {
                                         in[0] = Integer.parseInt(s);
                                     }catch (NumberFormatException e) {
-                                        player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] Could not spawn entity due to wrong usage");
+                                        player.sendMessage(ChatColor.YELLOW + Messages.get("mob.input.error"));
                                     }
                                     if (response.getDropdown(0) == 0) {
                                         for (int i = 0; i < in[0]; i++) {

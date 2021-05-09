@@ -4,6 +4,7 @@ import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.gui.PaginatedMenu;
 import com.projectg.geyseradmintools.gui.PlayerMenuUtility;
+import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -53,7 +54,7 @@ public class TicketMenu extends PaginatedMenu {
             } else if (e.getCurrentItem().getType().equals(Material.DARK_OAK_BUTTON)) {
                 if (ChatColor.stripColor(Objects.requireNonNull(e.getCurrentItem().getItemMeta()).getDisplayName()).equalsIgnoreCase("Left")) {
                     if (page == 0) {
-                        p.sendMessage(ChatColor.GRAY + "You are already on the first page.");
+                        p.sendMessage(ChatColor.GRAY + Messages.get("gui.player.message1"));
                     } else {
                         page = page - 1;
                         super.open();
@@ -63,7 +64,7 @@ public class TicketMenu extends PaginatedMenu {
                         page = page + 1;
                         super.open();
                     } else {
-                        p.sendMessage(ChatColor.GRAY + "You are on the last page.");
+                        p.sendMessage(ChatColor.GRAY + Messages.get("gui.player.message2"));
                     }
                 }
             }
@@ -104,14 +105,14 @@ public class TicketMenu extends PaginatedMenu {
                             ItemStack ticket = new ItemStack(Material.PAPER, 1);
                             ItemMeta meta = ticket.getItemMeta();
                             assert meta != null;
-                            meta.setDisplayName("Report Ticket");
+                            meta.setDisplayName(Messages.get("report.gui.text1"));
                             ArrayList<String> lore = new ArrayList<>();
                             meta.getPersistentDataContainer().set(new NamespacedKey(Gat.getPlugin(), "reporteduuid"), PersistentDataType.STRING, op.getUniqueId().toString());
-                            lore.add(ChatColor.DARK_AQUA + "Reporting player: " + ChatColor.AQUA + reporting );
-                            lore.add(ChatColor.DARK_AQUA + "Reported player: " + ChatColor.AQUA + op.getName());
-                            lore.add(ChatColor.DARK_AQUA + "Report reason: " + ChatColor.AQUA + report);
-                            lore.add(ChatColor.DARK_AQUA + "Report date: " + ChatColor.AQUA + date);
-                            lore.add(ChatColor.WHITE + "Click on the ticket to remove it");
+                            lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text2") + ChatColor.AQUA + reporting );
+                            lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text3") + ChatColor.AQUA + op.getName());
+                            lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text4") + ChatColor.AQUA + report);
+                            lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text5") + ChatColor.AQUA + date);
+                            lore.add(ChatColor.WHITE + Messages.get("report.gui.text6"));
                             meta.setLore(lore);
                             ticket.setItemMeta(meta);
                             inventory.addItem(ticket);

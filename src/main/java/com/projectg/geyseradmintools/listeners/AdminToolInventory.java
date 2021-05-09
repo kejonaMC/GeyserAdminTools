@@ -3,6 +3,7 @@ package com.projectg.geyseradmintools.listeners;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.forms.MainForm;
 import com.projectg.geyseradmintools.Gat;
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import com.projectg.geyseradmintools.utils.ItemStackFactory;
 import org.bukkit.*;
@@ -91,7 +92,7 @@ public class AdminToolInventory  implements Listener {
                     reportstatement.setString(1, whoToReport.getUniqueId().toString());
                     reportstatement.execute();
                     reportstatement.close();
-                    player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Reports from " + ChatColor.AQUA + whoToReport.getName() + ChatColor.DARK_AQUA +" has been deleted!");
+                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("remove.ticket.event") + ChatColor.AQUA + whoToReport.getName());
                     e.setCancelled(true);
                     player.closeInventory();
                 }
@@ -113,7 +114,7 @@ public class AdminToolInventory  implements Listener {
                     banstatement.setString(1, whoToReport.getUniqueId().toString());
                     banstatement.execute();
                     banstatement.close();
-                    player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Player: " + ChatColor.AQUA + whoToReport.getName() + ChatColor.DARK_AQUA +" has been unbanned");
+                    player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] " + ChatColor.AQUA + whoToReport.getName() + ChatColor.DARK_AQUA +Messages.get("unban.join.event"));
                     e.setCancelled(true);
                     player.closeInventory();
                 }

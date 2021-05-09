@@ -2,6 +2,7 @@ package com.projectg.geyseradmintools.forms;
 
 import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,10 +32,10 @@ public class ReportForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title("Report Tool")
-                            .button("Report player")
-                            .button("View reports")
-                            .button("Delete reports")
+                            .title(Messages.get("main.report.form.title"))
+                            .button(Messages.get("main.report.form.button1"))
+                            .button(Messages.get("main.report.form.button2"))
+                            .button(Messages.get("main.report.form.button3"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -45,21 +46,21 @@ public class ReportForm {
                                     if (player.hasPermission("geyseradmintools.reportplayer")) {
                                         reportPlayers(player);
                                     } else {
-                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to Use this button!");
+                                        player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
                                 }
                                 if (response.getClickedButtonId() == 1) {
                                     if (player.hasPermission("geyseradmintools.viewreports")) {
                                         viewReportPlayers(player);
                                     } else {
-                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to Use this button!");
+                                        player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
                                 }
                                 if (response.getClickedButtonId() == 2) {
                                     if (player.hasPermission("geyseradmintools.viewreports")) {
                                         deleteReportPlayers(player);
                                     } else {
-                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to Use this button!");
+                                        player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
                                 }
                             }));
@@ -83,8 +84,8 @@ public class ReportForm {
                     FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                     fplayer.sendForm(
                             CustomForm.builder()
-                                    .title("View reports")
-                                    .dropdown("Select Player to view info", playerlist)
+                                    .title(Messages.get("delete.report.form.title"))
+                                    .dropdown(Messages.get("delete.report.form.dropdown"), playerlist)
                                     .responseHandler((form, responseData) -> {
                                         CustomFormResponse response = form.parseResponse(responseData);
                                         if (!response.isCorrect()) {
@@ -100,14 +101,15 @@ public class ReportForm {
                                             assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
-                                            player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Reports from player "+player1.getName() +" has been deleted!");
+                                            player.sendMessage(ChatColor.GREEN + Messages.get("delete.report.form.player.message1") + player1.getName()
+                                            );
                                         } catch (SQLException | IndexOutOfBoundsException e) {
-                                            player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] wrong usage !");
+                                            player.sendMessage(ChatColor.YELLOW + Messages.get("report.input.error"));
                                         }
                                     }));
                 }
             } catch (SQLException | IndexOutOfBoundsException e) {
-                player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] wrong usage !");
+                player.sendMessage(ChatColor.YELLOW + Messages.get("report.input.error"));
             }
         };
         Thread thread = new Thread(runnable);
@@ -131,8 +133,8 @@ public class ReportForm {
                     FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                     fplayer.sendForm(
                             CustomForm.builder()
-                                    .title("View reports")
-                                    .dropdown("Select Player to view info", playerlist)
+                                    .title(Messages.get("view.report.form.title"))
+                                    .dropdown(Messages.get("view.report.form.dropdown"), playerlist)
                                     .responseHandler((form, responseData) -> {
                                         CustomFormResponse response = form.parseResponse(responseData);
                                         if (!response.isCorrect()) {
@@ -154,10 +156,9 @@ public class ReportForm {
                                                 String reporting = results.getString("REPORTING");
                                                 String date = results.getString("DATE");
                                                 player.sendMessage(ChatColor.AQUA + "#--------------------------------------------------#");
-                                                player.sendMessage(ChatColor.AQUA + "Player " + ChatColor.DARK_AQUA + reporting + ChatColor.AQUA +" has reported");
-                                                player.sendMessage(ChatColor.AQUA + "Player "+ ChatColor.DARK_AQUA+ username);
-                                                player.sendMessage(ChatColor.AQUA + "Reason for report: "+ ChatColor.DARK_AQUA + report);
-                                                player.sendMessage(ChatColor.AQUA + "Report date: "+ ChatColor.DARK_AQUA + date);
+                                                player.sendMessage(ChatColor.DARK_AQUA + reporting + ChatColor.AQUA + Messages.get("view.report.form.player.message1") + ChatColor.DARK_AQUA+ username);
+                                                player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message2") + ChatColor.DARK_AQUA + report);
+                                                player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message3") + ChatColor.DARK_AQUA + date);
                                                 player.sendMessage(ChatColor.AQUA + "#--------------------------------------------------#");
                                             }
                                         } catch (SQLException throwables) {
@@ -185,9 +186,9 @@ public class ReportForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
-                                .title("Report tool")
-                                .dropdown("Select Player", playerlist)
-                                .input("Report Reason")
+                                .title(Messages.get("report.report.form.title"))
+                                .dropdown(Messages.get("report.report.form.dropdown"), playerlist)
+                                .input(Messages.get("report.report.form.input"))
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -213,11 +214,10 @@ public class ReportForm {
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
-                                    Gat.logger.info("New report from " + player.getName() + " has been received ");
-                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] Player " + name + " has been reported");
+                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] " + name + Messages.get("report.report.form.player.message1"));
                                     for (Player onlinePlayers : Bukkit.getOnlinePlayers()){
                                         if (player.hasPermission("geyseradmintools.viewreportplayer")) {
-                                        onlinePlayers.sendMessage(ChatColor.AQUA +"New report from " + player.getName() + " has been received ");
+                                        onlinePlayers.sendMessage(ChatColor.AQUA + Messages.get("report.report.form.player.message2") + player.getName());
                                         }
                                     }
                                     //end

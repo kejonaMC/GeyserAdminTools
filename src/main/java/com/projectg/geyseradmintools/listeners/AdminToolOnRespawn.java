@@ -1,6 +1,7 @@
 package com.projectg.geyseradmintools.listeners;
 
 import com.projectg.geyseradmintools.Gat;
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import com.projectg.geyseradmintools.utils.ItemStackFactory;
 import org.bukkit.ChatColor;
@@ -43,7 +44,7 @@ public class AdminToolOnRespawn implements Listener {
             }
         }
         if (!success) {
-            e.getPlayer().sendMessage(ChatColor.RED + "Make room in your hotbar for the star tool!");
+            e.getPlayer().sendMessage(ChatColor.RED + Messages.get("item.join.text1"));
         }
     }
 }

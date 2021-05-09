@@ -3,6 +3,7 @@ package com.projectg.geyseradmintools;
 import com.projectg.geyseradmintools.commands.*;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.gui.PlayerMenuUtility;
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.listeners.*;
 import com.projectg.geyseradmintools.utils.ItemStackFactory;
 import com.projectg.geyseradmintools.utils.bstats.Metrics;
@@ -13,8 +14,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -25,8 +25,6 @@ public class Gat extends JavaPlugin {
     public static Logger logger;
     private static final HashMap<Player, PlayerMenuUtility> playerMenuUtilityMap = new HashMap<>();
 
-
-
     @Override
     public void onEnable(){
         new Metrics(this, 10943);
@@ -34,6 +32,7 @@ public class Gat extends JavaPlugin {
         logger = getLogger();
         new DatabaseSetup().mysqlSetup();
         createFiles();
+        Messages.init();
         checkConfigVer();
         ItemStackFactory.createStarTool();
         Objects.requireNonNull(this.getCommand("gadmin")).setExecutor(new FormCommand());

@@ -1,6 +1,7 @@
 package com.projectg.geyseradmintools.forms;
 
 import com.projectg.geyseradmintools.Gat;
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,14 +23,14 @@ public class MainForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title("AdminTools")
-                            .content("List of Tools")
-                            .button("Admin Tools")
-                            .button("Mod Tools")
-                            .button(Gat.plugin.getConfig().getString("CommandsForm.ButtonMainMenu"))
-                            .button("Mobs Tools")
-                            .button("Server Tools")
-                            .button("Remove all gadmin effects")
+                            .title(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.title"))
+                            .content(ChatColor.ITALIC + "" + ChatColor.BOLD +  Messages.get("main.form.content"))
+                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.button1"))
+                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.button2"))
+                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD +  Gat.plugin.getConfig().getString("CommandsForm.ButtonMainMenu"))
+                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.button4"))
+                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.button5"))
+                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.button6"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -41,7 +42,7 @@ public class MainForm {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableAdminForm")) {
                                             new AdminToolsForm().ATList(player);
                                         } else {
-                                            player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
+                                            player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                         }
                                     }
                                 }
@@ -50,7 +51,7 @@ public class MainForm {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableModForm")) {
                                             new ModToolsForm().ModList(player);
                                         } else {
-                                            player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
+                                            player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                         }
                                     }
                                 }
@@ -60,7 +61,7 @@ public class MainForm {
                                             new CustomCommandsForm().CustomCommands(player);
 
                                         } else {
-                                            player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
+                                            player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                         }
                                     }
                                 }
@@ -69,7 +70,7 @@ public class MainForm {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm")) {
                                             new MobsToolsForm().preMTList(player);
                                         } else {
-                                            player.sendMessage(ChatColor.RED + "[GeyserAdminTool] You do not have the permission to use this button!");
+                                            player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                         }
                                     }
                                 }
@@ -78,7 +79,7 @@ public class MainForm {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
                                             new ServerToolsForm().STList(player);
                                         } else {
-                                            player.sendMessage(ChatColor.RED + "[GeyserAdminTool] You do not have the permission to use this button!");
+                                            player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                         }
                                     }
                                 }
@@ -88,7 +89,7 @@ public class MainForm {
                                     player.setGameMode(GameMode.SURVIVAL);
                                     for (Player target : Bukkit.getOnlinePlayers()) {
                                     target.showPlayer(player);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTool] All effects have been cleared");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("clear.effects"));
                                     }
                                 }
                             }));

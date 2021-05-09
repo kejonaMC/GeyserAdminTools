@@ -1,5 +1,6 @@
 package com.projectg.geyseradmintools.forms;
 
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,15 +23,15 @@ public class ServerToolsForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title("Server Tools")
-                            .content("List of server tools")
-                            .button("Weather Sun")//1
-                            .button("Weather Rain")//2
-                            .button("Day")//3
-                            .button("Night")//4
-                            .button("Clear Chat")
-                            .button("Lock Chat")
-                            .button("Unlock Chat")
+                            .title(Messages.get("server.form.title"))
+                            .content(Messages.get("server.form.content"))
+                            .button(Messages.get("server.form.button1"))
+                            .button(Messages.get("server.form.button2"))
+                            .button(Messages.get("server.form.button3"))
+                            .button(Messages.get("server.form.button4"))
+                            .button(Messages.get("server.form.button5"))
+                            .button(Messages.get("server.form.button6"))
+                            .button(Messages.get("server.form.button7"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -40,34 +41,34 @@ public class ServerToolsForm {
                                 if (response.getClickedButtonId() == 0) {
                                     player.getWorld().setStorm(false);
                                     player.getWorld().setWeatherDuration(18000);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Weather set on Sunny");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("server.form.weather.sun"));
                                 }
                                 if (response.getClickedButtonId() == 1) {
                                     player.getWorld().setStorm(true);
                                     player.getWorld().setWeatherDuration(18000);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Weather set on Rain");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("server.form.weather.rain"));
                                 }
                                 if (response.getClickedButtonId() == 2) {
                                     player.getWorld().setTime(1000);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Time set on Day");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("server.form.day"));
                                 }
                                 if (response.getClickedButtonId() == 3) {
                                     Objects.requireNonNull(Bukkit.getWorld("world")).setTime(14000);
-                                    player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Time set on Night");
+                                    player.sendMessage(ChatColor.GREEN + Messages.get("server.form.night"));
                                 }
                                 if (response.getClickedButtonId() == 4) {
                                     int i;
                                     for (i = 0; i < 25; i++) {
-                                        player.sendMessage(" ");
+                                        Bukkit.getServer().broadcastMessage(" ");
                                     }
-                                    Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "Chat has been cleared by an admin!");
+                                    Bukkit.getServer().broadcastMessage(ChatColor.GOLD + Messages.get("server.form.clear.chat"));
                                 }
                                 if (response.getClickedButtonId() == 5) {
                                     if (player.hasPermission("geyseradmintools.gadmin")) {
                                         if (!isMuted) {
                                             // Disables chat
                                             isMuted = true;
-                                            Bukkit.broadcastMessage(ChatColor.DARK_RED + "Chat has been locked by an admin! ");
+                                            Bukkit.broadcastMessage(ChatColor.DARK_RED + Messages.get("server.form.lock.chat"));
                                         }
                                     }
                                 }
@@ -75,7 +76,7 @@ public class ServerToolsForm {
                                     if (player.hasPermission("geyseradmintools.gadmin")) {
                                         if (!isMuted) {
                                             // Disables chat
-                                            Bukkit.broadcastMessage(ChatColor.GREEN + "Chat has been unlocked by an admin! ");
+                                            Bukkit.broadcastMessage(ChatColor.GREEN + Messages.get("server.form.unlock.chat"));
                                         }
                                     }
                                 }

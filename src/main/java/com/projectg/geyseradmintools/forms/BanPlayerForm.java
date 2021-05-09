@@ -2,6 +2,7 @@ package com.projectg.geyseradmintools.forms;
 
 import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -30,9 +31,9 @@ public class BanPlayerForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title("Ban/Unban Tool")
-                            .button("Ban Player")
-                            .button("Unban Player")
+                            .title(ChatColor.DARK_AQUA + Messages.get("main.ban.form.title"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.ban.form.button1"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.ban.form.button2"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -43,14 +44,14 @@ public class BanPlayerForm {
                                     if (player.hasPermission("geyseradmintools.banplayer")) {
                                         banPlayers(player);
                                     } else {
-                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
+                                        player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
                                 }
                                 if (response.getClickedButtonId() == 1) {
                                     if (player.hasPermission("geyseradmintools.banplayer")) {
                                         unbanPlayers(player);
                                     } else {
-                                        player.sendMessage(ChatColor.RED + "[GeyserAdminTools] You do not have the permission to use this button!");
+                                        player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
                                 }
                             }));
@@ -67,10 +68,10 @@ public class BanPlayerForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
-                                .title("Ban tool")
-                                .dropdown("Select Player", playerlist)
-                                .input("Days banned")
-                                .input("Ban Reason")
+                                .title(ChatColor.DARK_AQUA + Messages.get("ban.ban.form.title"))
+                                .dropdown(ChatColor.DARK_AQUA + Messages.get("ban.ban.form.dropdown"), playerlist)
+                                .input(ChatColor.DARK_AQUA + Messages.get("ban.ban.form.input1"))
+                                .input(ChatColor.DARK_AQUA + Messages.get("ban.ban.form.input2"))
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
                                     if (!response.isCorrect()) {
@@ -82,7 +83,7 @@ public class BanPlayerForm {
                                     try {
                                         time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
                                     } catch (NumberFormatException | NullPointerException  e) {
-                                        player.sendMessage(ChatColor.YELLOW + "[GeyserAdminTools] wrong usage ! <username> <amount of days> <reason>");
+                                        player.sendMessage(ChatColor.YELLOW + Messages.get("ban.input.error"));
                                    return;
                                     }
                                     String reason = response.getInput(2);
@@ -102,9 +103,8 @@ public class BanPlayerForm {
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
-                                    player1.kickPlayer("you where banned for: " + reason);
-                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] Player " + name + " is banned");
-                                    Gat.logger.info("Player " + player.getName() + " has banned " + player1.getName() + " till: " + time + " for reason: " + reason);
+                                    player1.kickPlayer(Messages.get("ban.ban.form.player.message1") + reason);
+                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] " + name + Messages.get("ban.ban.form.player.message2"));
                                     //end
                                 }));
             }
@@ -130,8 +130,8 @@ public class BanPlayerForm {
                     FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                     fplayer.sendForm(
                             CustomForm.builder()
-                                    .title("Unban tool")
-                                    .dropdown("Select Player to unban", playerlist)
+                                    .title(ChatColor.DARK_AQUA + Messages.get("unban.ban.form.title"))
+                                    .dropdown(ChatColor.DARK_AQUA + Messages.get("unban.ban.form.dropdown"), playerlist)
                                     .responseHandler((form, responseData) -> {
                                         CustomFormResponse response = form.parseResponse(responseData);
                                         if (!response.isCorrect()) {
@@ -146,7 +146,7 @@ public class BanPlayerForm {
                                                     .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
-                                            player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] Player " + name + " is unbanned");
+                                            player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] " + name + Messages.get("unban.ban.form.player.message1"));
                                         } catch (SQLException exe) {
                                             exe.printStackTrace();
                                         }
