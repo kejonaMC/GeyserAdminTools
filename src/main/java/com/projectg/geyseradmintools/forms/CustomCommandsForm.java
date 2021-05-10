@@ -18,8 +18,8 @@ public class CustomCommandsForm {
         UUID uuid = player.getUniqueId();
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-            fplayer.sendForm(
+            FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+            fPlayer.sendForm(
                     SimpleForm.builder()
                             .title(ChatColor.DARK_AQUA + config.getString("CommandsForm.Title"))
                             .content(ChatColor.DARK_AQUA + config.getString("CommandsForm.Content"))

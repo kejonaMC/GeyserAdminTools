@@ -1,6 +1,5 @@
 package com.projectg.geyseradmintools.commands;
 
-import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.Bukkit;
@@ -31,7 +30,7 @@ public class UnmuteCommand implements CommandExecutor {
             }
             try {
                             PreparedStatement statement = DatabaseSetup.getConnection()
-                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
+                                    .prepareStatement("DELETE FROM " + DatabaseSetup.muteTable + " WHERE UUID=?");
                             statement.setString(1, target.getUniqueId().toString());
                             statement.execute();
                             player.sendMessage(ChatColor.DARK_AQUA + Messages.get("player.player") + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + Messages.get("unmute.command.player.message1"));

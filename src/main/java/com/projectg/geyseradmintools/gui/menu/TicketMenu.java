@@ -40,7 +40,7 @@ public class TicketMenu extends PaginatedMenu {
         ArrayList<String> list = new ArrayList<>();
 
         Player p = (Player) e.getWhoClicked();
-        String query = "SELECT * FROM " + DatabaseSetup.Reporttable;
+        String query = "SELECT * FROM " + DatabaseSetup.reportTable;
         try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -79,7 +79,7 @@ public class TicketMenu extends PaginatedMenu {
         addMenuBorder();
 
         ArrayList<String> list = new ArrayList<>();
-        String query = "SELECT * FROM " + DatabaseSetup.Reporttable;
+        String query = "SELECT * FROM " + DatabaseSetup.reportTable;
         try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -94,7 +94,7 @@ public class TicketMenu extends PaginatedMenu {
 
                     for (@NotNull OfflinePlayer op : Bukkit.getServer().getOfflinePlayers()) {
                         PreparedStatement statement = DatabaseSetup.getConnection()
-                                .prepareStatement("SELECT * FROM " + DatabaseSetup.Reporttable + " WHERE UUID=?");
+                                .prepareStatement("SELECT * FROM " + DatabaseSetup.reportTable + " WHERE UUID=?");
                         statement.setString(1, op.getUniqueId().toString());
                         ResultSet rst = statement.executeQuery();
 

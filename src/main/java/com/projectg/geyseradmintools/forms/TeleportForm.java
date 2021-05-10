@@ -19,14 +19,14 @@ public class TeleportForm {
         Runnable runnable = () -> {
         UUID uuid = player.getUniqueId();
             List<String> names = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
-        String[] playerlist = names.toArray(new String[0]);
+        String[] playerList = names.toArray(new String[0]);
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-            fplayer.sendForm(
+            FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+            fPlayer.sendForm(
                     CustomForm.builder()
                             .title(ChatColor.DARK_AQUA + Messages.get("teleport.form.title"))
-                            .dropdown(ChatColor.DARK_AQUA + Messages.get("teleport.form.dropdown"), playerlist)
+                            .dropdown(ChatColor.DARK_AQUA + Messages.get("teleport.form.dropdown"), playerList)
                             .responseHandler((form, responseData) -> {
                                 CustomFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {

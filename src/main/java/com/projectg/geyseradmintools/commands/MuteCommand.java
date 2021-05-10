@@ -35,7 +35,7 @@ public class MuteCommand implements CommandExecutor {
                 String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
                 String reason = args[2];
                 String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Mutetable
+                PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.muteTable
                         + sql);
                 insert.setString(1, target.getUniqueId().toString());
                 insert.setString(2, reason);

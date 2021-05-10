@@ -40,7 +40,7 @@ public class BanMenu extends PaginatedMenu {
         ArrayList<String> list = new ArrayList<>();
 
         Player p = (Player) e.getWhoClicked();
-        String query = "SELECT * FROM " + DatabaseSetup.Bantable;
+        String query = "SELECT * FROM " + DatabaseSetup.banTable;
         try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -80,7 +80,7 @@ public class BanMenu extends PaginatedMenu {
             addMenuBorder();
 
             ArrayList<String> list = new ArrayList<>();
-            String query = "SELECT * FROM " + DatabaseSetup.Bantable;
+            String query = "SELECT * FROM " + DatabaseSetup.banTable;
             try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -95,7 +95,7 @@ public class BanMenu extends PaginatedMenu {
 
                         for (@NotNull OfflinePlayer op : Bukkit.getServer().getOfflinePlayers()) {
                             PreparedStatement statement = DatabaseSetup.getConnection()
-                                    .prepareStatement("SELECT * FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
+                                    .prepareStatement("SELECT * FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
                             statement.setString(1, op.getUniqueId().toString());
                             ResultSet rst = statement.executeQuery();
 

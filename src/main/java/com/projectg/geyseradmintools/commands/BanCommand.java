@@ -1,6 +1,5 @@
 package com.projectg.geyseradmintools.commands;
 
-import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.Bukkit;
@@ -36,7 +35,7 @@ public class BanCommand implements CommandExecutor {
             String reason = args[2];
 
                 String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Bantable
+                PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.banTable
                         + sql);
                 insert.setString(1, target.getUniqueId().toString());
                 insert.setString(2, reason);

@@ -50,7 +50,7 @@ public class ReportCommand implements CommandExecutor {
                     }
                     String report = message.toString();
                     String sql = "(UUID,REPORT,REPORTED,REPORTING,DATE) VALUES (?,?,?,?,?)";
-                    PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Reporttable
+                    PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.reportTable
                             + sql);
                     insert.setString(1, player1.getUniqueId().toString());
                     insert.setString(2, report);

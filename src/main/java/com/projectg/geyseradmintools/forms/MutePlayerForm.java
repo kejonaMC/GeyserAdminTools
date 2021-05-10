@@ -1,6 +1,5 @@
 package com.projectg.geyseradmintools.forms;
 
-import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
@@ -92,7 +91,7 @@ public class MutePlayerForm {
                                     //database code
                                     try {
                                         String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Mutetable
+                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.muteTable
                                                 + sql);
                                         assert player1 != null;
                                         insert.setString(1, player1.getUniqueId().toString());
@@ -119,7 +118,7 @@ public class MutePlayerForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + DatabaseSetup.Mutetable;
+            String query = "SELECT * FROM " + DatabaseSetup.muteTable;
             try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -145,7 +144,7 @@ public class MutePlayerForm {
                                         //MySQL code
                                         try {
                                             PreparedStatement statement = DatabaseSetup.getConnection()
-                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
+                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.muteTable + " WHERE UUID=?");
                                             assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();

@@ -25,8 +25,8 @@ public class MobsToolsForm {
         UUID uuid = player.getUniqueId();
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-            fplayer.sendForm(
+            FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+            fPlayer.sendForm(
                     SimpleForm.builder()
                             .title(ChatColor.DARK_AQUA + Messages.get("mob.form.title"))
                             .content(ChatColor.DARK_AQUA + Messages.get("mob.form.content"))
@@ -72,8 +72,8 @@ public class MobsToolsForm {
             Location target = player.getEyeLocation().add(player.getLocation().getDirection().multiply(4 /* distance in blocks */));
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
-                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-                fplayer.sendForm(
+                FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+                fPlayer.sendForm(
                         CustomForm.builder()
                                 .title(ChatColor.DARK_AQUA + Messages.get("agro.mob.form.title"))
                                 .dropdown(ChatColor.DARK_AQUA + Messages.get("agro.mob.form.dropdown")
@@ -158,8 +158,8 @@ public class MobsToolsForm {
             Location target = player.getEyeLocation().add(player.getLocation().getDirection().multiply(4 /* distance in blocks */));
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
-                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-                fplayer.sendForm(
+                FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+                fPlayer.sendForm(
                         CustomForm.builder()
                                 .title(ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.title"))
                                 .dropdown(ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.dropdown")
@@ -281,8 +281,8 @@ public class MobsToolsForm {
             UUID uuid = player.getUniqueId();
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
-                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-                fplayer.sendForm(
+                FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+                fPlayer.sendForm(
                         CustomForm.builder()
                                 .title(ChatColor.DARK_AQUA + Messages.get("boss.mob.form.title"))
                                 .dropdown(ChatColor.DARK_AQUA + Messages.get("boss.mob.form.dropdown")

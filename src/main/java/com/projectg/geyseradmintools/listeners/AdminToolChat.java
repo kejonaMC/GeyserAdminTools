@@ -33,21 +33,21 @@ public class AdminToolChat implements Listener {
         UUID uuid = e.getPlayer().getUniqueId();
         try {
             PreparedStatement statement = DatabaseSetup.getConnection()
-                    .prepareStatement("SELECT * FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
+                    .prepareStatement("SELECT * FROM " + DatabaseSetup.muteTable + " WHERE UUID=?");
             statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
             while (results.next()) {
-                String enddate = results.getString("EndDate");
-                Date datadate = new SimpleDateFormat("yyyy-MM-dd").parse(enddate);
-                String curdate = LocalDate.now().toString();
-                Date currdate = new SimpleDateFormat("yyyy-MM-dd").parse(curdate);
-                if (datadate.compareTo(currdate) > 0) {
+                String endDate = results.getString("EndDate");
+                Date dataDate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+                String curDate = LocalDate.now().toString();
+                Date currDate = new SimpleDateFormat("yyyy-MM-dd").parse(curDate);
+                if (dataDate.compareTo(currDate) > 0) {
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage(ChatColor.GOLD + Messages.get("mute.join.text1") + enddate);
-                } else if (datadate.compareTo(currdate) < 0) {
+                    e.getPlayer().sendMessage(ChatColor.GOLD + Messages.get("mute.join.text1") + endDate);
+                } else if (dataDate.compareTo(currDate) < 0) {
                     try {
                         statement = DatabaseSetup.getConnection()
-                                .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
+                                .prepareStatement("DELETE FROM " + DatabaseSetup.muteTable + " WHERE UUID=?");
                         statement.setString(1, e.getPlayer().getUniqueId().toString());
                         statement.execute();
 

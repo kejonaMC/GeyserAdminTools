@@ -1,6 +1,5 @@
 package com.projectg.geyseradmintools.forms;
 
-import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
@@ -28,8 +27,8 @@ public class BanPlayerForm {
         UUID uuid = player.getUniqueId();
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-            fplayer.sendForm(
+            FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+            fPlayer.sendForm(
                     SimpleForm.builder()
                             .title(ChatColor.DARK_AQUA + Messages.get("main.ban.form.title"))
                             .button(ChatColor.DARK_AQUA + Messages.get("main.ban.form.button1"))
@@ -62,14 +61,14 @@ public class BanPlayerForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
-            String[] playerlist = names.toArray(new String[0]);
+            String[] playerList = names.toArray(new String[0]);
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
-                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-                fplayer.sendForm(
+                FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+                fPlayer.sendForm(
                         CustomForm.builder()
                                 .title(ChatColor.DARK_AQUA + Messages.get("ban.ban.form.title"))
-                                .dropdown(ChatColor.DARK_AQUA + Messages.get("ban.ban.form.dropdown"), playerlist)
+                                .dropdown(ChatColor.DARK_AQUA + Messages.get("ban.ban.form.dropdown"), playerList)
                                 .input(ChatColor.DARK_AQUA + Messages.get("ban.ban.form.input1"))
                                 .input(ChatColor.DARK_AQUA + Messages.get("ban.ban.form.input2"))
                                 .responseHandler((form, responseData) -> {
@@ -92,7 +91,7 @@ public class BanPlayerForm {
                                     //database code
                                     try {
                                         String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Bantable
+                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.banTable
                                                 + sql);
                                         insert.setString(1, player1.getUniqueId().toString());
                                         insert.setString(2, reason);
@@ -117,21 +116,21 @@ public class BanPlayerForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + DatabaseSetup.Bantable;
+            String query = "SELECT * FROM " + DatabaseSetup.banTable;
             try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
                     names.add(rs.getString("Username"));
                 }
                 rs.close();
-                String[] playerlist = names.toArray(new String[0]);
+                String[] playerList = names.toArray(new String[0]);
                 boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
                 if (isFloodgatePlayer) {
-                    FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-                    fplayer.sendForm(
+                    FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+                    fPlayer.sendForm(
                             CustomForm.builder()
                                     .title(ChatColor.DARK_AQUA + Messages.get("unban.ban.form.title"))
-                                    .dropdown(ChatColor.DARK_AQUA + Messages.get("unban.ban.form.dropdown"), playerlist)
+                                    .dropdown(ChatColor.DARK_AQUA + Messages.get("unban.ban.form.dropdown"), playerList)
                                     .responseHandler((form, responseData) -> {
                                         CustomFormResponse response = form.parseResponse(responseData);
                                         if (!response.isCorrect()) {
@@ -143,7 +142,7 @@ public class BanPlayerForm {
                                         //MySQL code
                                         try {
                                             PreparedStatement statement = DatabaseSetup.getConnection()
-                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
+                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
                                             player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] "+ Messages.get("player.player") + name + Messages.get("unban.ban.form.player.message1"));
