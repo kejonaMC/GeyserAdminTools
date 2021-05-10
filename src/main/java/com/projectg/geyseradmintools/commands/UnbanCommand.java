@@ -2,6 +2,7 @@ package com.projectg.geyseradmintools.commands;
 
 import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -18,7 +19,7 @@ import java.sql.SQLException;
 public class UnbanCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String commandLabel, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "The console cannot use this command");
+            sender.sendMessage(ChatColor.RED + Messages.get("permission.command.error"));
             return true;
         }
         Player player = (Player) sender;
@@ -33,8 +34,7 @@ public class UnbanCommand implements CommandExecutor {
                                     .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
                             statement.setString(1, target.getUniqueId().toString());
                             statement.execute();
-                            player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Player " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA +  " is unbanned");
-                            Gat.logger.info("Player " + player.getName() + " has unbanned " + target.getName());
+                            player.sendMessage(ChatColor.DARK_AQUA + Messages.get("player.player") + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA +  Messages.get("unban.command.player.message1"));
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
                         }
@@ -43,7 +43,7 @@ public class UnbanCommand implements CommandExecutor {
             }
         }
         } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
-                player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Wrong usage of the command. /gunban <Username>");
+                player.sendMessage(ChatColor.DARK_RED + Messages.get("unban.command.error"));
         }
         return true;
     }

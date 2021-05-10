@@ -2,6 +2,7 @@ package com.projectg.geyseradmintools.forms;
 
 import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.SimpleForm;
@@ -20,18 +21,18 @@ public class CustomCommandsForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title(config.getString("CommandsForm.Title"))
-                            .content(config.getString("CommandsForm.Content"))
-                            .button(config.getString("CommandsForm.Button1"))
-                            .button(config.getString("CommandsForm.Button2"))
-                            .button(config.getString("CommandsForm.Button3"))
-                            .button(config.getString("CommandsForm.Button4"))
-                            .button(config.getString("CommandsForm.Button5"))
-                            .button(config.getString("CommandsForm.Button6"))
-                            .button(config.getString("CommandsForm.Button7"))
-                            .button(config.getString("CommandsForm.Button8"))
-                            .button(config.getString("CommandsForm.Button9"))
-                            .button(config.getString("CommandsForm.Button10"))
+                            .title(ChatColor.DARK_AQUA + config.getString("CommandsForm.Title"))
+                            .content(ChatColor.DARK_AQUA + config.getString("CommandsForm.Content"))
+                            .button(ChatColor.DARK_AQUA + config.getString("CommandsForm.Button1"))
+                            .button(ChatColor.DARK_AQUA + config.getString("CommandsForm.Button2"))
+                            .button(ChatColor.DARK_AQUA + config.getString("CommandsForm.Button3"))
+                            .button(ChatColor.DARK_AQUA + config.getString("CommandsForm.Button4"))
+                            .button(ChatColor.DARK_AQUA + config.getString("CommandsForm.Button5"))
+                            .button(ChatColor.DARK_AQUA + config.getString("CommandsForm.Button6"))
+                            .button(ChatColor.DARK_AQUA + config.getString("CommandsForm.Button7"))
+                            .button(ChatColor.DARK_AQUA + config.getString("CommandsForm.Button8"))
+                            .button(ChatColor.DARK_AQUA + config.getString("CommandsForm.Button9"))
+                            .button(ChatColor.DARK_AQUA + config.getString("CommandsForm.Button10"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {

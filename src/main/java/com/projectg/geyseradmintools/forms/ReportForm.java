@@ -32,10 +32,10 @@ public class ReportForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title(Messages.get("main.report.form.title"))
-                            .button(Messages.get("main.report.form.button1"))
-                            .button(Messages.get("main.report.form.button2"))
-                            .button(Messages.get("main.report.form.button3"))
+                            .title(ChatColor.DARK_AQUA + Messages.get("main.report.form.title"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.report.form.button1"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.report.form.button2"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.report.form.button3"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -84,8 +84,8 @@ public class ReportForm {
                     FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                     fplayer.sendForm(
                             CustomForm.builder()
-                                    .title(Messages.get("delete.report.form.title"))
-                                    .dropdown(Messages.get("delete.report.form.dropdown"), playerlist)
+                                    .title(ChatColor.DARK_AQUA + Messages.get("delete.report.form.title"))
+                                    .dropdown(ChatColor.DARK_AQUA + Messages.get("delete.report.form.dropdown"), playerlist)
                                     .responseHandler((form, responseData) -> {
                                         CustomFormResponse response = form.parseResponse(responseData);
                                         if (!response.isCorrect()) {
@@ -133,8 +133,8 @@ public class ReportForm {
                     FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                     fplayer.sendForm(
                             CustomForm.builder()
-                                    .title(Messages.get("view.report.form.title"))
-                                    .dropdown(Messages.get("view.report.form.dropdown"), playerlist)
+                                    .title(ChatColor.DARK_AQUA + Messages.get("view.report.form.title"))
+                                    .dropdown(ChatColor.DARK_AQUA + Messages.get("view.report.form.dropdown"), playerlist)
                                     .responseHandler((form, responseData) -> {
                                         CustomFormResponse response = form.parseResponse(responseData);
                                         if (!response.isCorrect()) {

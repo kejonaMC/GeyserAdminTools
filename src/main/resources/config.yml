@@ -2,6 +2,7 @@
 # Do not change version value!
 version: 1
 
+# Available Languages en_US, nl_NL
 Language: en_US
 
 EnableAdminTools: true

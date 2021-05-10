@@ -3,6 +3,7 @@ package com.projectg.geyseradmintools.forms;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.CustomForm;
 import org.geysermc.cumulus.response.CustomFormResponse;
@@ -24,8 +25,8 @@ public class TeleportForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     CustomForm.builder()
-                            .title(Messages.get("teleport.form.title"))
-                            .dropdown(Messages.get("teleport.form.dropdown"), playerlist)
+                            .title(ChatColor.DARK_AQUA + Messages.get("teleport.form.title"))
+                            .dropdown(ChatColor.DARK_AQUA + Messages.get("teleport.form.dropdown"), playerlist)
                             .responseHandler((form, responseData) -> {
                                 CustomFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {

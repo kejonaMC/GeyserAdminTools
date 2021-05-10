@@ -2,6 +2,7 @@ package com.projectg.geyseradmintools.commands;
 
 import com.projectg.geyseradmintools.forms.MainForm;
 import com.projectg.geyseradmintools.Gat;
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -31,10 +32,10 @@ public class FormCommand implements CommandExecutor {
                     e.printStackTrace();
                 }
             } else {
-                sender.sendMessage(ChatColor.YELLOW + "[GeyserAdminTool] Sorry, this command only works for bedrock players!");
+                sender.sendMessage(ChatColor.YELLOW + Messages.get("bedrock.command"));
             }
         } else if (sender instanceof ConsoleCommandSender) {
-            Gat.plugin.getLogger().info("This command only works in-game!");
+            Gat.plugin.getLogger().info(Messages.get("permission.command.error"));
         }
         return true;
     }

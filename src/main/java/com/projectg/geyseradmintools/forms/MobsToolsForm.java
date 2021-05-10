@@ -28,12 +28,12 @@ public class MobsToolsForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title(Messages.get("mob.form.title"))
-                            .content(Messages.get("mob.form.content"))
-                            .button(Messages.get("mob.form.button1"))
-                            .button(Messages.get("mob.form.button2"))
-                            .button(Messages.get("mob.form.button3"))
-                            .button(Messages.get("mob.form.button4"))
+                            .title(ChatColor.DARK_AQUA + Messages.get("mob.form.title"))
+                            .content(ChatColor.DARK_AQUA + Messages.get("mob.form.content"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("mob.form.button1"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("mob.form.button2"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("mob.form.button3"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("mob.form.button4"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -75,8 +75,8 @@ public class MobsToolsForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
-                                .title(Messages.get("agro.mob.form.title"))
-                                .dropdown(Messages.get("agro.mob.form.dropdown")
+                                .title(ChatColor.DARK_AQUA + Messages.get("agro.mob.form.title"))
+                                .dropdown(ChatColor.DARK_AQUA + Messages.get("agro.mob.form.dropdown")
                                         , Messages.get("agro.mob.form.mob1")
                                         , Messages.get("agro.mob.form.mob2")
                                         , Messages.get("agro.mob.form.mob3")
@@ -161,23 +161,23 @@ public class MobsToolsForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
-                                .title(Messages.get("nonagro.mob.form.title"))
-                                .dropdown(Messages.get("nonagro.mob.form.dropdown")
-                                        , Messages.get("nonagro.mob.form.mob1")
-                                        , Messages.get("nonagro.mob.form.mob2")
-                                        , Messages.get("nonagro.mob.form.mob3")
-                                        , Messages.get("nonagro.mob.form.mob4")
-                                        , Messages.get("nonagro.mob.form.mob5")
-                                        , Messages.get("nonagro.mob.form.mob6")
-                                        , Messages.get("nonagro.mob.form.mob7")
-                                        , Messages.get("nonagro.mob.form.mob8")
-                                        , Messages.get("nonagro.mob.form.mob9")
-                                        , Messages.get("nonagro.mob.form.mob10")
-                                        , Messages.get("nonagro.mob.form.mob11")
-                                        , Messages.get("nonagro.mob.form.mob12")
-                                        , Messages.get("nonagro.mob.form.mob13")
-                                        , Messages.get("nonagro.mob.form.mob14")
-                                        , Messages.get("nonagro.mob.form.mob15"))
+                                .title(ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.title"))
+                                .dropdown(ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.dropdown")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob1")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob2")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob3")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob4")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob5")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob6")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob7")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob8")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob9")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob10")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob11")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob12")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob13")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob14")
+                                        , ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.mob15"))
                                 .input(Messages.get("nonagro.mob.form.input"))
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);
@@ -284,11 +284,11 @@ public class MobsToolsForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
-                                .title(Messages.get("boss.mob.form.title"))
-                                .dropdown(Messages.get("boss.mob.form.dropdown")
-                                        , Messages.get("boss.mob.form.mob1")
-                                        , Messages.get("boss.mob.form.mob2")
-                                        , Messages.get("boss.mob.form.mob3"))
+                                .title(ChatColor.DARK_AQUA + Messages.get("boss.mob.form.title"))
+                                .dropdown(ChatColor.DARK_AQUA + Messages.get("boss.mob.form.dropdown")
+                                        , ChatColor.DARK_AQUA + Messages.get("boss.mob.form.mob1")
+                                        , ChatColor.DARK_AQUA + Messages.get("boss.mob.form.mob2")
+                                        , ChatColor.DARK_AQUA + Messages.get("boss.mob.form.mob3"))
                                 .input(Messages.get("boss.mob.form.input"))
                                 .responseHandler((form, responseData) -> {
                                     CustomFormResponse response = form.parseResponse(responseData);

@@ -2,6 +2,7 @@ package com.projectg.geyseradmintools.commands;
 
 import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
 public class UnmuteCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String commandLabel, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "The console cannot use this command");
+            sender.sendMessage(ChatColor.RED + Messages.get("permission.command.error"));
             return true;
         }
         Player player = (Player) sender;
@@ -25,7 +26,7 @@ public class UnmuteCommand implements CommandExecutor {
         if (cmd.getName().equalsIgnoreCase("gunmute") && player.hasPermission("geyseradmintools.gunmute")) {
             Player target = Bukkit.getPlayer(args[0]);
             if (target == null) {
-                player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Could not find player! Perhaps wrong usage ? /gunmute <username>");
+                player.sendMessage(ChatColor.DARK_RED + Messages.get("unmute.command.error"));
                 return true;
             }
             try {
@@ -33,15 +34,14 @@ public class UnmuteCommand implements CommandExecutor {
                                     .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
                             statement.setString(1, target.getUniqueId().toString());
                             statement.execute();
-                            player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Player " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + " is unmuted");
-                            Gat.logger.info("Player " + player.getName() + " has unmuted " + target.getName());
-                            target.sendMessage(ChatColor.GOLD + "Your mute has been lifted by an admin!");
+                            player.sendMessage(ChatColor.DARK_AQUA + Messages.get("player.player") + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + Messages.get("unmute.command.player.message1"));
+                            target.sendMessage(ChatColor.GOLD + Messages.get("unmute.command.player.message2"));
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
                         }
         }
     } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
-        player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Wrong usage of the command. /gumute <Username>");
+        player.sendMessage(ChatColor.DARK_RED + Messages.get("unmute.command.error"));
     }
         return true;
     }

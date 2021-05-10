@@ -32,9 +32,9 @@ public class MutePlayerForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title(Messages.get("main.mute.form.title"))
-                            .button(Messages.get("main.mute.form.button1"))
-                            .button(Messages.get("main.mute.form.button2"))
+                            .title(ChatColor.DARK_AQUA + Messages.get("main.mute.form.title"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.mute.form.button1"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.mute.form.button2"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {
@@ -68,8 +68,8 @@ public class MutePlayerForm {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
-                                .title(Messages.get("mute.mute.form.title"))
-                                .dropdown(Messages.get("mute.mute.form.dropdown"), playerlist)
+                                .title(ChatColor.DARK_AQUA + Messages.get("mute.mute.form.title"))
+                                .dropdown(ChatColor.DARK_AQUA + Messages.get("mute.mute.form.dropdown"), playerlist)
                                 .input(Messages.get("mute.mute.form.input1"))
                                 .input(Messages.get("mute.mute.form.input2"))
                                 .responseHandler((form, responseData) -> {
@@ -107,7 +107,7 @@ public class MutePlayerForm {
                                     assert player1 != null;
                                     player1.sendMessage(ChatColor.RED + Messages.get("mute.mute.form.player.message1") + time);
                                     player1.sendMessage(ChatColor.RED + Messages.get("mute.mute.form.player.message2") + reason);
-                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] " + name + Messages.get("mute.mute.form.player.message3"));
+                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] "+Messages.get("player.player") + name + Messages.get("mute.mute.form.player.message3"));
                                     //end
                                 }));
             }
@@ -132,8 +132,8 @@ public class MutePlayerForm {
                     FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                     fplayer.sendForm(
                             CustomForm.builder()
-                                    .title(Messages.get("Unmute.mute.form.title"))
-                                    .dropdown(Messages.get("Unmute.mute.form.dropdown"), playerlist)
+                                    .title(ChatColor.DARK_AQUA + Messages.get("Unmute.mute.form.title"))
+                                    .dropdown(ChatColor.DARK_AQUA + Messages.get("Unmute.mute.form.dropdown"), playerlist)
                                     .responseHandler((form, responseData) -> {
                                         CustomFormResponse response = form.parseResponse(responseData);
                                         if (!response.isCorrect()) {
@@ -149,7 +149,7 @@ public class MutePlayerForm {
                                             assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
-                                            player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] " + name + Messages.get("Unmute.mute.form.player.message1"));
+                                            player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] "+Messages.get("player.player") + name + Messages.get("Unmute.mute.form.player.message1"));
                                             player1.sendMessage(ChatColor.GOLD + Messages.get("Unmute.mute.form.player.message2"));
 
                                         } catch (SQLException exe) {

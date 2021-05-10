@@ -2,6 +2,7 @@ package com.projectg.geyseradmintools.commands;
 
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.forms.ReportForm;
+import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class ReportCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "The console cannot use this command");
+            sender.sendMessage(ChatColor.RED + Messages.get("permission.command.error"));
             return true;
         }
         Player player = (Player) sender;
@@ -39,7 +40,7 @@ public class ReportCommand implements CommandExecutor {
             try {
                 Player player1 = Bukkit.getServer().getPlayer(args[0]);
                 if (player1 == null) {
-                    player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] The player you are trying to report is not online or wrong usage of the command. /greport <Username> <What to report>");
+                    player.sendMessage(ChatColor.DARK_RED + Messages.get("report.command.error"));
                     return true;
                 }
                 try {
@@ -58,21 +59,21 @@ public class ReportCommand implements CommandExecutor {
                     insert.setString(5, LocalDate.now().toString());
                     insert.executeUpdate();
                     // Player inserted now
-                    player.sendMessage(ChatColor.GREEN + "Report has been delivered");
+                    player.sendMessage(ChatColor.GREEN + Messages.get("report.command.player.message1"));
                     for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
                         if (player.hasPermission("geyseradmintools.viewreportplayer")) {
-                            onlinePlayers.sendMessage(ChatColor.DARK_AQUA + "New report from " + ChatColor.AQUA + player.getName() + ChatColor.DARK_AQUA + " has been received ");
+                            onlinePlayers.sendMessage(ChatColor.DARK_AQUA + Messages.get("report.command.player.message2") + ChatColor.AQUA + player.getName() + ChatColor.DARK_AQUA + Messages.get("report.command.player.message3"));
                         }
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
             } catch (Exception e) {
-                player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Wrong usage of the command. /greport <Username> <What to report>");
+                player.sendMessage(ChatColor.DARK_RED + Messages.get("report.command.error"));
             }
         }
     } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
-            player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Wrong usage of the command. /greport <Username> <What to report>");
+            player.sendMessage(ChatColor.DARK_RED + Messages.get("report.command.error"));
     }
         return true;
     }

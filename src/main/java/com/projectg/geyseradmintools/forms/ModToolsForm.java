@@ -20,17 +20,17 @@ public class ModToolsForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title(Messages.get("mod.form.title"))
-                            .content(Messages.get("mod.form.content"))
-                            .button(Messages.get("mod.form.button1"))//2
-                            .button(Messages.get("mod.form.button2"))//3
-                            .button(Messages.get("mod.form.button3"))
-                            .button(Messages.get("mod.form.button4"))//4
-                            .button(Messages.get("mod.form.button5"))//6
-                            .button(Messages.get("mod.form.button6"))//7
-                            .button(Messages.get("mod.form.button7"))
-                            .button(Messages.get("mod.form.button8"))
-                            .button(Messages.get("mod.form.button9"))
+                            .title(ChatColor.DARK_AQUA + Messages.get("mod.form.title"))
+                            .content(ChatColor.DARK_AQUA + Messages.get("mod.form.content"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("mod.form.button1"))//2
+                            .button(ChatColor.DARK_AQUA + Messages.get("mod.form.button2"))//3
+                            .button(ChatColor.DARK_AQUA + Messages.get("mod.form.button3"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("mod.form.button4"))//4
+                            .button(ChatColor.DARK_AQUA + Messages.get("mod.form.button5"))//6
+                            .button(ChatColor.DARK_AQUA + Messages.get("mod.form.button6"))//7
+                            .button(ChatColor.DARK_AQUA + Messages.get("mod.form.button7"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("mod.form.button8"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("mod.form.button9"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {

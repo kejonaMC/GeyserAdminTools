@@ -23,15 +23,15 @@ public class ServerToolsForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title(Messages.get("server.form.title"))
-                            .content(Messages.get("server.form.content"))
-                            .button(Messages.get("server.form.button1"))
-                            .button(Messages.get("server.form.button2"))
-                            .button(Messages.get("server.form.button3"))
-                            .button(Messages.get("server.form.button4"))
-                            .button(Messages.get("server.form.button5"))
-                            .button(Messages.get("server.form.button6"))
-                            .button(Messages.get("server.form.button7"))
+                            .title(ChatColor.DARK_AQUA + Messages.get("server.form.title"))
+                            .content(ChatColor.DARK_AQUA + Messages.get("server.form.content"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("server.form.button1"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("server.form.button2"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("server.form.button3"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("server.form.button4"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("server.form.button5"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("server.form.button6"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("server.form.button7"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {

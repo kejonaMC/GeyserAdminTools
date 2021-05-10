@@ -23,14 +23,14 @@ public class MainForm {
             FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
             fplayer.sendForm(
                     SimpleForm.builder()
-                            .title(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.title"))
-                            .content(ChatColor.ITALIC + "" + ChatColor.BOLD +  Messages.get("main.form.content"))
-                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.button1"))
-                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.button2"))
-                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD +  Gat.plugin.getConfig().getString("CommandsForm.ButtonMainMenu"))
-                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.button4"))
-                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.button5"))
-                            .button(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + Messages.get("main.form.button6"))
+                            .title(ChatColor.DARK_AQUA + Messages.get("main.form.title"))
+                            .content(ChatColor.ITALIC + Messages.get("main.form.content"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.form.button1"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.form.button2"))
+                            .button(ChatColor.DARK_AQUA + Gat.plugin.getConfig().getString("CommandsForm.ButtonMainMenu"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.form.button4"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.form.button5"))
+                            .button(ChatColor.DARK_AQUA + Messages.get("main.form.button6"))
                             .responseHandler((form, responseData) -> {
                                 SimpleFormResponse response = form.parseResponse(responseData);
                                 if (!response.isCorrect()) {

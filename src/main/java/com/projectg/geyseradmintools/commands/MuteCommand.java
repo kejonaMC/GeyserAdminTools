@@ -2,6 +2,7 @@ package com.projectg.geyseradmintools.commands;
 
 import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 public class MuteCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String commandLabel, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "The console cannot use this command");
+            sender.sendMessage(ChatColor.RED + Messages.get("permission.command.error"));
             return true;
         }
         Player player = (Player) sender;
@@ -27,7 +28,7 @@ public class MuteCommand implements CommandExecutor {
             try {
                 Player target = Bukkit.getServer().getPlayer(args[0]);
                 if (target == null) {
-                    player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Could not find player! Perhaps wrong usage ? /gmute <username> <days> <reason>");
+                    player.sendMessage(ChatColor.DARK_RED + Messages.get("mute.command.error"));
                     return true;
                 }
                 String day = args[1];
@@ -41,15 +42,15 @@ public class MuteCommand implements CommandExecutor {
                 insert.setString(3, target.getName());
                 insert.setString(4, time);
                 insert.executeUpdate();
-                target.sendMessage(ChatColor.GOLD + "You where muted till: " + ChatColor.WHITE + time + ChatColor.GOLD + "for: " + ChatColor.GOLD + reason);
-                player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] Player " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + " is muted");
+                target.sendMessage(ChatColor.GOLD + Messages.get("mute.command.player.message1") + ChatColor.WHITE + time + ChatColor.GOLD + " : " + ChatColor.GOLD + reason);
+                player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + Messages.get("mute.command.player.message2"));
                 Gat.logger.info("Player " + player.getName() + " has muted " + target.getName() + " till: " + time + " for reason: " + reason);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         }
         } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
-            player.sendMessage(ChatColor.DARK_RED + "[GeyserAdminTools] Perhaps wrong usage ? /gmute <username> <amount of days> <reason>");
+            player.sendMessage(ChatColor.DARK_RED + Messages.get("mute.input.error"));
         }
         return true;
     }
