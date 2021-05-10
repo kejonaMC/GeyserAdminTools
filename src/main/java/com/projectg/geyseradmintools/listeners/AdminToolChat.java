@@ -43,7 +43,7 @@ public class AdminToolChat implements Listener {
                 Date currdate = new SimpleDateFormat("yyyy-MM-dd").parse(curdate);
                 if (datadate.compareTo(currdate) > 0) {
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage(ChatColor.GOLD + Messages.get("mute.join.text1") + enddate);
+                    e.getPlayer().sendMessage(ChatColor.GOLD + Messages.get("mute.join.text1",enddate));
                 } else if (datadate.compareTo(currdate) < 0) {
                     try {
                         statement = DatabaseSetup.getConnection()

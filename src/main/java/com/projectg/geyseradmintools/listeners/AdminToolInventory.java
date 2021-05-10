@@ -92,7 +92,7 @@ public class AdminToolInventory  implements Listener {
                     reportstatement.setString(1, whoToReport.getUniqueId().toString());
                     reportstatement.execute();
                     reportstatement.close();
-                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("remove.ticket.event") + ChatColor.AQUA + whoToReport.getName());
+                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("remove.ticket.event",whoToReport.getName()));
                     e.setCancelled(true);
                     player.closeInventory();
                 }
@@ -114,7 +114,7 @@ public class AdminToolInventory  implements Listener {
                     banstatement.setString(1, whoToReport.getUniqueId().toString());
                     banstatement.execute();
                     banstatement.close();
-                    player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] " + ChatColor.AQUA + whoToReport.getName() + ChatColor.DARK_AQUA +Messages.get("unban.join.event"));
+                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unban.join.event",whoToReport.getName()));
                     e.setCancelled(true);
                     player.closeInventory();
                 }

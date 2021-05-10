@@ -1,6 +1,7 @@
 package com.projectg.geyseradmintools.listeners;
 
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -60,9 +61,7 @@ public class AdminToolOnLogin implements Listener {
             while (results.next()) {
                 String reason = results.getString("Reason");
                 String enddate = results.getString("EndDate");
-                    e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED
-                            + "You are banned till: "+"\n" + ChatColor.WHITE + enddate + ChatColor.RED + "\n Reason: "
-                            + ChatColor.WHITE + reason);
+                    e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED + Messages.get("ban.join.event",enddate,reason));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -34,7 +34,7 @@ public class UnmuteCommand implements CommandExecutor {
                                     .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
                             statement.setString(1, target.getUniqueId().toString());
                             statement.execute();
-                            player.sendMessage(ChatColor.DARK_AQUA + Messages.get("player.player") + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + Messages.get("unmute.command.player.message1"));
+                            player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unmute.command.player.message1",target.getName()));
                             target.sendMessage(ChatColor.GOLD + Messages.get("unmute.command.player.message2"));
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();

@@ -103,8 +103,8 @@ public class BanPlayerForm {
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
-                                    player1.kickPlayer(Messages.get("ban.ban.form.player.message1") + reason);
-                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] "+ Messages.get("player.player") + name + Messages.get("ban.ban.form.player.message2"));
+                                    player1.kickPlayer(Messages.get("ban.ban.form.player.message1",reason,time));
+                                    player.sendMessage(ChatColor.GOLD + Messages.get("ban.ban.form.player.message2",name));
                                     //end
                                 }));
             }
@@ -146,7 +146,7 @@ public class BanPlayerForm {
                                                     .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
-                                            player.sendMessage(ChatColor.GREEN + "[GeyserAdminTools] "+ Messages.get("player.player") + name + Messages.get("unban.ban.form.player.message1"));
+                                            player.sendMessage(ChatColor.GREEN +Messages.get("unban.ban.form.player.message1",name));
                                         } catch (SQLException exe) {
                                             exe.printStackTrace();
                                         }

@@ -34,7 +34,7 @@ public class UnbanCommand implements CommandExecutor {
                                     .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
                             statement.setString(1, target.getUniqueId().toString());
                             statement.execute();
-                            player.sendMessage(ChatColor.DARK_AQUA + Messages.get("player.player") + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA +  Messages.get("unban.command.player.message1"));
+                            player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unban.command.player.message1",target.getName()));
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
                         }

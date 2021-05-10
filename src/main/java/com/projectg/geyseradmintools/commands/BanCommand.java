@@ -1,6 +1,5 @@
 package com.projectg.geyseradmintools.commands;
 
-import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.Bukkit;
@@ -43,10 +42,8 @@ public class BanCommand implements CommandExecutor {
                 insert.setString(3, target.getName());
                 insert.setString(4, time);
                 insert.executeUpdate();
-                target.kickPlayer(ChatColor.RED
-                        + Messages.get("ban.command.player.message2") +"\n" + ChatColor.WHITE + time + ChatColor.RED + "\n" + Messages.get("ban.command.player.message3")
-                        + ChatColor.WHITE + reason);
-                player.sendMessage(ChatColor.GREEN+"[GeyserAdminTools] " + Messages.get("player.player") + target.getName() + Messages.get("ban.command.player.message1"));
+                target.kickPlayer(ChatColor.RED + Messages.get("ban.command.player.message2",time,reason));
+                player.sendMessage(ChatColor.GREEN + Messages.get("ban.command.player.message1",target.getName()));
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
