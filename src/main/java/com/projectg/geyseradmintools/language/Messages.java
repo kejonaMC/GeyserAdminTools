@@ -18,7 +18,7 @@ public class Messages {
     public static void init() {
         Messages.messageCache = new HashMap<>();
 
-        Locale locale = new Locale(Optional.ofNullable(Gat.plugin.getConfig().getString("Language")).orElse("en_US"));
+        Locale locale = new Locale(Optional.ofNullable(Gat.plugin.getConfig().getString("Language")).orElse("en"));
 
         try {
             URL[] urls = new URL[]{Gat.plugin.getDataFolder().toURI().toURL()};
