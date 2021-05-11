@@ -44,7 +44,7 @@ public class MuteCommand implements CommandExecutor {
                     insert.executeUpdate();
                     target.sendMessage(ChatColor.GOLD + Messages.get("mute.command.player.message1",time,reason));
                     player.sendMessage(ChatColor.DARK_AQUA + Messages.get("mute.command.player.message2",target.getName()));
-                    Gat.logger.info("Player " + player.getName() + " has muted " + target.getName() + " till: " + time + " for reason: " + reason);
+                    Gat.plugin.getLogger().info("Player " + player.getName() + " has muted " + target.getName() + " till: " + time + " for reason: " + reason);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
