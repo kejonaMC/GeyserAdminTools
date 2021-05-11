@@ -30,6 +30,7 @@ public class Gat extends JavaPlugin {
         new Metrics(this, 10943);
         plugin = this;
         logger = getLogger();
+        createFiles();
         new DatabaseSetup().mysqlSetup();
         createFiles();
         Messages.init();
