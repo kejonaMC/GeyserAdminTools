@@ -98,8 +98,7 @@ public class ReportForm {
                                             assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
-                                            player.sendMessage(ChatColor.GREEN + Messages.get("delete.report.form.player.message1") + player1.getName()
-                                            );
+                                            player.sendMessage(ChatColor.GREEN + Messages.get("delete.report.form.player.message1",player1.getName()));
                                         } catch (SQLException | IndexOutOfBoundsException e) {
                                             player.sendMessage(ChatColor.YELLOW + Messages.get("report.input.error"));
                                         }
@@ -153,9 +152,9 @@ public class ReportForm {
                                                 String reporting = results.getString("REPORTING");
                                                 String date = results.getString("DATE");
                                                 player.sendMessage(ChatColor.AQUA + "#--------------------------------------------------#");
-                                                player.sendMessage(ChatColor.DARK_AQUA + reporting + ChatColor.AQUA + Messages.get("view.report.form.player.message1") + ChatColor.DARK_AQUA+ username);
-                                                player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message2") + ChatColor.DARK_AQUA + report);
-                                                player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message3") + ChatColor.DARK_AQUA + date);
+                                                player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message1",reporting,username));
+                                                player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message2",report));
+                                                player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message3",date));
                                                 player.sendMessage(ChatColor.AQUA + "#--------------------------------------------------#");
                                             }
                                         } catch (SQLException throwables) {
@@ -211,10 +210,10 @@ public class ReportForm {
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }
-                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] " + name + Messages.get("report.report.form.player.message1"));
+                                    player.sendMessage(ChatColor.GOLD + Messages.get("report.report.form.player.message1",name));
                                     for (Player onlinePlayers : Bukkit.getOnlinePlayers()){
                                         if (player.hasPermission("geyseradmintools.viewreportplayer")) {
-                                        onlinePlayers.sendMessage(ChatColor.AQUA + Messages.get("report.report.form.player.message2") + player.getName());
+                                        onlinePlayers.sendMessage(ChatColor.AQUA + Messages.get("report.report.form.player.message2",player.getName()));
                                         }
                                     }
                                     //end

@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 
 public class DatabaseSetup {
@@ -48,22 +49,28 @@ public class DatabaseSetup {
         } else {
             try {
                 File dataFolder = new File(Gat.plugin.getDataFolder(), "PlayerData.db");
-                boolean status = dataFolder.createNewFile();
-
-                if (status) {
-                    Gat.logger.info("SQLite file successfully created");
+                if (!dataFolder.exists()) {
+                    try {
+                        dataFolder.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-                Class.forName("org.sqlite.JDBC");
-                setConnection(DriverManager.getConnection("jdbc:sqlite:" + dataFolder));
-                PreparedStatement stmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.banTable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
-                PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.muteTable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
-                PreparedStatement stmt3 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.reportTable + " (UUID char(36), Report varchar(500), Reported varchar(16), Reporting varchar(16), Date varchar(500))");
-                stmt.execute();
-                stmt2.execute();
-                stmt3.execute();
-                Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[GeyserAdminTools] SQLite Connected");
+                try {
+                    Class.forName("org.sqlite.JDBC");
+                    setConnection(DriverManager.getConnection("jdbc:sqlite:" + dataFolder));
+                    PreparedStatement stmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.banTable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
+                    PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.muteTable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
+                    PreparedStatement stmt3 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.reportTable + " (UUID char(36), Report varchar(500), Reported varchar(16), Reporting varchar(16), Date varchar(500))");
+                    stmt.execute();
+                    stmt2.execute();
+                    stmt3.execute();
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[GeyserAdminTools] SQLite Connected");
+                } catch (Exception e) {
+                    System.out.println("SQLite Error");
+                    e.printStackTrace();
+                }
             } catch (Exception e) {
-                System.out.println("SQLite Error");
                 e.printStackTrace();
             }
         }

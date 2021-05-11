@@ -109,10 +109,10 @@ public class TicketMenu extends PaginatedMenu {
                                 meta.setDisplayName(Messages.get("report.gui.text1"));
                                 ArrayList<String> lore = new ArrayList<>();
                                 meta.getPersistentDataContainer().set(new NamespacedKey(Gat.getPlugin(), "reporteduuid"), PersistentDataType.STRING, op.getUniqueId().toString());
-                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text2") + ChatColor.AQUA + reporting );
-                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text3") + ChatColor.AQUA + op.getName());
-                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text4") + ChatColor.AQUA + report);
-                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text5") + ChatColor.AQUA + date);
+                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text2",reporting));
+                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text3",op.getName()));
+                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text4",report));
+                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text5",date));
                                 lore.add(ChatColor.WHITE + Messages.get("report.gui.text6"));
                                 meta.setLore(lore);
                                 ticket.setItemMeta(meta);

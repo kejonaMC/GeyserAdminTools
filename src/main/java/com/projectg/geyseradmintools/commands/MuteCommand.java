@@ -42,8 +42,8 @@ public class MuteCommand implements CommandExecutor {
                     insert.setString(3, target.getName());
                     insert.setString(4, time);
                     insert.executeUpdate();
-                    target.sendMessage(ChatColor.GOLD + Messages.get("mute.command.player.message1") + ChatColor.WHITE + time + ChatColor.GOLD + " : " + ChatColor.GOLD + reason);
-                    player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + Messages.get("mute.command.player.message2"));
+                    target.sendMessage(ChatColor.GOLD + Messages.get("mute.command.player.message1",time,reason));
+                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("mute.command.player.message2",target.getName()));
                     Gat.logger.info("Player " + player.getName() + " has muted " + target.getName() + " till: " + time + " for reason: " + reason);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();

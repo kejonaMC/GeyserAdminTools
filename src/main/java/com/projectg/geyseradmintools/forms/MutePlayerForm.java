@@ -103,9 +103,8 @@ public class MutePlayerForm {
                                         throwables.printStackTrace();
                                     }
                                     assert player1 != null;
-                                    player1.sendMessage(ChatColor.RED + Messages.get("mute.mute.form.player.message1") + time);
-                                    player1.sendMessage(ChatColor.RED + Messages.get("mute.mute.form.player.message2") + reason);
-                                    player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] "+Messages.get("player.player") + name + Messages.get("mute.mute.form.player.message3"));
+                                    player1.sendMessage(ChatColor.RED + Messages.get("mute.mute.form.player.message1",time,reason));
+                                    player.sendMessage(ChatColor.GOLD + Messages.get("mute.mute.form.player.message3",name));
                                     //end
                                 }));
             }
@@ -147,7 +146,7 @@ public class MutePlayerForm {
                                             assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
-                                            player.sendMessage(ChatColor.GOLD + "[GeyserAdminTools] "+Messages.get("player.player") + name + Messages.get("Unmute.mute.form.player.message1"));
+                                            player.sendMessage(ChatColor.GOLD + Messages.get("Unmute.mute.form.player.message1",name));
                                             player1.sendMessage(ChatColor.GOLD + Messages.get("Unmute.mute.form.player.message2"));
 
                                         } catch (SQLException exe) {

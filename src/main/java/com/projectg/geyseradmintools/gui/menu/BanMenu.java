@@ -108,9 +108,9 @@ public class BanMenu extends PaginatedMenu {
                                 sm.setDisplayName(Messages.get("ban.gui.text1"));
                                 ArrayList<String> lore = new ArrayList<>();
                                 sm.getPersistentDataContainer().set(new NamespacedKey(Gat.getPlugin(), "banuuid"), PersistentDataType.STRING, op.getUniqueId().toString());
-                                lore.add(ChatColor.DARK_AQUA + Messages.get("ban.gui.text2") + ChatColor.AQUA + op.getName());
-                                lore.add(ChatColor.DARK_AQUA + Messages.get("ban.gui.text3") + ChatColor.AQUA + report);
-                                lore.add(ChatColor.DARK_AQUA + Messages.get("ban.gui.text4") + ChatColor.AQUA + date);
+                                lore.add(ChatColor.DARK_AQUA + Messages.get("ban.gui.text2",op.getName()));
+                                lore.add(ChatColor.DARK_AQUA + Messages.get("ban.gui.text3",report));
+                                lore.add(ChatColor.DARK_AQUA + Messages.get("ban.gui.text4",date));
                                 lore.add(ChatColor.WHITE + Messages.get("ban.gui.text5"));
                                 sm.setLore(lore);
                                 banned.setItemMeta(sm);

@@ -60,9 +60,7 @@ public class AdminToolOnLogin implements Listener {
             while (results.next()) {
                 String reason = results.getString("Reason");
                 String endDate = results.getString("EndDate");
-                    e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED
-                            + "You are banned till: "+"\n" + ChatColor.WHITE + endDate + ChatColor.RED + "\n Reason: "
-                            + ChatColor.WHITE + reason);
+                    e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED + Messages.get("ban.join.event",endDate,reason));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

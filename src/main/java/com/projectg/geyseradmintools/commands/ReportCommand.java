@@ -62,7 +62,7 @@ public class ReportCommand implements CommandExecutor {
                         player.sendMessage(ChatColor.GREEN + Messages.get("report.command.player.message1"));
                         for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
                             if (player.hasPermission("geyseradmintools.viewreportplayer")) {
-                                onlinePlayers.sendMessage(ChatColor.DARK_AQUA + Messages.get("report.command.player.message2") + ChatColor.AQUA + player.getName() + ChatColor.DARK_AQUA + Messages.get("report.command.player.message3"));
+                                onlinePlayers.sendMessage(ChatColor.DARK_AQUA + Messages.get("report.command.player.message2",player.getName()));
                             }
                         }
                     } catch (SQLException throwables) {
@@ -75,7 +75,7 @@ public class ReportCommand implements CommandExecutor {
         } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
                 player.sendMessage(ChatColor.DARK_RED + Messages.get("report.command.error"));
         }
-    return true;
+        return true;
     }
 }
 

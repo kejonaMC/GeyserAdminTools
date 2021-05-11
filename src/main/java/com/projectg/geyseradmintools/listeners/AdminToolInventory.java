@@ -91,7 +91,7 @@ public class AdminToolInventory  implements Listener {
                     reportStatement.setString(1, whoToReport.getUniqueId().toString());
                     reportStatement.execute();
                     reportStatement.close();
-                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("remove.ticket.event") + ChatColor.AQUA + whoToReport.getName());
+                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("remove.ticket.event",whoToReport.getName()));
                     e.setCancelled(true);
                     player.closeInventory();
                 }
@@ -106,13 +106,14 @@ public class AdminToolInventory  implements Listener {
         try {
             OfflinePlayer whoToReport = Bukkit.getOfflinePlayer((UUID.fromString(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(Gat.getPlugin(), "banuuid"), PersistentDataType.STRING)))));
 
+
             if (e.getView().getTitle().equalsIgnoreCase("View Banned Players")) {
                 if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
                     //ReportPlayer.openPlayerMenu(player, whoToReport);
                     banStatement.setString(1, whoToReport.getUniqueId().toString());
                     banStatement.execute();
                     banStatement.close();
-                    player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] " + ChatColor.AQUA + whoToReport.getName() + ChatColor.DARK_AQUA +Messages.get("unban.join.event"));
+                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unban.join.event",whoToReport.getName()));
                     e.setCancelled(true);
                     player.closeInventory();
                 }
