@@ -9,8 +9,6 @@ EnableAdminTools: true
 
 # Item on join settings
 ItemJoin: true
-DisableItemDrop: true
-DisableItemMove: true
 
 ###################
 # Forms settings  #

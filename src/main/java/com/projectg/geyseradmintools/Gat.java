@@ -36,7 +36,7 @@ public class Gat extends JavaPlugin {
         Messages.init();
         checkConfigVer();
         ItemStackFactory.createStarTool();
-        Objects.requireNonNull(this.getCommand("gadmin")).setExecutor(new FormCommand());
+        Objects.requireNonNull(this.getCommand("gadmin")).setExecutor(new ToolCommand());
         Objects.requireNonNull(this.getCommand("gban")).setExecutor(new BanCommand());
         Objects.requireNonNull(this.getCommand("gunban")).setExecutor(new UnbanCommand());
         Objects.requireNonNull(this.getCommand("gmute")).setExecutor(new MuteCommand());
@@ -46,6 +46,7 @@ public class Gat extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("gviewbans")).setExecutor(new ViewBansCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolChat(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnDrop(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnRespawn(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnDeath(), this);

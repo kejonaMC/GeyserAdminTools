@@ -48,33 +48,11 @@ public class AdminToolInventory  implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
-        UUID uuid = e.getWhoClicked().getUniqueId();
-        boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
-        if (isFloodgatePlayer) {
-            if (config.getBoolean("DisableItemMove")) {
-                if (Objects.requireNonNull(e.getCurrentItem()).equals(starTool)) {
-                    e.setCancelled(true);
-                }
-            }
-        }
-    }
-
-    @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
         if (player.hasPermission("geyseradmintools.item")) {
             if (player.getInventory().getItemInMainHand().equals(starTool) && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
                 MainForm.formList(player);
-            }
-        }
-    }
-
-    @EventHandler
-    public void onPlayerDropItem(PlayerDropItemEvent e) {
-        if (config.getBoolean("DisableItemDrop")) {
-            if (e.getItemDrop().getItemStack().equals(starTool)) {
-                e.setCancelled(true);
             }
         }
     }

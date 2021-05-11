@@ -7,7 +7,7 @@ author: ProjectG
 depend: [floodgate]
 commands:
   gadmin:
-    description: open admin panel
+    description: Gives the player AdminTool item
     permission: geyseradmintools.gadmin
     aliases: /gadmin
   gban:
