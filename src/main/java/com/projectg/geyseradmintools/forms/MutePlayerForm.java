@@ -46,8 +46,7 @@ public class MutePlayerForm {
                                     } else {
                                         player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
-                                }
-                                if (response.getClickedButtonId() == 1) {
+                                } else if (response.getClickedButtonId() == 1) {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         unMutePlayers(player);
                                     } else {
@@ -61,14 +60,14 @@ public class MutePlayerForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
-            String[] playerlist = names.toArray(new String[0]);
+            String[] playerList = names.toArray(new String[0]);
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
                                 .title(ChatColor.DARK_AQUA + Messages.get("mute.mute.form.title"))
-                                .dropdown(ChatColor.DARK_AQUA + Messages.get("mute.mute.form.dropdown"), playerlist)
+                                .dropdown(ChatColor.DARK_AQUA + Messages.get("mute.mute.form.dropdown"), playerList)
                                 .input(Messages.get("mute.mute.form.input1"))
                                 .input(Messages.get("mute.mute.form.input2"))
                                 .responseHandler((form, responseData) -> {

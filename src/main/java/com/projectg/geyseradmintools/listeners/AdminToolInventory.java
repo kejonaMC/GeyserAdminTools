@@ -80,11 +80,10 @@ public class AdminToolInventory  implements Listener {
     }
 
     @EventHandler
-    public void onreportMenuClick(InventoryClickEvent e) {
+    public void onReportMenuClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
         try {
-        OfflinePlayer whoToReport = Bukkit.getOfflinePlayer((UUID.fromString(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(Gat.getPlugin(), "reporteduuid"), PersistentDataType.STRING)))));
-
+            OfflinePlayer whoToReport = Bukkit.getOfflinePlayer((UUID.fromString(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(Gat.getPlugin(), "reporteduuid"), PersistentDataType.STRING)))));
 
             if (e.getView().getTitle().equalsIgnoreCase("View Report Tickets")) {
                 if (e.getCurrentItem().getType() == Material.PAPER) {
@@ -96,17 +95,16 @@ public class AdminToolInventory  implements Listener {
                     e.setCancelled(true);
                     player.closeInventory();
                 }
-        }
-            } catch (SQLException | NullPointerException exception) {
-                exception.getSuppressed();
             }
+        } catch (SQLException | NullPointerException exception) {
+            exception.getSuppressed();
+        }
     }
     @EventHandler
-    public void onbanMenuClick(InventoryClickEvent e) {
+    public void onBanMenuClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
         try {
             OfflinePlayer whoToReport = Bukkit.getOfflinePlayer((UUID.fromString(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(Gat.getPlugin(), "banuuid"), PersistentDataType.STRING)))));
-
 
             if (e.getView().getTitle().equalsIgnoreCase("View Banned Players")) {
                 if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {

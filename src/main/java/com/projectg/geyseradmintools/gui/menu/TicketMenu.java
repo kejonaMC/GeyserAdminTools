@@ -76,53 +76,54 @@ public class TicketMenu extends PaginatedMenu {
     @Override
     public void setMenuItems() {
         Runnable runnable = () -> {
-        addMenuBorder();
+            addMenuBorder();
 
-        ArrayList<String> list = new ArrayList<>();
-        String query = "SELECT * FROM " + DatabaseSetup.reportTable;
-        try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                list.add(rs.getString("REPORTED"));
-            }
+            ArrayList<String> list = new ArrayList<>();
+            String query = "SELECT * FROM " + DatabaseSetup.reportTable;
+            try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    list.add(rs.getString("REPORTED"));
+                }
 
-            for (int i = 0; i < getMaxItemsPerPage(); i++) {
-                index = getMaxItemsPerPage() * page + i;
-                if (index >= list.size()) break;
-                if (list.get(index) != null) {
+                for (int i = 0; i < getMaxItemsPerPage(); i++) {
+                    index = getMaxItemsPerPage() * page + i;
+                    if (index >= list.size()) {
+                        break;
+                    }
+                    if (list.get(index) != null) {
 
+                        for (@NotNull OfflinePlayer op : Bukkit.getServer().getOfflinePlayers()) {
+                            PreparedStatement statement = DatabaseSetup.getConnection()
+                                    .prepareStatement("SELECT * FROM " + DatabaseSetup.reportTable + " WHERE UUID=?");
+                            statement.setString(1, op.getUniqueId().toString());
+                            ResultSet rst = statement.executeQuery();
 
-                    for (@NotNull OfflinePlayer op : Bukkit.getServer().getOfflinePlayers()) {
-                        PreparedStatement statement = DatabaseSetup.getConnection()
-                                .prepareStatement("SELECT * FROM " + DatabaseSetup.reportTable + " WHERE UUID=?");
-                        statement.setString(1, op.getUniqueId().toString());
-                        ResultSet rst = statement.executeQuery();
-
-                        if (rst.next()) {
-                            String report = rst.getString("REPORT");
-                            String reporting = rst.getString("REPORTING");
-                            String date = rst.getString("DATE");
-                            ItemStack ticket = new ItemStack(Material.PAPER, 1);
-                            ItemMeta meta = ticket.getItemMeta();
-                            assert meta != null;
-                            meta.setDisplayName(Messages.get("report.gui.text1"));
-                            ArrayList<String> lore = new ArrayList<>();
-                            meta.getPersistentDataContainer().set(new NamespacedKey(Gat.getPlugin(), "reporteduuid"), PersistentDataType.STRING, op.getUniqueId().toString());
-                            lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text2") + ChatColor.AQUA + reporting );
-                            lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text3") + ChatColor.AQUA + op.getName());
-                            lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text4") + ChatColor.AQUA + report);
-                            lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text5") + ChatColor.AQUA + date);
-                            lore.add(ChatColor.WHITE + Messages.get("report.gui.text6"));
-                            meta.setLore(lore);
-                            ticket.setItemMeta(meta);
-                            inventory.addItem(ticket);
+                            if (rst.next()) {
+                                String report = rst.getString("REPORT");
+                                String reporting = rst.getString("REPORTING");
+                                String date = rst.getString("DATE");
+                                ItemStack ticket = new ItemStack(Material.PAPER, 1);
+                                ItemMeta meta = ticket.getItemMeta();
+                                assert meta != null;
+                                meta.setDisplayName(Messages.get("report.gui.text1"));
+                                ArrayList<String> lore = new ArrayList<>();
+                                meta.getPersistentDataContainer().set(new NamespacedKey(Gat.getPlugin(), "reporteduuid"), PersistentDataType.STRING, op.getUniqueId().toString());
+                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text2") + ChatColor.AQUA + reporting );
+                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text3") + ChatColor.AQUA + op.getName());
+                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text4") + ChatColor.AQUA + report);
+                                lore.add(ChatColor.DARK_AQUA + Messages.get("report.gui.text5") + ChatColor.AQUA + date);
+                                lore.add(ChatColor.WHITE + Messages.get("report.gui.text6"));
+                                meta.setLore(lore);
+                                ticket.setItemMeta(meta);
+                                inventory.addItem(ticket);
+                            }
                         }
                     }
                 }
+            } catch (SQLException exception) {
+                exception.printStackTrace();
             }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
         };
         Thread thread = new Thread(runnable);
         thread.start();

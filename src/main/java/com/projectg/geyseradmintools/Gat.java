@@ -51,12 +51,11 @@ public class Gat extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnLogin(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new MenuListener(), this);
         getLogger().info("Plugin has been enabled - Provided by ProjectG");
-
     }
     @Override
     public void onDisable(){
-
     }
+
     public static PlayerMenuUtility getPlayerMenuUtility(Player p) {
         PlayerMenuUtility playerMenuUtility;
         if (!(playerMenuUtilityMap.containsKey(p))) { //See if the player has a playermenuutility "saved" for them

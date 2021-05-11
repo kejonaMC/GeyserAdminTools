@@ -43,48 +43,39 @@ public class CustomCommandsForm {
                                     String server1 = config.getString("CommandsForm.SetCommand1");
                                     assert server1 != null;
                                     player.performCommand(server1);
-                                }
-                                if (response.getClickedButtonId() == 1) {
+                                } else if (response.getClickedButtonId() == 1) {
                                     String server2 = config.getString("CommandsForm.SetCommand2");
                                     assert server2 != null;
                                     player.performCommand(server2);
-                                }
-                                if (response.getClickedButtonId() == 2) {
+                                } else if (response.getClickedButtonId() == 2) {
                                     String server3 = config.getString("CommandsForm.SetCommand3");
                                     assert server3 != null;
                                     player.performCommand(server3);
-                                }
-                                if (response.getClickedButtonId() == 3) {
+                                } else if (response.getClickedButtonId() == 3) {
                                     String server4 = config.getString("CommandsForm.SetCommand4");
                                     assert server4 != null;
                                     player.performCommand(server4);
-                                }
-                                if (response.getClickedButtonId() == 4) {
+                                } else if (response.getClickedButtonId() == 4) {
                                     String server5 = config.getString("CommandsForm.SetCommand5");
                                     assert server5 != null;
                                     player.performCommand(server5);
-                                }
-                                if (response.getClickedButtonId() == 5) {
+                                } else if (response.getClickedButtonId() == 5) {
                                     String server6 = config.getString("CommandsForm.SetCommand6");
                                     assert server6 != null;
                                     player.performCommand(server6);
-                                }
-                                if (response.getClickedButtonId() == 6) {
+                                } else if (response.getClickedButtonId() == 6) {
                                     String server7 = config.getString("CommandsForm.SetCommand7");
                                     assert server7 != null;
                                     player.performCommand(server7);
-                                }
-                                if (response.getClickedButtonId() == 7) {
+                                } else if (response.getClickedButtonId() == 7) {
                                     String server8 = config.getString("CommandsForm.SetCommand8");
                                     assert server8 != null;
                                     player.performCommand(server8);
-                                }
-                                if (response.getClickedButtonId() == 8) {
+                                } else if (response.getClickedButtonId() == 8) {
                                     String server9 = config.getString("CommandsForm.SetCommand9");
                                     assert server9 != null;
                                     player.performCommand(server9);
-                                }
-                                if (response.getClickedButtonId() == 9) {
+                                } else if (response.getClickedButtonId() == 9) {
                                     String server10 = config.getString("CommandsForm.SetCommand10");
                                     assert server10 != null;
                                     player.performCommand(server10);

@@ -24,31 +24,31 @@ public class MuteCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         try {
-        if (cmd.getName().equalsIgnoreCase("gmute") && player.hasPermission("geyseradmintools.muteplayer")) {
-            try {
-                Player target = Bukkit.getServer().getPlayer(args[0]);
-                if (target == null) {
-                    player.sendMessage(ChatColor.DARK_RED + Messages.get("mute.command.error"));
-                    return true;
+            if (cmd.getName().equalsIgnoreCase("gmute") && player.hasPermission("geyseradmintools.muteplayer")) {
+                try {
+                    Player target = Bukkit.getServer().getPlayer(args[0]);
+                    if (target == null) {
+                        player.sendMessage(ChatColor.DARK_RED + Messages.get("mute.command.error"));
+                        return true;
+                    }
+                    String day = args[1];
+                    String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
+                    String reason = args[2];
+                    String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
+                    PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.muteTable
+                            + sql);
+                    insert.setString(1, target.getUniqueId().toString());
+                    insert.setString(2, reason);
+                    insert.setString(3, target.getName());
+                    insert.setString(4, time);
+                    insert.executeUpdate();
+                    target.sendMessage(ChatColor.GOLD + Messages.get("mute.command.player.message1") + ChatColor.WHITE + time + ChatColor.GOLD + " : " + ChatColor.GOLD + reason);
+                    player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + Messages.get("mute.command.player.message2"));
+                    Gat.logger.info("Player " + player.getName() + " has muted " + target.getName() + " till: " + time + " for reason: " + reason);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
-                String day = args[1];
-                String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
-                String reason = args[2];
-                String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.muteTable
-                        + sql);
-                insert.setString(1, target.getUniqueId().toString());
-                insert.setString(2, reason);
-                insert.setString(3, target.getName());
-                insert.setString(4, time);
-                insert.executeUpdate();
-                target.sendMessage(ChatColor.GOLD + Messages.get("mute.command.player.message1") + ChatColor.WHITE + time + ChatColor.GOLD + " : " + ChatColor.GOLD + reason);
-                player.sendMessage(ChatColor.DARK_AQUA + "[GeyserAdminTools] " + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA + Messages.get("mute.command.player.message2"));
-                Gat.logger.info("Player " + player.getName() + " has muted " + target.getName() + " till: " + time + " for reason: " + reason);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
             }
-        }
         } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
             player.sendMessage(ChatColor.DARK_RED + Messages.get("mute.input.error"));
         }

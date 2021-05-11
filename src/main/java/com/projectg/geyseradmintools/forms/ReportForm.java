@@ -47,15 +47,13 @@ public class ReportForm {
                                     } else {
                                         player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
-                                }
-                                if (response.getClickedButtonId() == 1) {
+                                } else if (response.getClickedButtonId() == 1) {
                                     if (player.hasPermission("geyseradmintools.viewreports")) {
                                         viewReportPlayers(player);
                                     } else {
                                         player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
-                                }
-                                if (response.getClickedButtonId() == 2) {
+                                } else if (response.getClickedButtonId() == 2) {
                                     if (player.hasPermission("geyseradmintools.viewreports")) {
                                         deleteReportPlayers(player);
                                     } else {

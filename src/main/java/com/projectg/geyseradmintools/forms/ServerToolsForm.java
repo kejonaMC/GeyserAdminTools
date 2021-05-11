@@ -42,28 +42,23 @@ public class ServerToolsForm {
                                     player.getWorld().setStorm(false);
                                     player.getWorld().setWeatherDuration(18000);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("server.form.weather.sun"));
-                                }
-                                if (response.getClickedButtonId() == 1) {
+                                } else if (response.getClickedButtonId() == 1) {
                                     player.getWorld().setStorm(true);
                                     player.getWorld().setWeatherDuration(18000);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("server.form.weather.rain"));
-                                }
-                                if (response.getClickedButtonId() == 2) {
+                                } else if (response.getClickedButtonId() == 2) {
                                     player.getWorld().setTime(1000);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("server.form.day"));
-                                }
-                                if (response.getClickedButtonId() == 3) {
+                                } else if (response.getClickedButtonId() == 3) {
                                     Objects.requireNonNull(Bukkit.getWorld("world")).setTime(14000);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("server.form.night"));
-                                }
-                                if (response.getClickedButtonId() == 4) {
+                                } else if (response.getClickedButtonId() == 4) {
                                     int i;
                                     for (i = 0; i < 25; i++) {
                                         Bukkit.getServer().broadcastMessage(" ");
                                     }
                                     Bukkit.getServer().broadcastMessage(ChatColor.GOLD + Messages.get("server.form.clear.chat"));
-                                }
-                                if (response.getClickedButtonId() == 5) {
+                                } else if (response.getClickedButtonId() == 5) {
                                     if (player.hasPermission("geyseradmintools.gadmin")) {
                                         if (!isMuted) {
                                             // Disables chat
@@ -71,9 +66,9 @@ public class ServerToolsForm {
                                             Bukkit.broadcastMessage(ChatColor.DARK_RED + Messages.get("server.form.lock.chat"));
                                         }
                                     }
-                                }
-                                if (response.getClickedButtonId() == 6) {
+                                } else if (response.getClickedButtonId() == 6) {
                                     if (player.hasPermission("geyseradmintools.gadmin")) {
+                                        // todo: this seems broken
                                         if (!isMuted) {
                                             // Disables chat
                                             Bukkit.broadcastMessage(ChatColor.GREEN + Messages.get("server.form.unlock.chat"));

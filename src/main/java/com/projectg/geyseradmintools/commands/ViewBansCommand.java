@@ -23,8 +23,6 @@ public class ViewBansCommand implements CommandExecutor {
             new BanMenu(Gat.getPlayerMenuUtility(player)).open();
 
         }
-
-
         return true;
     }
 }

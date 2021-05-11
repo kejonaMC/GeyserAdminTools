@@ -23,24 +23,24 @@ public class UnbanCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         try {
-        if (cmd.getName().equalsIgnoreCase("gunban") && player.hasPermission("geyseradmintools.gunban")) {
-            OfflinePlayer offplayer = Bukkit.getOfflinePlayer(args[0]);
-            if (!offplayer.hasPlayedBefore()) {
-                for (OfflinePlayer target : Bukkit.getOfflinePlayers()) {
-                    if (args[0].equalsIgnoreCase(target.getName())) {
-                        try {
-                            PreparedStatement statement = DatabaseSetup.getConnection()
-                                    .prepareStatement("DELETE FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
-                            statement.setString(1, target.getUniqueId().toString());
-                            statement.execute();
-                            player.sendMessage(ChatColor.DARK_AQUA + Messages.get("player.player") + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA +  Messages.get("unban.command.player.message1"));
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
+            if (cmd.getName().equalsIgnoreCase("gunban") && player.hasPermission("geyseradmintools.gunban")) {
+                OfflinePlayer offPlayer = Bukkit.getOfflinePlayer(args[0]);
+                if (!offPlayer.hasPlayedBefore()) {
+                    for (OfflinePlayer target : Bukkit.getOfflinePlayers()) {
+                        if (args[0].equalsIgnoreCase(target.getName())) {
+                            try {
+                                PreparedStatement statement = DatabaseSetup.getConnection()
+                                        .prepareStatement("DELETE FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
+                                statement.setString(1, target.getUniqueId().toString());
+                                statement.execute();
+                                player.sendMessage(ChatColor.DARK_AQUA + Messages.get("player.player") + ChatColor.AQUA + target.getName() + ChatColor.DARK_AQUA +  Messages.get("unban.command.player.message1"));
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
                         }
                     }
                 }
             }
-        }
         } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
                 player.sendMessage(ChatColor.DARK_RED + Messages.get("unban.command.error"));
         }

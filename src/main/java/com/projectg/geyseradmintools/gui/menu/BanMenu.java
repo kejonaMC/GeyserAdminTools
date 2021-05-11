@@ -92,7 +92,6 @@ public class BanMenu extends PaginatedMenu {
                     if (index >= list.size()) break;
                     if (list.get(index) != null) {
 
-
                         for (@NotNull OfflinePlayer op : Bukkit.getServer().getOfflinePlayers()) {
                             PreparedStatement statement = DatabaseSetup.getConnection()
                                     .prepareStatement("SELECT * FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
