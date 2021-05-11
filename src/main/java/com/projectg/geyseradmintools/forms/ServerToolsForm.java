@@ -68,9 +68,9 @@ public class ServerToolsForm {
                                     }
                                 } else if (response.getClickedButtonId() == 6) {
                                     if (player.hasPermission("geyseradmintools.gadmin")) {
-                                        // todo: this seems broken
-                                        if (!isMuted) {
-                                            // Disables chat
+                                        if (isMuted) {
+                                            // Enables chat
+                                            isMuted = false;
                                             Bukkit.broadcastMessage(ChatColor.GREEN + Messages.get("server.form.unlock.chat"));
                                         }
                                     }
