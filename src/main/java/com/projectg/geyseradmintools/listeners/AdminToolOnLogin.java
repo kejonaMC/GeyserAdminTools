@@ -23,20 +23,20 @@ public class AdminToolOnLogin implements Listener {
         UUID uuid = e.getUniqueId();
         try {
             PreparedStatement statement = DatabaseSetup.getConnection()
-                    .prepareStatement("SELECT * FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
+                    .prepareStatement("SELECT * FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
             statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
             while (results.next()) {
-                String enddate = results.getString("EndDate");
-                Date datadate = new SimpleDateFormat("yyyy-MM-dd").parse(enddate);
-                String curdate = LocalDate.now().toString();
-                Date currdate = new SimpleDateFormat("yyyy-MM-dd").parse(curdate);
-                if (datadate.compareTo(currdate) > 0) {
+                String endDate = results.getString("EndDate");
+                Date dataDate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+                String curDate = LocalDate.now().toString();
+                Date currDate = new SimpleDateFormat("yyyy-MM-dd").parse(curDate);
+                if (dataDate.compareTo(currDate) > 0) {
                     return;
-                } else if (datadate.compareTo(currdate) < 0) {
+                } else if (dataDate.compareTo(currDate) < 0) {
                     try {
                         statement = DatabaseSetup.getConnection()
-                                .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
+                                .prepareStatement("DELETE FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
                         statement.setString(1, e.getUniqueId().toString());
                         statement.execute();
 
@@ -55,13 +55,13 @@ public class AdminToolOnLogin implements Listener {
         UUID uuid = e.getUniqueId();
         try {
             PreparedStatement statement = DatabaseSetup.getConnection()
-                    .prepareStatement("SELECT * FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
+                    .prepareStatement("SELECT * FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
             statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
             while (results.next()) {
                 String reason = results.getString("Reason");
-                String enddate = results.getString("EndDate");
-                    e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED + Messages.get("ban.join.event",enddate,reason));
+                String endDate = results.getString("EndDate");
+                    e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED + Messages.get("ban.join.event",endDate,reason));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

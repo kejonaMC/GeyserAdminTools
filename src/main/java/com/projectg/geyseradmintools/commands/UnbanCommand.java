@@ -1,6 +1,5 @@
 package com.projectg.geyseradmintools.commands;
 
-import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.Bukkit;
@@ -25,13 +24,13 @@ public class UnbanCommand implements CommandExecutor {
         Player player = (Player) sender;
         try {
         if (cmd.getName().equalsIgnoreCase("gunban") && player.hasPermission("geyseradmintools.gunban")) {
-            OfflinePlayer offplayer = Bukkit.getOfflinePlayer(args[0]);
-            if (!offplayer.hasPlayedBefore()) {
+            OfflinePlayer offPlayer = Bukkit.getOfflinePlayer(args[0]);
+            if (!offPlayer.hasPlayedBefore()) {
                 for (OfflinePlayer target : Bukkit.getOfflinePlayers()) {
                     if (args[0].equalsIgnoreCase(target.getName())) {
                         try {
                             PreparedStatement statement = DatabaseSetup.getConnection()
-                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
+                                    .prepareStatement("DELETE FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
                             statement.setString(1, target.getUniqueId().toString());
                             statement.execute();
                             player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unban.command.player.message1",target.getName()));

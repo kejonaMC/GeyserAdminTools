@@ -20,8 +20,8 @@ public class MainForm {
         UUID uuid = player.getUniqueId();
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-            fplayer.sendForm(
+            FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+            fPlayer.sendForm(
                     SimpleForm.builder()
                             .title(ChatColor.DARK_AQUA + Messages.get("main.form.title"))
                             .content(ChatColor.ITALIC + Messages.get("main.form.content"))
@@ -45,8 +45,7 @@ public class MainForm {
                                             player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                         }
                                     }
-                                }
-                                if (response.getClickedButtonId() == 1) {
+                                } else if (response.getClickedButtonId() == 1) {
                                     if (player.hasPermission("geyseradmintools.modtool")) {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableModForm")) {
                                             new ModToolsForm().ModList(player);
@@ -54,8 +53,7 @@ public class MainForm {
                                             player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                         }
                                     }
-                                }
-                                if (response.getClickedButtonId() == 2) {
+                                } else if (response.getClickedButtonId() == 2) {
                                     if (player.hasPermission("geyseradmintools.customcommands")) {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableCustomCommands")) {
                                             new CustomCommandsForm().CustomCommands(player);
@@ -64,8 +62,7 @@ public class MainForm {
                                             player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                         }
                                     }
-                                }
-                                if (response.getClickedButtonId() == 3) {
+                                } else if (response.getClickedButtonId() == 3) {
                                     if (player.hasPermission("geyseradmintools.mobtool")) {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableMobForm")) {
                                             new MobsToolsForm().preMTList(player);
@@ -73,8 +70,7 @@ public class MainForm {
                                             player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                         }
                                     }
-                                }
-                                if (response.getClickedButtonId() == 4) {
+                                } else if (response.getClickedButtonId() == 4) {
                                     if (player.hasPermission("geyseradmintools.servertool")) {
                                         if (Gat.plugin.getConfig().getBoolean("Forms.EnableServerForm")) {
                                             new ServerToolsForm().STList(player);
@@ -82,8 +78,7 @@ public class MainForm {
                                             player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                         }
                                     }
-                                }
-                                if (response.getClickedButtonId() == 5) {
+                                } else if (response.getClickedButtonId() == 5) {
                                     player.setInvulnerable(false);
                                     player.setAllowFlight(false);
                                     player.setGameMode(GameMode.SURVIVAL);

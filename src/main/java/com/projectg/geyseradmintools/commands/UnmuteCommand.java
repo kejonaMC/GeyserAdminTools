@@ -1,6 +1,5 @@
 package com.projectg.geyseradmintools.commands;
 
-import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.Bukkit;
@@ -23,26 +22,26 @@ public class UnmuteCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         try {
-        if (cmd.getName().equalsIgnoreCase("gunmute") && player.hasPermission("geyseradmintools.gunmute")) {
-            Player target = Bukkit.getPlayer(args[0]);
-            if (target == null) {
-                player.sendMessage(ChatColor.DARK_RED + Messages.get("unmute.command.error"));
-                return true;
+            if (cmd.getName().equalsIgnoreCase("gunmute") && player.hasPermission("geyseradmintools.gunmute")) {
+                Player target = Bukkit.getPlayer(args[0]);
+                if (target == null) {
+                    player.sendMessage(ChatColor.DARK_RED + Messages.get("unmute.command.error"));
+                    return true;
+                }
+                try {
+                    PreparedStatement statement = DatabaseSetup.getConnection()
+                            .prepareStatement("DELETE FROM " + DatabaseSetup.muteTable + " WHERE UUID=?");
+                    statement.setString(1, target.getUniqueId().toString());
+                    statement.execute();
+                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unmute.command.player.message1",target.getName()));
+                    target.sendMessage(ChatColor.GOLD + Messages.get("unmute.command.player.message2"));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
-            try {
-                            PreparedStatement statement = DatabaseSetup.getConnection()
-                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
-                            statement.setString(1, target.getUniqueId().toString());
-                            statement.execute();
-                            player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unmute.command.player.message1",target.getName()));
-                            target.sendMessage(ChatColor.GOLD + Messages.get("unmute.command.player.message2"));
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
+        } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
+            player.sendMessage(ChatColor.DARK_RED + Messages.get("unmute.command.error"));
         }
-    } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
-        player.sendMessage(ChatColor.DARK_RED + Messages.get("unmute.command.error"));
-    }
         return true;
     }
 }

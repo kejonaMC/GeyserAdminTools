@@ -23,19 +23,19 @@ public class BanCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         try {
-        if (cmd.getName().equalsIgnoreCase("gban") && player.hasPermission("geyseradmintools.banplayer")) {
-            Player target = Bukkit.getServer().getPlayer(args[0]);
-            if (target == null) {
-                player.sendMessage(ChatColor.DARK_RED + Messages.get("ban.command.error"));
-                return true;
-            }
-            try {
-            String day = args[1];
-            String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
-            String reason = args[2];
+            if (cmd.getName().equalsIgnoreCase("gban") && player.hasPermission("geyseradmintools.banplayer")) {
+                Player target = Bukkit.getServer().getPlayer(args[0]);
+                if (target == null) {
+                    player.sendMessage(ChatColor.DARK_RED + Messages.get("ban.command.error"));
+                    return true;
+                }
+                try {
+                String day = args[1];
+                String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
+                String reason = args[2];
 
                 String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Bantable
+                PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.banTable
                         + sql);
                 insert.setString(1, target.getUniqueId().toString());
                 insert.setString(2, reason);

@@ -22,11 +22,11 @@ import java.util.logging.Logger;
 public class Gat extends JavaPlugin {
 
     public static Gat plugin;
-    public static Logger logger;
+    public Logger logger;
     private static final HashMap<Player, PlayerMenuUtility> playerMenuUtilityMap = new HashMap<>();
 
     @Override
-    public void onEnable(){
+    public void onEnable() {
         new Metrics(this, 10943);
         plugin = this;
         logger = getLogger();
@@ -51,13 +51,12 @@ public class Gat extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnDeath(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnLogin(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new MenuListener(), this);
-        getLogger().info("Plugin has been enabled - Provided by ProjectG");
-
     }
+
     @Override
     public void onDisable(){
-
     }
+
     public static PlayerMenuUtility getPlayerMenuUtility(Player p) {
         PlayerMenuUtility playerMenuUtility;
         if (!(playerMenuUtilityMap.containsKey(p))) { //See if the player has a playermenuutility "saved" for them
@@ -75,7 +74,7 @@ public class Gat extends JavaPlugin {
     public void checkConfigVer(){
         Logger logger = this.getLogger();
         //Change version number only when editing config.yml!
-        if (!(getConfig().getInt("version") == 1 )){
+        if (getConfig().getInt("version", 0) != 1 ){
             logger.info("Config.yml is outdated. please regenerate a new config.yml!");
         }
     }

@@ -28,20 +28,20 @@ public class AdminToolInventory  implements Listener {
 
     private static final FileConfiguration config = Gat.plugin.getConfig();
     private static final ItemStack starTool = ItemStackFactory.getStarTool();
-    PreparedStatement reportstatement;
+    PreparedStatement reportStatement;
     {
         try {
-            reportstatement = DatabaseSetup.getConnection()
-                    .prepareStatement("DELETE FROM " + DatabaseSetup.Reporttable + " WHERE UUID=?");
+            reportStatement = DatabaseSetup.getConnection()
+                    .prepareStatement("DELETE FROM " + DatabaseSetup.reportTable + " WHERE UUID=?");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
-    PreparedStatement banstatement;
+    PreparedStatement banStatement;
     {
         try {
-            banstatement = DatabaseSetup.getConnection()
-                    .prepareStatement("DELETE FROM " + DatabaseSetup.Bantable + " WHERE UUID=?");
+            banStatement = DatabaseSetup.getConnection()
+                    .prepareStatement("DELETE FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -80,29 +80,28 @@ public class AdminToolInventory  implements Listener {
     }
 
     @EventHandler
-    public void onreportMenuClick(InventoryClickEvent e) {
+    public void onReportMenuClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
         try {
-        OfflinePlayer whoToReport = Bukkit.getOfflinePlayer((UUID.fromString(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(Gat.getPlugin(), "reporteduuid"), PersistentDataType.STRING)))));
-
+            OfflinePlayer whoToReport = Bukkit.getOfflinePlayer((UUID.fromString(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(Gat.getPlugin(), "reporteduuid"), PersistentDataType.STRING)))));
 
             if (e.getView().getTitle().equalsIgnoreCase("View Report Tickets")) {
                 if (e.getCurrentItem().getType() == Material.PAPER) {
                     //ReportPlayer.openPlayerMenu(player, whoToReport);
-                    reportstatement.setString(1, whoToReport.getUniqueId().toString());
-                    reportstatement.execute();
-                    reportstatement.close();
+                    reportStatement.setString(1, whoToReport.getUniqueId().toString());
+                    reportStatement.execute();
+                    reportStatement.close();
                     player.sendMessage(ChatColor.DARK_AQUA + Messages.get("remove.ticket.event",whoToReport.getName()));
                     e.setCancelled(true);
                     player.closeInventory();
                 }
-        }
-            } catch (SQLException | NullPointerException exception) {
-                exception.getSuppressed();
             }
+        } catch (SQLException | NullPointerException exception) {
+            exception.getSuppressed();
+        }
     }
     @EventHandler
-    public void onbanMenuClick(InventoryClickEvent e) {
+    public void onBanMenuClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
         try {
             OfflinePlayer whoToReport = Bukkit.getOfflinePlayer((UUID.fromString(Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(Gat.getPlugin(), "banuuid"), PersistentDataType.STRING)))));
@@ -111,9 +110,9 @@ public class AdminToolInventory  implements Listener {
             if (e.getView().getTitle().equalsIgnoreCase("View Banned Players")) {
                 if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
                     //ReportPlayer.openPlayerMenu(player, whoToReport);
-                    banstatement.setString(1, whoToReport.getUniqueId().toString());
-                    banstatement.execute();
-                    banstatement.close();
+                    banStatement.setString(1, whoToReport.getUniqueId().toString());
+                    banStatement.execute();
+                    banStatement.close();
                     player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unban.join.event",whoToReport.getName()));
                     e.setCancelled(true);
                     player.closeInventory();

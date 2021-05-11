@@ -17,8 +17,8 @@ public class ModToolsForm {
         UUID uuid = player.getUniqueId();
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-            fplayer.sendForm(
+            FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+            fPlayer.sendForm(
                     SimpleForm.builder()
                             .title(ChatColor.DARK_AQUA + Messages.get("mod.form.title"))
                             .content(ChatColor.DARK_AQUA + Messages.get("mod.form.content"))
@@ -40,45 +40,38 @@ public class ModToolsForm {
                                 if (response.getClickedButtonId() == 0) {
                                     player.setGameMode(GameMode.SURVIVAL);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.gamemode.survival"));
-                                }
-                                if (response.getClickedButtonId() == 1) {
+                                } else if (response.getClickedButtonId() == 1) {
                                     player.setGameMode(GameMode.SPECTATOR);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.gamemode.spectator"));
-                                }
-                                if (response.getClickedButtonId() == 2) {
+                                } else if (response.getClickedButtonId() == 2) {
                                     TeleportForm.tpPlayer(player);
-                                }
-                                if (response.getClickedButtonId() == 3) {
+                                } else if (response.getClickedButtonId() == 3) {
                                     player.hidePlayer(player);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.vanish"));
-                                }
-                                if (response.getClickedButtonId() == 4) {
+                                } else if (response.getClickedButtonId() == 4) {
                                     player.setAllowFlight(true);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.fly"));
                                 }
                                 if (response.getClickedButtonId() == 5) {
                                     player.getInventory().clear();
                                     player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.inv.clear"));
-                                }
-                                if (response.getClickedButtonId() == 6) {
+                                } else if (response.getClickedButtonId() == 6) {
                                     if (player.hasPermission("geyseradmintools.banplayer")) {
                                         BanPlayerForm.banList(player);
+                                    } else {
+                                        player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
-                                }
-                                else {  player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
-                                }
-                                if (response.getClickedButtonId() == 7) {
+                                } else if (response.getClickedButtonId() == 7) {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         MutePlayerForm.MuteList(player);
+                                    } else {
+                                        player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
-                                    else {  player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
-                                    }
-                                }
-                                if (response.getClickedButtonId() == 8) {
+                                } else if (response.getClickedButtonId() == 8) {
                                     if (player.hasPermission("geyseradmintools.viewreports")) {
                                         ReportForm.reportList(player);
-                                    }
-                                    else {  player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
+                                    } else {
+                                        player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
                                 }
                             }));

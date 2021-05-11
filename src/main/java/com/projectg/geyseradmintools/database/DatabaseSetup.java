@@ -15,9 +15,9 @@ public class DatabaseSetup {
     public String database;
     public String username;
     public String password;
-    public static String Bantable;
-    public static String Mutetable;
-    public static String Reporttable;
+    public static String banTable;
+    public static String muteTable;
+    public static String reportTable;
     public int port;
 
     public void mysqlSetup() {
@@ -26,9 +26,9 @@ public class DatabaseSetup {
         database = Gat.plugin.getConfig().getString("database");
         username = Gat.plugin.getConfig().getString("username");
         password = Gat.plugin.getConfig().getString("password");
-        Bantable = "Ban_list";
-        Mutetable = "Mute_list";
-        Reporttable = "Report_list";
+        banTable = "Ban_list";
+        muteTable = "Mute_list";
+        reportTable = "Report_list";
         if (Gat.plugin.getConfig().getBoolean("EnableMySQL")) {
             try {
                 synchronized (this) {
@@ -48,20 +48,20 @@ public class DatabaseSetup {
             }
         } else {
             try {
-                File datafolder = new File(Gat.plugin.getDataFolder(), "PlayerData.db");
-                if (!datafolder.exists()) {
+                File dataFolder = new File(Gat.plugin.getDataFolder(), "PlayerData.db");
+                if (!dataFolder.exists()) {
                     try {
-                        datafolder.createNewFile();
+                        dataFolder.createNewFile();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
                 try {
                     Class.forName("org.sqlite.JDBC");
-                    setConnection(DriverManager.getConnection("jdbc:sqlite:" + datafolder));
-                    PreparedStatement stmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
-                    PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Mutetable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
-                    PreparedStatement stmt3 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Reporttable + " (UUID char(36), Report varchar(500), Reported varchar(16), Reporting varchar(16), Date varchar(500))");
+                    setConnection(DriverManager.getConnection("jdbc:sqlite:" + dataFolder));
+                    PreparedStatement stmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.banTable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
+                    PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.muteTable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
+                    PreparedStatement stmt3 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.reportTable + " (UUID char(36), Report varchar(500), Reported varchar(16), Reporting varchar(16), Date varchar(500))");
                     stmt.execute();
                     stmt2.execute();
                     stmt3.execute();
@@ -78,9 +78,9 @@ public class DatabaseSetup {
     public static void createTable() {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Mutetable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Bantable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.Reporttable + " (UUID char(36), Report varchar(500), Reported varchar(16), Reporting varchar(16), Date varchar(500))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.muteTable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.banTable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.reportTable + " (UUID char(36), Report varchar(500), Reported varchar(16), Reporting varchar(16), Date varchar(500))");
         } catch (SQLException e) {
             e.printStackTrace();
         }

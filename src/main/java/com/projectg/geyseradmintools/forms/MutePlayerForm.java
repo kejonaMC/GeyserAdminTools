@@ -1,6 +1,5 @@
 package com.projectg.geyseradmintools.forms;
 
-import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
@@ -47,8 +46,7 @@ public class MutePlayerForm {
                                     } else {
                                         player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
-                                }
-                                if (response.getClickedButtonId() == 1) {
+                                } else if (response.getClickedButtonId() == 1) {
                                     if (player.hasPermission("geyseradmintools.muteplayer")) {
                                         unMutePlayers(player);
                                     } else {
@@ -62,14 +60,14 @@ public class MutePlayerForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
-            String[] playerlist = names.toArray(new String[0]);
+            String[] playerList = names.toArray(new String[0]);
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
                 FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
                 fplayer.sendForm(
                         CustomForm.builder()
                                 .title(ChatColor.DARK_AQUA + Messages.get("mute.mute.form.title"))
-                                .dropdown(ChatColor.DARK_AQUA + Messages.get("mute.mute.form.dropdown"), playerlist)
+                                .dropdown(ChatColor.DARK_AQUA + Messages.get("mute.mute.form.dropdown"), playerList)
                                 .input(Messages.get("mute.mute.form.input1"))
                                 .input(Messages.get("mute.mute.form.input2"))
                                 .responseHandler((form, responseData) -> {
@@ -92,7 +90,7 @@ public class MutePlayerForm {
                                     //database code
                                     try {
                                         String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Mutetable
+                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.muteTable
                                                 + sql);
                                         assert player1 != null;
                                         insert.setString(1, player1.getUniqueId().toString());
@@ -118,7 +116,7 @@ public class MutePlayerForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + DatabaseSetup.Mutetable;
+            String query = "SELECT * FROM " + DatabaseSetup.muteTable;
             try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -144,7 +142,7 @@ public class MutePlayerForm {
                                         //MySQL code
                                         try {
                                             PreparedStatement statement = DatabaseSetup.getConnection()
-                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Mutetable + " WHERE UUID=?");
+                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.muteTable + " WHERE UUID=?");
                                             assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();

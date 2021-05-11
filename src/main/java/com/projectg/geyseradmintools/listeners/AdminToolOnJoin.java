@@ -26,8 +26,8 @@ public class AdminToolOnJoin implements Listener {
         if (!config.getBoolean("ItemJoin")){
             return;
         }
-        boolean isFloodGatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(e.getPlayer().getUniqueId());
-        if (!isFloodGatePlayer) {
+        boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(e.getPlayer().getUniqueId());
+        if (!isFloodgatePlayer) {
             return;
         }
         if (player.getInventory().contains(starTool)) {

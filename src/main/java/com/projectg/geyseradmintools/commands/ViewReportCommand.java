@@ -24,8 +24,6 @@ public class ViewReportCommand implements CommandExecutor {
             new TicketMenu(Gat.getPlayerMenuUtility(player)).open();
 
         }
-
-
         return true;
     }
 }

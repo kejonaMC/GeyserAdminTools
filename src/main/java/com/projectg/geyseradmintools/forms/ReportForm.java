@@ -1,6 +1,5 @@
 package com.projectg.geyseradmintools.forms;
 
-import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
@@ -48,15 +47,13 @@ public class ReportForm {
                                     } else {
                                         player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
-                                }
-                                if (response.getClickedButtonId() == 1) {
+                                } else if (response.getClickedButtonId() == 1) {
                                     if (player.hasPermission("geyseradmintools.viewreports")) {
                                         viewReportPlayers(player);
                                     } else {
                                         player.sendMessage(ChatColor.RED + Messages.get("permission.button.error"));
                                     }
-                                }
-                                if (response.getClickedButtonId() == 2) {
+                                } else if (response.getClickedButtonId() == 2) {
                                     if (player.hasPermission("geyseradmintools.viewreports")) {
                                         deleteReportPlayers(player);
                                     } else {
@@ -71,7 +68,7 @@ public class ReportForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + DatabaseSetup.Reporttable;
+            String query = "SELECT * FROM " + DatabaseSetup.reportTable;
             try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -97,7 +94,7 @@ public class ReportForm {
                                         Player player1 = Bukkit.getPlayer(name);
                                         //MySQL code
                                             PreparedStatement statement = DatabaseSetup.getConnection()
-                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.Reporttable + " WHERE UUID=?");
+                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.reportTable + " WHERE UUID=?");
                                             assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             statement.execute();
@@ -119,7 +116,7 @@ public class ReportForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + DatabaseSetup.Reporttable;
+            String query = "SELECT * FROM " + DatabaseSetup.reportTable;
             try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -145,7 +142,7 @@ public class ReportForm {
                                         //MySQL code
                                         try {
                                             PreparedStatement statement = DatabaseSetup.getConnection()
-                                                    .prepareStatement("SELECT * FROM " + DatabaseSetup.Reporttable + " WHERE UUID=?");
+                                                    .prepareStatement("SELECT * FROM " + DatabaseSetup.reportTable + " WHERE UUID=?");
                                             assert player1 != null;
                                             statement.setString(1, player1.getUniqueId().toString());
                                             ResultSet results = statement.executeQuery();
@@ -200,7 +197,7 @@ public class ReportForm {
                                     //database code
                                     try {
                                         String sql = "(UUID,REPORT,REPORTED,REPORTING,DATE) VALUES (?,?,?,?,?)";
-                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.Reporttable
+                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.reportTable
                                                 + sql);
                                         assert player1 != null;
                                         insert.setString(1, player1.getUniqueId().toString());

@@ -12,7 +12,7 @@ public class MenuListener implements Listener {
     public void onMenuClick(InventoryClickEvent e){
 
         InventoryHolder holder = e.getInventory().getHolder();
-        //If the inventoryholder of the inventory clicked on
+        // If the inventoryholder of the inventory clicked on
         // is an instance of Menu, then gg. The reason that
         // an InventoryHolder can be a Menu is because our Menu
         // class implements InventoryHolder!!

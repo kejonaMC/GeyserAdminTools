@@ -19,8 +19,8 @@ public class AdminToolsForm {
         UUID uuid = player.getUniqueId();
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-            fplayer.sendForm(
+            FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+            fPlayer.sendForm(
                     SimpleForm.builder()
                             .title(ChatColor.DARK_AQUA + Messages.get("admin.form.title"))
                             .content(ChatColor.ITALIC + Messages.get("admin.form.content"))
@@ -44,43 +44,33 @@ public class AdminToolsForm {
                                 if (response.getClickedButtonId() == 0) {
                                     player.setGameMode(GameMode.CREATIVE);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.gamemode.creative"));
-                                }
-                                if (response.getClickedButtonId() == 1) {
+                                } else if (response.getClickedButtonId() == 1) {
                                     player.setGameMode(GameMode.SURVIVAL);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.gamemode.survival"));
-                                }
-                                if (response.getClickedButtonId() == 2) {
+                                } else if (response.getClickedButtonId() == 2) {
                                     player.setGameMode(GameMode.SPECTATOR);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.gamemode.spectator"));
-                                }
-                                if (response.getClickedButtonId() == 3) {
+                                } else if (response.getClickedButtonId() == 3) {
                                     TeleportForm.tpPlayer(player);
-                                }
-                                if (response.getClickedButtonId() == 4) {
+                                } else if (response.getClickedButtonId() == 4) {
                                     for (Player target : Bukkit.getOnlinePlayers()) {
                                         target.hidePlayer(player);
-                                    player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.vanish"));
+                                        player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.vanish"));
                                     }
-                                }
-                                if (response.getClickedButtonId() == 5) {
+                                } else if (response.getClickedButtonId() == 5) {
                                     player.setInvulnerable(true);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.godmode"));
-                                }
-                                if (response.getClickedButtonId() == 6) {
+                                } else if (response.getClickedButtonId() == 6) {
                                     player.setAllowFlight(true);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.fly"));
-                                }
-                                if (response.getClickedButtonId() == 7) {
+                                } else if (response.getClickedButtonId() == 7) {
                                     player.getInventory().clear();
                                     player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.inv.clear"));
-                                }
-                                if (response.getClickedButtonId() == 8) {
+                                } else if (response.getClickedButtonId() == 8) {
                                     BanPlayerForm.banList(player);
-                                }
-                                if (response.getClickedButtonId() == 9) {
+                                } else if (response.getClickedButtonId() == 9) {
                                     MutePlayerForm.MuteList(player);
-                                }
-                                if (response.getClickedButtonId() == 10) {
+                                } else if (response.getClickedButtonId() == 10) {
                                     ReportForm.reportList(player);
                                 }
                             }));

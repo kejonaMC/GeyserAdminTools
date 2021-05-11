@@ -25,8 +25,8 @@ public class MobsToolsForm {
         UUID uuid = player.getUniqueId();
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
         if (isFloodgatePlayer) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-            fplayer.sendForm(
+            FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+            fPlayer.sendForm(
                     SimpleForm.builder()
                             .title(ChatColor.DARK_AQUA + Messages.get("mob.form.title"))
                             .content(ChatColor.DARK_AQUA + Messages.get("mob.form.content"))
@@ -42,14 +42,11 @@ public class MobsToolsForm {
                                 }
                                 if (response.getClickedButtonId() == 0) {
                                     PAMobs(player);
-                                }
-                                if (response.getClickedButtonId() == 1) {
+                                } else if (response.getClickedButtonId() == 1) {
                                     AGMobs(player);
-                                }
-                                if (response.getClickedButtonId() == 2) {
+                                } else if (response.getClickedButtonId() == 2) {
                                     BOMobs(player);
-                                }
-                                if (response.getClickedButtonId() == 3) {
+                                } else if (response.getClickedButtonId() == 3) {
                                     List<Entity> ents = player.getNearbyEntities(35, player.getWorld().getMaxHeight() * 2, 10);
 
                                     for (Entity ent : ents) {
@@ -72,8 +69,8 @@ public class MobsToolsForm {
             Location target = player.getEyeLocation().add(player.getLocation().getDirection().multiply(4 /* distance in blocks */));
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
-                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-                fplayer.sendForm(
+                FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+                fPlayer.sendForm(
                         CustomForm.builder()
                                 .title(ChatColor.DARK_AQUA + Messages.get("agro.mob.form.title"))
                                 .dropdown(ChatColor.DARK_AQUA + Messages.get("agro.mob.form.dropdown")
@@ -96,50 +93,42 @@ public class MobsToolsForm {
                                     String s = response.getInput(1);
                                     try {
                                         in[0] = Integer.parseInt(s);
-                                    }catch (NumberFormatException e) {
+                                    } catch (NumberFormatException e) {
                                         player.sendMessage(ChatColor.YELLOW + Messages.get("mob.input.error"));
                                     }
                                     if (response.getDropdown(0) == 0) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.ZOMBIE);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 1) {
+                                    } else if (response.getDropdown(0) == 1) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.SKELETON);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 2) {
+                                    } else if (response.getDropdown(0) == 2) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.SPIDER);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 3) {
+                                    } else if (response.getDropdown(0) == 3) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.CREEPER);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 4) {
+                                    } else if (response.getDropdown(0) == 4) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.BLAZE);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 5) {
+                                    } else if (response.getDropdown(0) == 5) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.VEX);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 6) {
+                                    } else if (response.getDropdown(0) == 6) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.WITHER_SKELETON);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 7) {
+                                    } else if (response.getDropdown(0) == 7) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.SLIME);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 8) {
+                                    } else if (response.getDropdown(0) == 8) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.GHAST);
                                         }
@@ -158,8 +147,8 @@ public class MobsToolsForm {
             Location target = player.getEyeLocation().add(player.getLocation().getDirection().multiply(4 /* distance in blocks */));
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
-                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-                fplayer.sendForm(
+                FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+                fPlayer.sendForm(
                         CustomForm.builder()
                                 .title(ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.title"))
                                 .dropdown(ChatColor.DARK_AQUA + Messages.get("nonagro.mob.form.dropdown")
@@ -188,82 +177,66 @@ public class MobsToolsForm {
                                     String s = response.getInput(1);
                                     try {
                                         in[0] = Integer.parseInt(s);
-                                    }catch (NumberFormatException e) {
+                                    } catch (NumberFormatException e) {
                                         player.sendMessage(ChatColor.YELLOW + Messages.get("mob.input.error"));
                                     }
                                     if (response.getDropdown(0) == 0) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.PIG);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 1) {
+                                    } else if (response.getDropdown(0) == 1) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.CHICKEN);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 2) {
+                                    } else if (response.getDropdown(0) == 2) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.COW);
                                         }
-                                    }
-
-                                    if (response.getDropdown(0) == 3) {
+                                    } else if (response.getDropdown(0) == 3) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.HORSE);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 4) {
+                                    } else if (response.getDropdown(0) == 4) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.SHEEP);
                                         }
-                                    }
-
-                                    if (response.getDropdown(0) == 5) {
+                                    } else if (response.getDropdown(0) == 5) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.RABBIT);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 6) {
+                                    } else if (response.getDropdown(0) == 6) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.DONKEY);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 7) {
+                                    } else if (response.getDropdown(0) == 7) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.BAT);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 8) {
+                                    } else if (response.getDropdown(0) == 8) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.WOLF);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 9) {
+                                    } else if (response.getDropdown(0) == 9) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.SNOWMAN);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 10) {
+                                    } else if (response.getDropdown(0) == 10) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.VILLAGER);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 11) {
+                                    } else if (response.getDropdown(0) == 11) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.SQUID);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 12) {
+                                    } else if (response.getDropdown(0) == 12) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.PARROT);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 13) {
+                                    } else if (response.getDropdown(0) == 13) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.POLAR_BEAR);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 14) {
+                                    } else if (response.getDropdown(0) == 14) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(target, EntityType.MUSHROOM_COW);
                                         }
@@ -281,8 +254,8 @@ public class MobsToolsForm {
             UUID uuid = player.getUniqueId();
             boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
             if (isFloodgatePlayer) {
-                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(uuid);
-                fplayer.sendForm(
+                FloodgatePlayer fPlayer = FloodgateApi.getInstance().getPlayer(uuid);
+                fPlayer.sendForm(
                         CustomForm.builder()
                                 .title(ChatColor.DARK_AQUA + Messages.get("boss.mob.form.title"))
                                 .dropdown(ChatColor.DARK_AQUA + Messages.get("boss.mob.form.dropdown")
@@ -303,20 +276,18 @@ public class MobsToolsForm {
                                     String s = response.getInput(1);
                                     try {
                                         in[0] = Integer.parseInt(s);
-                                    }catch (NumberFormatException e) {
+                                    } catch (NumberFormatException e) {
                                         player.sendMessage(ChatColor.YELLOW + Messages.get("mob.input.error"));
                                     }
                                     if (response.getDropdown(0) == 0) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(location, EntityType.ENDER_DRAGON);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 1) {
+                                    } else if (response.getDropdown(0) == 1) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(location, EntityType.WITHER);
                                         }
-                                    }
-                                    if (response.getDropdown(0) == 2) {
+                                    } else if (response.getDropdown(0) == 2) {
                                         for (int i = 0; i < in[0]; i++) {
                                             player.getWorld().spawnEntity(location, EntityType.GUARDIAN);
                                         }
