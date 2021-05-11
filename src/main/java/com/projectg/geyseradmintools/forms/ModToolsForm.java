@@ -1,5 +1,6 @@
 package com.projectg.geyseradmintools.forms;
 
+import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.ChatColor;
@@ -46,13 +47,12 @@ public class ModToolsForm {
                                 } else if (response.getClickedButtonId() == 2) {
                                     TeleportForm.tpPlayer(player);
                                 } else if (response.getClickedButtonId() == 3) {
-                                    player.hidePlayer(player);
+                                    player.hidePlayer(Gat.getPlugin(), player);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.vanish"));
                                 } else if (response.getClickedButtonId() == 4) {
                                     player.setAllowFlight(true);
                                     player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.fly"));
-                                }
-                                if (response.getClickedButtonId() == 5) {
+                                } else if (response.getClickedButtonId() == 5) {
                                     player.getInventory().clear();
                                     player.sendMessage(ChatColor.GREEN + Messages.get("mod.form.inv.clear"));
                                 } else if (response.getClickedButtonId() == 6) {

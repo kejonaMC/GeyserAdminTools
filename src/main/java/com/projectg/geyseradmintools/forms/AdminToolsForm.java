@@ -1,5 +1,6 @@
 package com.projectg.geyseradmintools.forms;
 
+import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
@@ -14,7 +15,6 @@ import org.geysermc.floodgate.api.player.FloodgatePlayer;
 import java.util.UUID;
 
 public class AdminToolsForm {
-    @SuppressWarnings("deprecation")
     public void ATList(Player player) {
         UUID uuid = player.getUniqueId();
         boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
@@ -54,7 +54,7 @@ public class AdminToolsForm {
                                     TeleportForm.tpPlayer(player);
                                 } else if (response.getClickedButtonId() == 4) {
                                     for (Player target : Bukkit.getOnlinePlayers()) {
-                                        target.hidePlayer(player);
+                                        target.hidePlayer(Gat.getPlugin(), player);
                                         player.sendMessage(ChatColor.GREEN + Messages.get("admin.form.vanish"));
                                     }
                                 } else if (response.getClickedButtonId() == 5) {
