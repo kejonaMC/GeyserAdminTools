@@ -1,4 +1,4 @@
-[![Build Status](https://ci.alysaa.net/job/GeyserAdminTools/job/master/badge/icon)](https://ci.alysaa.net/job/GeyserAdminTools/job/master)
+[![Build Status](https://ci.projectg.dev/job/GeyserAdminTools/job/master/badge/icon)](https://ci.projectg.dev/job/GeyserAdminTools/job/master)
 [![License](https://img.shields.io/badge/License-GPL-orange)](https://github.com/ProjectG-Plugins/GeyserAdminTools/blob/master/LICENSE)
 [![bStats Spigot](https://img.shields.io/bstats/servers/10943?color=yellow&label=Spigot%20servers)](https://bstats.org/plugin/bukkit/GeyserAdminTools/10943)
 [![Discord](https://img.shields.io/discord/806179549498966058?color=7289da&label=discord&logo=discord&logoColor=white)](https://discord.gg/xXzzdAXa2b)
@@ -12,7 +12,7 @@ Note: This is NOT an official GeyserMC plugin. It is made to work with GeyserMC 
 
 ## Downloading
 
-you can download the plugin [our CI](https://ci.alysaa.net/job/GeyserAdminTools/job/master/).
+you can download the plugin [our CI](https://ci.projectg.dev/job/GeyserAdminTools/job/master/).
 
 ## Installation
 
