@@ -75,15 +75,16 @@ public class BanMenu extends PaginatedMenu {
             generateBanList(true);
             return;
         }
-
         // Clear any existing heads
         removeContents();
 
-        // Since indexes start at 0 and not 1, and the start index is inclusive, the start index of this page is conveniently the amount of items that can fit in earlier pages.
-        int startIndex = pageIndex * getMaxItemsPerPage();
-        // The end index is exclusive, so it is simply the start index of the next page
-        List<ItemStack> displayedHeads = bannedHeads.subList(startIndex, startIndex + getMaxItemsPerPage());
-        inventory.addItem(displayedHeads.toArray(new ItemStack[0]));
+        int fromIndex = pageIndex * getMaxItemsPerPage(); // Inclusive
+        // toIndex is the size if the size is smaller than the combined capacity of the current and past pages.
+        // If the size is not smaller, then the toIndex is the combined capacity of the current and past pages, which truncates the list if necessary.
+        int toIndex = Math.min(bannedHeads.size(), fromIndex + getMaxItemsPerPage()); //Exclusive
+        for (ItemStack head : bannedHeads.subList(fromIndex,toIndex)) {
+            inventory.addItem(head);
+        }
     }
 
     /**
