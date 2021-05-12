@@ -61,7 +61,7 @@ public class BanMenu extends PaginatedMenu {
 
                 if (totalHeads > currentCapacity) {
                     // If the total count doesn't exceed the next page, then the next page is the last.
-                    lastPage = totalHeads < currentCapacity + getMaxItemsPerPage();
+                    lastPage = totalHeads <= currentCapacity + getMaxItemsPerPage();
                     super.open(pageIndex + 1);
                 }
             }
@@ -79,7 +79,7 @@ public class BanMenu extends PaginatedMenu {
         // Clear any existing heads
         removeContents();
 
-        // Since indexes start at 0 and not 1, and the start index is inclusive, the start index of this page is conveniently the amount of items that can fix it earlier pages.
+        // Since indexes start at 0 and not 1, and the start index is inclusive, the start index of this page is conveniently the amount of items that can fit in earlier pages.
         int startIndex = pageIndex * getMaxItemsPerPage();
         // The end index is exclusive, so it is simply the start index of the next page
         List<ItemStack> displayedHeads = bannedHeads.subList(startIndex, startIndex + getMaxItemsPerPage());

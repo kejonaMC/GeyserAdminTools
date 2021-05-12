@@ -54,7 +54,7 @@ public class TicketMenu extends PaginatedMenu {
 
                 if (totalHeads > currentCapacity) {
                     // If the total count doesn't exceed the next page, then the next page is the last.
-                    lastPage = totalHeads < currentCapacity + getMaxItemsPerPage();
+                    lastPage = totalHeads <= currentCapacity + getMaxItemsPerPage();
                     super.open(pageIndex + 1);
                 }
             }
