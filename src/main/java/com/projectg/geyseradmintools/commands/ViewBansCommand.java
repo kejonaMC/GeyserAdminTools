@@ -20,7 +20,7 @@ public class ViewBansCommand implements CommandExecutor {
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("gviewbans") && player.hasPermission("geyseradmintools.viewbans")) {
 
-            new BanMenu(Gat.getPlayerMenuUtility(player)).open();
+            new BanMenu(Gat.getPlayerMenuUtility(player)).open(0);
 
         }
         return true;
