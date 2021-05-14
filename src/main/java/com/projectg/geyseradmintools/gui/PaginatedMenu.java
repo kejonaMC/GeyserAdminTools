@@ -18,12 +18,16 @@ public abstract class PaginatedMenu extends Menu {
      * Add the glass border at the bottom containing the buttons
      */
     public void setMenuBorder() {
-        if (pageIndex == 0) {
+        if (pageIndex != 0) {
             inventory.setItem(48, makeItem(Material.DARK_OAK_BUTTON, ChatColor.GREEN + "Left"));
+        } else {
+            inventory.setItem(48, null);
         }
         inventory.setItem(49, makeItem(Material.BARRIER, ChatColor.DARK_RED + "Close"));
         if (!lastPage) {
             inventory.setItem(50, makeItem(Material.DARK_OAK_BUTTON, ChatColor.GREEN + "Right"));
+        } else {
+            inventory.setItem(50, null);
         }
 
         for (int i = 45; i < 54; i++) {
@@ -43,16 +47,21 @@ public abstract class PaginatedMenu extends Menu {
     }
 
     // todo: maybe put these two methods back in Menu.java and have a setPage() method here
-    public abstract void setMenuItems(int pageNumber);
+    /**
+     * Set the content of the menu
+     * @return false if this method will call open() again
+     */
+    public abstract boolean setMenuItems();
 
     public void open(int pageIndex) {
         if (inventory == null) {
             inventory = Bukkit.createInventory(this, getTotalSlots(), getMenuName());
         }
         this.pageIndex = pageIndex;
-        setMenuBorder();
-        this.setMenuItems(pageIndex);
-        playerMenuUtility.getOwner().openInventory(inventory);
+        if (setMenuItems()) {
+            setMenuBorder();
+            playerMenuUtility.getOwner().openInventory(inventory);
+        }
     }
 
     public int getMaxItemsPerPage() {

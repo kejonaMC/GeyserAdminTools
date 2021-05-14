@@ -56,12 +56,7 @@ public class BanMenu extends PaginatedMenu {
                     super.open(pageIndex - 1);
                 }
             } else if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).equalsIgnoreCase("Right")) {
-                int currentCapacity = (pageIndex + 1) * getMaxItemsPerPage();
-                int totalHeads = bannedHeads.size();
-
-                if (totalHeads > currentCapacity) {
-                    // If the total count doesn't exceed the next page, then the next page is the last.
-                    lastPage = totalHeads <= currentCapacity + getMaxItemsPerPage();
+                if (!lastPage) {
                     super.open(pageIndex + 1);
                 }
             }
@@ -69,22 +64,30 @@ public class BanMenu extends PaginatedMenu {
     }
 
     @Override
-    public void setMenuItems(int pageIndex) {
+    public boolean setMenuItems() {
         // Generate all content if it hasn't yet, and recall open()
         if (bannedHeads == null) {
             generateBanList(true);
-            return;
+            // stop execution of the parent method because the generate method is async. we deal with opening it within it
+            return false;
         }
         // Clear any existing heads
         removeContents();
 
+        int bannedSize = bannedHeads.size();
+
         int fromIndex = pageIndex * getMaxItemsPerPage(); // Inclusive
         // toIndex is the size if the size is smaller than the combined capacity of the current and past pages.
         // If the size is not smaller, then the toIndex is the combined capacity of the current and past pages, which truncates the list if necessary.
-        int toIndex = Math.min(bannedHeads.size(), fromIndex + getMaxItemsPerPage()); //Exclusive
+        int toIndex = Math.min(bannedSize, fromIndex + getMaxItemsPerPage()); //Exclusive
         for (ItemStack head : bannedHeads.subList(fromIndex,toIndex)) {
             inventory.addItem(head);
         }
+
+        calculateLastPage(pageIndex);
+
+        // continue execution of the parent method
+        return true;
     }
 
     /**
@@ -148,11 +151,21 @@ public class BanMenu extends PaginatedMenu {
                             }
                         }
                         if (openMenu) {
-                            open(0);
+                            open(pageIndex);
                         }
                     }
                 }.runTask(Gat.getPlugin());
             }
         }.runTaskAsynchronously(Gat.getPlugin());
+    }
+
+    /**
+     * Calculate and set if the page being generated is the last one
+     * @param pageIndex the page index being generated
+     */
+    public void calculateLastPage(int pageIndex) {
+        int currentCapacity = (pageIndex + 1) * getMaxItemsPerPage();
+        // If the total banned size doesn't exceed the page being generated, then the next page is the last.
+        lastPage = bannedHeads.size() <= currentCapacity;
     }
 }
