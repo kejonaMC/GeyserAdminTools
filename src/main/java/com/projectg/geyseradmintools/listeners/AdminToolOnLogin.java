@@ -22,16 +22,19 @@ public class AdminToolOnLogin implements Listener {
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void checkBan(AsyncPlayerPreLoginEvent e) throws ParseException {
         UUID uuid = e.getUniqueId();
-        String endDate = BanData.infoBan(uuid, "ENDDATE");
-        String reason = BanData.infoBan(uuid, "REASON");
-        Date dataDate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-        String curDate = LocalDate.now().toString();
-        Date currDate = new SimpleDateFormat("yyyy-MM-dd").parse(curDate);
+        try {
+            String endDate = BanData.infoBan(uuid, "ENDDATE");
+            String reason = BanData.infoBan(uuid, "REASON");
+            Date dataDate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+            String curDate = LocalDate.now().toString();
+            Date currDate = new SimpleDateFormat("yyyy-MM-dd").parse(curDate);
 
-        if (dataDate.compareTo(currDate) < 0) {
-            BanData.deleteBan(e.getUniqueId());
-        } else {
-            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED + Messages.get("ban.join.event", endDate, reason));
+            if (dataDate.compareTo(currDate) < 0) {
+                BanData.deleteBan(e.getUniqueId());
+            } else {
+                e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED + Messages.get("ban.join.event", endDate, reason));
+            }
+        } catch (ParseException | NullPointerException ignored) {
         }
     }
 }

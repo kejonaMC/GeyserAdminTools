@@ -1,10 +1,8 @@
 package com.projectg.geyseradmintools.forms;
 
 import com.projectg.geyseradmintools.database.BanData;
-import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
-import me.leoko.advancedban.utils.Punishment;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -16,10 +14,6 @@ import org.geysermc.cumulus.response.SimpleFormResponse;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -107,7 +101,7 @@ public class BanPlayerForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            BanData.checkBan(names);
+            BanData.banList(names);
                 String[] playerList = names.toArray(new String[0]);
                 boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
                 if (isFloodgatePlayer) {

@@ -52,15 +52,14 @@ public class BanData {
             // ENDDATE, STARTDATE,  REASON, NAME, USERNAME,BANNEDBY
             return results.getString(column);
 
-        } catch (SQLException exe) {
-            exe.printStackTrace();
+        } catch (SQLException ignored) {
 
         }
         return null;
 
     }
 
-    public static void checkBan(List<String> names) {
+    public static void banList(List<String> names) {
         String query = "SELECT * FROM " + DatabaseSetup.banTable;
         try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
