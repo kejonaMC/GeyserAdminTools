@@ -20,7 +20,7 @@ public class DatabaseSetup {
     public static String reportTable;
     public int port;
 
-    public void mysqlSetup() {
+    public boolean mysqlSetup() {
         host = Gat.plugin.getConfig().getString("host");
         port = Gat.plugin.getConfig().getInt("port");
         database = Gat.plugin.getConfig().getString("database");
@@ -33,7 +33,7 @@ public class DatabaseSetup {
             try {
                 synchronized (this) {
                     if (getConnection() != null && !getConnection().isClosed()) {
-                        return;
+                        return false;
                     }
 
                     Class.forName("com.mysql.jdbc.Driver");
@@ -74,6 +74,7 @@ public class DatabaseSetup {
                 e.printStackTrace();
             }
         }
+        return false;
     }
     public static void createTable() {
         try {

@@ -71,7 +71,16 @@ public class Gat extends JavaPlugin {
             return playerMenuUtilityMap.get(p); //Return the object by using the provided player
         }
     }
-
+    public void CheckHooks(){
+        if (this.getServer().getPluginManager().getPlugin("AdvancedBan") == null){
+            logger.info("Hooked into AdvancedBan");
+        }
+        else if (this.getServer().getPluginManager().getPlugin("LiteBans") == null){
+            logger.info("Hooked into LiteBans");
+        }else {
+            new DatabaseSetup().mysqlSetup();
+        }
+    }
     public void checkConfigVer(){
         Logger logger = this.getLogger();
         //Change version number only when editing config.yml!
