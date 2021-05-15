@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class BanData {
 
-    public void addBan(Player bPlayer, String startDate, String endDate, String reason, String username,
+    public static void addBan(Player bPlayer, String startDate, String endDate, String reason, String username,
                        String bannedBy) {
 
         UUID uuid = bPlayer.getUniqueId();
@@ -29,7 +29,7 @@ public class BanData {
         }
     }
 
-    public void deleteBan(UUID uuid) {
+    public static void deleteBan(UUID uuid) {
         try {
             PreparedStatement statement = DatabaseSetup.getConnection()
                     .prepareStatement("DELETE FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
@@ -41,12 +41,12 @@ public class BanData {
         }
     }
 
-    public String infoBan(String uuid, String column) {
+    public static String infoBan(UUID uuid, String column) {
         try {
             PreparedStatement statement = DatabaseSetup.getConnection()
                     .prepareStatement("SELECT * FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
 
-            statement.setString(1, uuid);
+            statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
             results.next();
             // START, END, REASON, NAME, USERNAME,BANNEDBY
@@ -60,7 +60,7 @@ public class BanData {
 
     }
 
-    public void checkBan(List<String> names) {
+    public static void checkBan(List<String> names) {
         String query = "SELECT * FROM " + DatabaseSetup.banTable;
         try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
             ResultSet rs = stmt.executeQuery(query);

@@ -92,7 +92,7 @@ public class BanPlayerForm {
                                     Player bPlayer = Bukkit.getPlayer(name);
                                     String startDate = LocalDate.now().toString();
                                     //database code
-                                    new BanData().addBan(bPlayer,startDate,endDate,reason, bPlayer.getName(), player.getName());
+                                    BanData.addBan(bPlayer,startDate,endDate,reason, bPlayer.getName(), player.getName());
                                     bPlayer.kickPlayer(Messages.get("ban.ban.form.player.message1",reason,endDate));
                                     player.sendMessage(ChatColor.GOLD + Messages.get("ban.ban.form.player.message2",name));
                                     //end
@@ -107,7 +107,7 @@ public class BanPlayerForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            new BanData().checkBan(names);
+            BanData.checkBan(names);
                 String[] playerList = names.toArray(new String[0]);
                 boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
                 if (isFloodgatePlayer) {
@@ -124,7 +124,7 @@ public class BanPlayerForm {
                                         int clickedIndex = response.getDropdown(0);
                                         String name = names.get(clickedIndex);
                                         OfflinePlayer player1 = Bukkit.getOfflinePlayer(name);
-                                        new BanData().deleteBan(player1.getUniqueId());
+                                        BanData.deleteBan(player1.getUniqueId());
                                             player.sendMessage(ChatColor.GREEN +Messages.get("unban.ban.form.player.message1",name));
                                     }));
                 }

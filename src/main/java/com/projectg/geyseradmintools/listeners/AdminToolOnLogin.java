@@ -1,5 +1,6 @@
 package com.projectg.geyseradmintools.listeners;
 
+import com.projectg.geyseradmintools.database.BanData;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.ChatColor;
@@ -50,21 +51,12 @@ public class AdminToolOnLogin implements Listener {
             throwables.printStackTrace();
         }
     }
+
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPlayerLogin(AsyncPlayerPreLoginEvent e) {
         UUID uuid = e.getUniqueId();
-        try {
-            PreparedStatement statement = DatabaseSetup.getConnection()
-                    .prepareStatement("SELECT * FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
-            statement.setString(1, uuid.toString());
-            ResultSet results = statement.executeQuery();
-            while (results.next()) {
-                String reason = results.getString("Reason");
-                String endDate = results.getString("EndDate");
-                    e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED + Messages.get("ban.join.event",endDate,reason));
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        String endDate = BanData.infoBan(uuid, "ENDDATE");
+        String reason = BanData.infoBan(uuid, "REASON");
+        e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED + Messages.get("ban.join.event", endDate, reason));
     }
 }

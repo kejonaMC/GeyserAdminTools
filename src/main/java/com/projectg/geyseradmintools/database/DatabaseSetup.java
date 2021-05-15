@@ -79,7 +79,7 @@ public class DatabaseSetup {
     public static void createTable() {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.muteTable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.muteTable + " (UUID char(36), Reason varchar(500), Username varchar(16),BannedBy varchar(16), EndDate varchar(500),  StartDate varchar(500))");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.banTable + " (UUID char(36), Reason varchar(500), Username varchar(16), EndDate varchar(500))");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.reportTable + " (UUID char(36), Report varchar(500), Reported varchar(16), Reporting varchar(16), Date varchar(500))");
         } catch (SQLException e) {
