@@ -49,7 +49,7 @@ public class BanData {
             statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
             results.next();
-            // START, END, REASON, NAME, USERNAME,BANNEDBY
+            // ENDDATE, STARTDATE,  REASON, NAME, USERNAME,BANNEDBY
             return results.getString(column);
 
         } catch (SQLException exe) {
