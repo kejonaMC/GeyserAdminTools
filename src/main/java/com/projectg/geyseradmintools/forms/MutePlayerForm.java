@@ -1,6 +1,7 @@
 package com.projectg.geyseradmintools.forms;
 
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.database.MuteData;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
@@ -77,33 +78,21 @@ public class MutePlayerForm {
                                     }
                                     int clickedIndex = response.getDropdown(0);
                                     String day = response.getInput(1);
-                                    String time;
+                                    String endDate;
                                     try {
-                                        time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
+                                        endDate = LocalDate.now().plusDays(Long.parseLong(day)).toString();
                                     } catch (NumberFormatException | NullPointerException e) {
                                         player.sendMessage(ChatColor.YELLOW + Messages.get("mute.input.error"));
                                         return;
                                     }
                                     String reason = response.getInput(2);
                                     String name = names.get(clickedIndex);
-                                    Player player1 = Bukkit.getPlayer(name);
+                                    Player mPlayer = Bukkit.getPlayer(name);
+                                    String startDate = LocalDate.now().toString();
                                     //database code
-                                    try {
-                                        String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.muteTable
-                                                + sql);
-                                        assert player1 != null;
-                                        insert.setString(1, player1.getUniqueId().toString());
-                                        insert.setString(2, reason);
-                                        insert.setString(3, name);
-                                        insert.setString(4, time);
-                                        insert.executeUpdate();
-                                        // Player inserted now
-                                    } catch (SQLException throwables) {
-                                        throwables.printStackTrace();
-                                    }
-                                    assert player1 != null;
-                                    player1.sendMessage(ChatColor.RED + Messages.get("mute.mute.form.player.message1",time,reason));
+                                    assert mPlayer != null;
+                                    MuteData.addMute(mPlayer,startDate,endDate,reason,mPlayer.getName(),player.getName());
+                                    mPlayer.sendMessage(ChatColor.RED + Messages.get("mute.mute.form.player.message1",endDate,reason));
                                     player.sendMessage(ChatColor.GOLD + Messages.get("mute.mute.form.player.message3",name));
                                     //end
                                 }));
@@ -138,20 +127,11 @@ public class MutePlayerForm {
                                         }
                                         int clickedIndex = response.getDropdown(0);
                                         String name = names.get(clickedIndex);
-                                        Player player1 = Bukkit.getPlayer(name);
+                                        Player mPlayer = Bukkit.getPlayer(name);
                                         //MySQL code
-                                        try {
-                                            PreparedStatement statement = DatabaseSetup.getConnection()
-                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.muteTable + " WHERE UUID=?");
-                                            assert player1 != null;
-                                            statement.setString(1, player1.getUniqueId().toString());
-                                            statement.execute();
+                                        MuteData.deleteMute(mPlayer.getUniqueId());
                                             player.sendMessage(ChatColor.GOLD + Messages.get("Unmute.mute.form.player.message1",name));
-                                            player1.sendMessage(ChatColor.GOLD + Messages.get("Unmute.mute.form.player.message2"));
-
-                                        } catch (SQLException exe) {
-                                            exe.printStackTrace();
-                                        }
+                                            mPlayer.sendMessage(ChatColor.GOLD + Messages.get("Unmute.mute.form.player.message2"));
                                     }));
                 }
             } catch (SQLException throwables) {
