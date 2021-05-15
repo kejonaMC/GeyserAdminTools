@@ -1,5 +1,6 @@
 package com.projectg.geyseradmintools.forms;
 
+import com.projectg.geyseradmintools.database.BanData;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
@@ -78,32 +79,21 @@ public class BanPlayerForm {
                                         return;
                                     }
                                     int clickedIndex = response.getDropdown(0);
-                                    String day = response.getInput(1);
-                                    String time;
+                                    String dayInput = response.getInput(1);
+                                    String endDate;
                                     try {
-                                        time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
+                                        endDate = LocalDate.now().plusDays(Long.parseLong(dayInput)).toString();
                                     } catch (NumberFormatException | NullPointerException  e) {
                                         player.sendMessage(ChatColor.YELLOW + Messages.get("ban.input.error"));
                                    return;
                                     }
                                     String reason = response.getInput(2);
                                     String name = names.get(clickedIndex);
-                                    Player player1 = Bukkit.getPlayer(name);
+                                    Player bPlayer = Bukkit.getPlayer(name);
+                                    String startDate = LocalDate.now().toString();
                                     //database code
-                                    try {
-                                        String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.banTable
-                                                + sql);
-                                        insert.setString(1, player1.getUniqueId().toString());
-                                        insert.setString(2, reason);
-                                        insert.setString(3, name);
-                                        insert.setString(4, time);
-                                        insert.executeUpdate();
-                                        // Player inserted now
-                                    } catch (SQLException throwables) {
-                                        throwables.printStackTrace();
-                                    }
-                                    player1.kickPlayer(Messages.get("ban.ban.form.player.message1",reason,time));
+                                    new BanData().addBan(bPlayer,startDate,endDate,reason, bPlayer.getName(), player.getName());
+                                    bPlayer.kickPlayer(Messages.get("ban.ban.form.player.message1",reason,endDate));
                                     player.sendMessage(ChatColor.GOLD + Messages.get("ban.ban.form.player.message2",name));
                                     //end
                                 }));
@@ -117,13 +107,7 @@ public class BanPlayerForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + DatabaseSetup.banTable;
-            try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
-                ResultSet rs = stmt.executeQuery(query);
-                while (rs.next()) {
-                    names.add(rs.getString("Username"));
-                }
-                rs.close();
+            new BanData().checkBan(names);
                 String[] playerList = names.toArray(new String[0]);
                 boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
                 if (isFloodgatePlayer) {
@@ -140,21 +124,10 @@ public class BanPlayerForm {
                                         int clickedIndex = response.getDropdown(0);
                                         String name = names.get(clickedIndex);
                                         OfflinePlayer player1 = Bukkit.getOfflinePlayer(name);
-                                        //MySQL code
-                                        try {
-                                            PreparedStatement statement = DatabaseSetup.getConnection()
-                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
-                                            statement.setString(1, player1.getUniqueId().toString());
-                                            statement.execute();
+                                        new BanData().deleteBan(player1.getUniqueId());
                                             player.sendMessage(ChatColor.GREEN +Messages.get("unban.ban.form.player.message1",name));
-                                        } catch (SQLException exe) {
-                                            exe.printStackTrace();
-                                        }
                                     }));
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         };
         Thread thread = new Thread(runnable);
         thread.start();

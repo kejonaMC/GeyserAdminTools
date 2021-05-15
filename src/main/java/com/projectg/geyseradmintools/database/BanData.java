@@ -1,28 +1,27 @@
 package com.projectg.geyseradmintools.database;
 
-import org.bukkit.OfflinePlayer;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.bukkit.entity.Player;
+
+import java.sql.*;
+import java.util.List;
 import java.util.UUID;
 
 public class BanData {
 
-    public void addBan(OfflinePlayer bPlayer, Date startDate, Date endDate, String reason, String username,
-                       String bannedBy){
+    public void addBan(Player bPlayer, String startDate, String endDate, String reason, String username,
+                       String bannedBy) {
 
         UUID uuid = bPlayer.getUniqueId();
         try {
-            String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
+            String sql = "(UUID,REASON,USERNAME,BANNEDBY,ENDDATE,STARTDATE) VALUES (?,?,?,?,?,?)";
             PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.banTable
                     + sql);
             insert.setString(1, uuid.toString());
-            insert.setString(2, startDate.toString());
-            insert.setString(3, endDate.toString());
-            insert.setString(4, reason);
-            insert.setString(5, username);
-            insert.setString(6, bannedBy);
+            insert.setString(2, reason);
+            insert.setString(3, username);
+            insert.setString(4, bannedBy);
+            insert.setString(5, endDate);
+            insert.setString(6, startDate);
             insert.executeUpdate();
 
         } catch (SQLException exe) {
@@ -30,18 +29,19 @@ public class BanData {
         }
     }
 
-    public void deleteBan(String uuid){
+    public void deleteBan(UUID uuid) {
         try {
             PreparedStatement statement = DatabaseSetup.getConnection()
                     .prepareStatement("DELETE FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
-            statement.setString(1, uuid);
+            statement.setString(1, uuid.toString());
             statement.execute();
 
         } catch (SQLException exe) {
             exe.printStackTrace();
         }
     }
-    public String CheckBan(String uuid, String column){
+
+    public String infoBan(String uuid, String column) {
         try {
             PreparedStatement statement = DatabaseSetup.getConnection()
                     .prepareStatement("SELECT * FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
@@ -58,5 +58,18 @@ public class BanData {
         }
         return null;
 
+    }
+
+    public void checkBan(List<String> names) {
+        String query = "SELECT * FROM " + DatabaseSetup.banTable;
+        try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                names.add(rs.getString("Username"));
+            }
+            rs.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 }
