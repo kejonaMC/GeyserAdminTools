@@ -1,6 +1,6 @@
 package com.projectg.geyseradmintools.commands;
 
-import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.database.BanData;
 import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,9 +10,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class BanCommand implements CommandExecutor {
@@ -30,28 +27,20 @@ public class BanCommand implements CommandExecutor {
                     return true;
                 }
                 try {
-                String day = args[1];
-                String time = LocalDate.now().plusDays(Long.parseLong(day)).toString();
-                String reason = args[2];
-
-                String sql = "(UUID,REASON,USERNAME,ENDDATE) VALUES (?,?,?,?)";
-                PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.banTable
-                        + sql);
-                insert.setString(1, target.getUniqueId().toString());
-                insert.setString(2, reason);
-                insert.setString(3, target.getName());
-                insert.setString(4, time);
-                insert.executeUpdate();
-                target.kickPlayer(ChatColor.RED + Messages.get("ban.command.player.message2",time,reason));
-                player.sendMessage(ChatColor.GREEN + Messages.get("ban.command.player.message1",target.getName()));
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                    String day = args[1];
+                    String endDate = LocalDate.now().plusDays(Long.parseLong(day)).toString();
+                    String reason = args[2];
+                    String startDate = LocalDate.now().toString();
+                    BanData.addBan(target, startDate, endDate, reason, target.getName(), player.getName());
+                    target.kickPlayer(ChatColor.RED + Messages.get("ban.command.player.message2", endDate, reason));
+                    player.sendMessage(ChatColor.GREEN + Messages.get("ban.command.player.message1", target.getName()));
+                } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException | CommandException e) {
+                    player.sendMessage(ChatColor.DARK_RED + Messages.get("ban.command.error"));
+                }
             }
-        }
-        } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
+        } catch (Exception e) {
             player.sendMessage(ChatColor.DARK_RED + Messages.get("ban.command.error"));
         }
         return true;
     }
-
 }

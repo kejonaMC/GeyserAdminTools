@@ -1,6 +1,5 @@
 package com.projectg.geyseradmintools.gui;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -16,7 +15,7 @@ public abstract class Menu implements InventoryHolder {
 
     protected PlayerMenuUtility playerMenuUtility;
     protected Inventory inventory;
-    protected ItemStack FILLER_GLASS = makeItem(Material.BLACK_STAINED_GLASS_PANE, " ");
+    protected ItemStack FILLER_ITEM = makeItem(Material.BLACK_STAINED_GLASS_PANE, "");
 
     public Menu(PlayerMenuUtility playerMenuUtility) {
         this.playerMenuUtility = playerMenuUtility;
@@ -24,30 +23,19 @@ public abstract class Menu implements InventoryHolder {
 
     public abstract String getMenuName();
 
-    public abstract int getSlots();
+    public abstract int getTotalSlots();
 
     public abstract void handleMenu(InventoryClickEvent e);
-
-    public abstract void setMenuItems();
-
-    public void open() {
-
-        inventory = Bukkit.createInventory(this, getSlots(), getMenuName());
-
-        this.setMenuItems();
-
-        playerMenuUtility.getOwner().openInventory(inventory);
-    }
 
     @Override
     public @NotNull Inventory getInventory() {
         return inventory;
     }
 
-    public void setFillerGlass(){
-        for (int i = 0; i < getSlots(); i++) {
+    public void fillNullSlots(){
+        for (int i = 0; i < getTotalSlots(); i++) {
             if (inventory.getItem(i) == null){
-                inventory.setItem(i, FILLER_GLASS);
+                inventory.setItem(i, FILLER_ITEM);
             }
         }
     }

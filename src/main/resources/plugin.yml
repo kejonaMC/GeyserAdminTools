@@ -37,7 +37,7 @@ commands:
   gviewbans:
     description: View ban gui with playerheads
     permission: geyseradmintools.viewbans
-    aliases: /gviewban
+    aliases: /gviewbans
 permissions:
   geyseradmintools.admintool:
     description: Allows to open admin form

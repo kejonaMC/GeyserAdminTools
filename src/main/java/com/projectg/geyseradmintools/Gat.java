@@ -71,7 +71,6 @@ public class Gat extends JavaPlugin {
             return playerMenuUtilityMap.get(p); //Return the object by using the provided player
         }
     }
-
     public void checkConfigVer(){
         Logger logger = this.getLogger();
         //Change version number only when editing config.yml!

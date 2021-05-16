@@ -1,6 +1,7 @@
 package com.projectg.geyseradmintools.commands;
 
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.database.MuteData;
 import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,17 +30,14 @@ public class UnmuteCommand implements CommandExecutor {
                     return true;
                 }
                 try {
-                    PreparedStatement statement = DatabaseSetup.getConnection()
-                            .prepareStatement("DELETE FROM " + DatabaseSetup.muteTable + " WHERE UUID=?");
-                    statement.setString(1, target.getUniqueId().toString());
-                    statement.execute();
-                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unmute.command.player.message1",target.getName()));
+                    MuteData.deleteMute(target.getUniqueId());
+                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unmute.command.player.message1", target.getName()));
                     target.sendMessage(ChatColor.GOLD + Messages.get("unmute.command.player.message2"));
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException | CommandException e) {
+                    player.sendMessage(ChatColor.DARK_RED + Messages.get("unmute.command.error"));
                 }
             }
-        } catch (IllegalArgumentException |ArrayIndexOutOfBoundsException | CommandException e) {
+        } catch (Exception e) {
             player.sendMessage(ChatColor.DARK_RED + Messages.get("unmute.command.error"));
         }
         return true;

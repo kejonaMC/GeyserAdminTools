@@ -1,6 +1,8 @@
 package com.projectg.geyseradmintools.forms;
 
+import com.projectg.geyseradmintools.database.BanData;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.database.ReportData;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import org.bukkit.Bukkit;
@@ -68,13 +70,7 @@ public class ReportForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + DatabaseSetup.reportTable;
-            try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
-                ResultSet rs = stmt.executeQuery(query);
-                while (rs.next()) {
-                    names.add(rs.getString("REPORTED"));
-                }
-                rs.close();
+            ReportData.reportList(names);
                 String[] playerlist = names.toArray(new String[0]);
                 boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
                 if (isFloodgatePlayer) {
@@ -89,24 +85,17 @@ public class ReportForm {
                                             return;
                                         }
                                         try {
-                                        int clickedIndex = response.getDropdown(0);
-                                        String name = names.get(clickedIndex);
-                                        Player player1 = Bukkit.getPlayer(name);
-                                        //MySQL code
-                                            PreparedStatement statement = DatabaseSetup.getConnection()
-                                                    .prepareStatement("DELETE FROM " + DatabaseSetup.reportTable + " WHERE UUID=?");
-                                            assert player1 != null;
-                                            statement.setString(1, player1.getUniqueId().toString());
-                                            statement.execute();
-                                            player.sendMessage(ChatColor.GREEN + Messages.get("delete.report.form.player.message1",player1.getName()));
-                                        } catch (SQLException | IndexOutOfBoundsException e) {
-                                            player.sendMessage(ChatColor.YELLOW + Messages.get("report.input.error"));
+                                            int clickedIndex = response.getDropdown(0);
+                                            String name = names.get(clickedIndex);
+                                            Player rPlayer = Bukkit.getPlayer(name);
+                                            //MySQL code
+                                            ReportData.deleteReport(rPlayer.getUniqueId());
+                                            player.sendMessage(ChatColor.GREEN + Messages.get("delete.report.form.player.message1", rPlayer.getName()));
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
                                         }
                                     }));
                 }
-            } catch (SQLException | IndexOutOfBoundsException e) {
-                player.sendMessage(ChatColor.YELLOW + Messages.get("report.input.error"));
-            }
         };
         Thread thread = new Thread(runnable);
         thread.start();
@@ -116,13 +105,7 @@ public class ReportForm {
         Runnable runnable = () -> {
             UUID uuid = player.getUniqueId();
             List<String> names = new ArrayList<>();
-            String query = "SELECT * FROM " + DatabaseSetup.reportTable;
-            try (Statement stmt = DatabaseSetup.getConnection().createStatement()) {
-                ResultSet rs = stmt.executeQuery(query);
-                while (rs.next()) {
-                    names.add(rs.getString("REPORTED"));
-                }
-                rs.close();
+            ReportData.reportList(names);
                 String[] playerlist = names.toArray(new String[0]);
                 boolean isFloodgatePlayer = CheckJavaOrFloodPlayer.isFloodgatePlayer(uuid);
                 if (isFloodgatePlayer) {
@@ -140,32 +123,18 @@ public class ReportForm {
                                         String name = names.get(clickedIndex);
                                         Player player1 = Bukkit.getPlayer(name);
                                         //MySQL code
-                                        try {
-                                            PreparedStatement statement = DatabaseSetup.getConnection()
-                                                    .prepareStatement("SELECT * FROM " + DatabaseSetup.reportTable + " WHERE UUID=?");
-                                            assert player1 != null;
-                                            statement.setString(1, player1.getUniqueId().toString());
-                                            ResultSet results = statement.executeQuery();
-                                            while (results.next()) {
-                                                String report = results.getString("REPORT");
-                                                String username = results.getString("REPORTED");
-                                                String reporting = results.getString("REPORTING");
-                                                String date = results.getString("DATE");
-                                                player.sendMessage(ChatColor.AQUA + "#--------------------------------------------------#");
-                                                player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message1",reporting,username));
-                                                player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message2",report));
-                                                player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message3",date));
-                                                player.sendMessage(ChatColor.AQUA + "#--------------------------------------------------#");
-                                            }
-                                        } catch (SQLException throwables) {
-                                            throwables.printStackTrace();
-                                        }
+                                        String startDate = ReportData.infoReport(uuid, "STARTDATE");
+                                        String report = ReportData.infoReport(uuid, "REPORT");
+
+                                        player.sendMessage(ChatColor.AQUA + "#--------------------------------------------------#");
+                                        assert player1 != null;
+                                        player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message1",player.getName(),player1.getName()));
+                                        player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message2",report));
+                                        player.sendMessage(ChatColor.AQUA + Messages.get("view.report.form.player.message3",startDate));
+                                        player.sendMessage(ChatColor.AQUA + "#--------------------------------------------------#");
 
                                     }));
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         };
         Thread thread = new Thread(runnable);
         thread.start();
@@ -193,30 +162,16 @@ public class ReportForm {
                                     int clickedIndex = response.getDropdown(0);
                                     String report = response.getInput(1);
                                     String name = names.get(clickedIndex);
-                                    Player player1 = Bukkit.getPlayer(name);
+                                    Player rPlayer = Bukkit.getPlayer(name);
+                                    String startDate = LocalDate.now().toString();
                                     //database code
-                                    try {
-                                        String sql = "(UUID,REPORT,REPORTED,REPORTING,DATE) VALUES (?,?,?,?,?)";
-                                        PreparedStatement insert = DatabaseSetup.getConnection().prepareStatement("INSERT INTO " + DatabaseSetup.reportTable
-                                                + sql);
-                                        assert player1 != null;
-                                        insert.setString(1, player1.getUniqueId().toString());
-                                        insert.setString(2, report);
-                                        insert.setString(3, name);
-                                        insert.setString(4, player.getName());
-                                        insert.setString(5, LocalDate.now().toString());
-                                        insert.executeUpdate();
-                                        // Player inserted now
-                                    } catch (SQLException throwables) {
-                                        throwables.printStackTrace();
-                                    }
+                                    ReportData.addReport(rPlayer,startDate,report,rPlayer.getName(),player.getName());
                                     player.sendMessage(ChatColor.GOLD + Messages.get("report.report.form.player.message1",name));
                                     for (Player onlinePlayers : Bukkit.getOnlinePlayers()){
                                         if (player.hasPermission("geyseradmintools.viewreportplayer")) {
                                         onlinePlayers.sendMessage(ChatColor.AQUA + Messages.get("report.report.form.player.message2",player.getName()));
                                         }
                                     }
-                                    //end
                                 }));
             }
         };

@@ -21,7 +21,7 @@ public class ViewReportCommand implements CommandExecutor {
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("gviewreport") && player.hasPermission("geyseradmintools.viewreports")) {
 
-            new TicketMenu(Gat.getPlayerMenuUtility(player)).open();
+            new TicketMenu(Gat.getPlayerMenuUtility(player)).open(0);
 
         }
         return true;
