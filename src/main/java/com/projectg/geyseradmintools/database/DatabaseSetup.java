@@ -59,7 +59,7 @@ public class DatabaseSetup {
                 try {
                     Class.forName("org.sqlite.JDBC");
                     setConnection(DriverManager.getConnection("jdbc:sqlite:" + dataFolder));
-                    PreparedStatement stmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.banTable + " UUID char(36), Reason varchar(500), Username varchar(16),BannedBy varchar(16), EndDate varchar(500), StartDate varchar(500))");
+                    PreparedStatement stmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.banTable + " (UUID char(36), Reason varchar(500), Username varchar(16),BannedBy varchar(16), EndDate varchar(500), StartDate varchar(500))");
                     PreparedStatement stmt2 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.muteTable + "(UUID char(36), Reason varchar(500), Username varchar(16),MutedBy varchar(16), EndDate varchar(500), StartDate varchar(500))");
                     PreparedStatement stmt3 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + DatabaseSetup.reportTable + "(UUID char(36), Report varchar(500), Username varchar(16), ReportedBy varchar(16), startDate varchar(500))");
                     stmt.execute();
