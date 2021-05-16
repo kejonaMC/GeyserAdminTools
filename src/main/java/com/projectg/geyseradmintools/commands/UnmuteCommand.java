@@ -38,7 +38,7 @@ public class UnmuteCommand implements CommandExecutor {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            player.sendMessage(ChatColor.DARK_RED + Messages.get("unmute.command.error"));
         }
         return true;
     }

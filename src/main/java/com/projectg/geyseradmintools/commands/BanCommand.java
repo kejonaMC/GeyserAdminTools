@@ -39,7 +39,7 @@ public class BanCommand implements CommandExecutor {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            player.sendMessage(ChatColor.DARK_RED + Messages.get("ban.command.error"));
         }
         return true;
     }

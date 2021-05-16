@@ -119,8 +119,8 @@ public class TicketMenu extends PaginatedMenu {
                                     OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
 
                                     String report = rst.getString("REPORT");
-                                    String reporting = rst.getString("REPORTING");
-                                    String date = rst.getString("DATE");
+                                    String reporting = rst.getString("REPORTEDBY");
+                                    String date = rst.getString("STARTDATE");
                                     ItemStack ticket = new ItemStack(Material.PAPER, 1);
                                     ItemMeta meta = ticket.getItemMeta();
                                     if (meta != null) {

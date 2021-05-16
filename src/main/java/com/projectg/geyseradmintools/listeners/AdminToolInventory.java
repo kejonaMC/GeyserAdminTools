@@ -1,6 +1,8 @@
 package com.projectg.geyseradmintools.listeners;
 
+import com.projectg.geyseradmintools.database.BanData;
 import com.projectg.geyseradmintools.database.DatabaseSetup;
+import com.projectg.geyseradmintools.database.ReportData;
 import com.projectg.geyseradmintools.forms.MainForm;
 import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.language.Messages;
@@ -28,24 +30,6 @@ public class AdminToolInventory  implements Listener {
 
     private static final FileConfiguration config = Gat.plugin.getConfig();
     private static final ItemStack starTool = ItemStackFactory.getStarTool();
-    PreparedStatement reportStatement;
-    {
-        try {
-            reportStatement = DatabaseSetup.getConnection()
-                    .prepareStatement("DELETE FROM " + DatabaseSetup.reportTable + " WHERE UUID=?");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-    PreparedStatement banStatement;
-    {
-        try {
-            banStatement = DatabaseSetup.getConnection()
-                    .prepareStatement("DELETE FROM " + DatabaseSetup.banTable + " WHERE UUID=?");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
@@ -66,18 +50,17 @@ public class AdminToolInventory  implements Listener {
             if (e.getView().getTitle().equalsIgnoreCase("View Report Tickets")) {
                 if (e.getCurrentItem().getType() == Material.PAPER) {
                     //ReportPlayer.openPlayerMenu(player, whoToReport);
-                    reportStatement.setString(1, whoToReport.getUniqueId().toString());
-                    reportStatement.execute();
-                    reportStatement.close();
-                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("remove.ticket.event",whoToReport.getName()));
+                    ReportData.deleteReport(whoToReport.getUniqueId());
+                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("remove.ticket.event", whoToReport.getName()));
                     e.setCancelled(true);
                     player.closeInventory();
                 }
             }
-        } catch (SQLException | NullPointerException exception) {
+        } catch (NullPointerException exception) {
             exception.getSuppressed();
         }
     }
+
     @EventHandler
     public void onBanMenuClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
@@ -88,15 +71,13 @@ public class AdminToolInventory  implements Listener {
             if (e.getView().getTitle().equalsIgnoreCase("View Banned Players")) {
                 if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
                     //ReportPlayer.openPlayerMenu(player, whoToReport);
-                    banStatement.setString(1, whoToReport.getUniqueId().toString());
-                    banStatement.execute();
-                    banStatement.close();
-                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unban.join.event",whoToReport.getName()));
+                    BanData.deleteBan(whoToReport.getUniqueId());
+                    player.sendMessage(ChatColor.DARK_AQUA + Messages.get("unban.join.event", whoToReport.getName()));
                     e.setCancelled(true);
                     player.closeInventory();
                 }
             }
-        } catch (SQLException | NullPointerException exception) {
+        } catch (NullPointerException exception) {
             exception.getSuppressed();
         }
     }

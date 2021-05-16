@@ -43,7 +43,7 @@ public class MuteCommand implements CommandExecutor {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            player.sendMessage(ChatColor.DARK_RED + Messages.get("mute.command.error"));
         }
         return true;
     }
