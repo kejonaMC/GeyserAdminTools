@@ -31,7 +31,14 @@ public class Gat extends JavaPlugin {
         plugin = this;
         logger = getLogger();
         createFiles();
+        if (getServer().getPluginManager().getPlugin("AdvancedBan")!=null){
+            logger.info("Hooked into AdvancedBan");
+        }else {
         new DatabaseSetup().mysqlSetup();
+            Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnLogin(), this);
+            Bukkit.getServer().getPluginManager().registerEvents(new MenuListener(), this);
+            Bukkit.getServer().getPluginManager().registerEvents(new AdminToolChat(), this);
+        }
         createFiles();
         Messages.init();
         checkConfigVer();
@@ -45,13 +52,10 @@ public class Gat extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("gviewreport")).setExecutor(new ViewReportCommand());
         Objects.requireNonNull(this.getCommand("gviewbans")).setExecutor(new ViewBansCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnJoin(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolChat(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnDrop(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnRespawn(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnDeath(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolOnLogin(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new MenuListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new AdminToolInventory(), this);
     }
 
     @Override

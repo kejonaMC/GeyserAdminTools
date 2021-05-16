@@ -1,8 +1,11 @@
 package com.projectg.geyseradmintools.forms;
 
+import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.database.BanData;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
+import me.leoko.advancedban.utils.Punishment;
+import me.leoko.advancedban.utils.PunishmentType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -85,11 +88,17 @@ public class BanPlayerForm {
                                     String name = names.get(clickedIndex);
                                     Player bPlayer = Bukkit.getPlayer(name);
                                     String startDate = LocalDate.now().toString();
+                                    long endDate2 = Long.parseLong(endDate);
+                                    long startDate2 = Long.parseLong(startDate);
                                     //database code
+                                    if (Gat.plugin.getServer().getPluginManager().getPlugin("AdvancedBan")!=null){
+                                        new Punishment(bPlayer.getName(),bPlayer.getUniqueId().toString(),reason,player.getName(), PunishmentType.BAN,startDate2,endDate2,"null",0);
+                                    }else {
                                     BanData.addBan(bPlayer,startDate,endDate,reason, bPlayer.getName(), player.getName());
                                     bPlayer.kickPlayer(Messages.get("ban.ban.form.player.message1",reason,endDate));
                                     player.sendMessage(ChatColor.GOLD + Messages.get("ban.ban.form.player.message2",name));
                                     //end
+                                       }
                                 }));
             }
         };
