@@ -35,14 +35,18 @@ public class AdminToolChat implements Listener {
     public void checkMute(AsyncPlayerChatEvent e) throws ParseException {
         UUID uuid = e.getPlayer().getUniqueId();
         String endDate = MuteData.infoMute(uuid, "ENDDATE");
-        Date dataDate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-        String curDate = LocalDate.now().toString();
-        Date currDate = new SimpleDateFormat("yyyy-MM-dd").parse(curDate);
-        if (dataDate.compareTo(currDate) > 0) {
-            e.setCancelled(true);
-            e.getPlayer().sendMessage(ChatColor.GOLD + Messages.get("mute.join.text1", endDate));
-        } else if (dataDate.compareTo(currDate) < 0) {
-            MuteData.deleteMute(e.getPlayer().getUniqueId());
+        try {
+
+            Date dataDate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+            String curDate = LocalDate.now().toString();
+            Date currDate = new SimpleDateFormat("yyyy-MM-dd").parse(curDate);
+            if (dataDate.compareTo(currDate) > 0) {
+                e.setCancelled(true);
+                e.getPlayer().sendMessage(ChatColor.GOLD + Messages.get("mute.join.text1", endDate));
+            } else if (dataDate.compareTo(currDate) < 0) {
+                MuteData.deleteMute(e.getPlayer().getUniqueId());
+            }
+        } catch (NullPointerException ignored) {
         }
     }
 }
