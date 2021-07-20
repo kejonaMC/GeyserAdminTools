@@ -1,12 +1,12 @@
 [![Build Status](https://ci.projectg.dev/job/GeyserAdminTools/job/master/badge/icon)](https://ci.projectg.dev/job/GeyserAdminTools/job/master)
 [![License](https://img.shields.io/badge/License-GPL-orange)](https://github.com/ProjectG-Plugins/GeyserAdminTools/blob/master/LICENSE)
 [![bStats Spigot](https://img.shields.io/bstats/servers/10943?color=yellow&label=Spigot%20servers)](https://bstats.org/plugin/bukkit/GeyserAdminTools/10943)
-[![Discord](https://img.shields.io/discord/806179549498966058?color=7289da&label=discord&logo=discord&logoColor=white)](https://discord.gg/xXzzdAXa2b)
+[![Discord](https://img.shields.io/discord/806179549498966058?color=7289da&label=discord&logo=discord&logoColor=white)](https://discord.gg/M2SvqCu4e9)
 
 # GeyserAdminTools
 ### GeyserAdmintools is a plugin that makes server management easier on a bedrock client!
 
-[Here](https://discord.gg/xXzzdAXa2b) is our Discord link, you can come to get support, get GitHub feeds, or just hang out. Don't ping anyone that doesn't have the pingable role!
+[Here](https://discord.gg/M2SvqCu4e9) is our Discord link, you can come to get support, get GitHub feeds, or just hang out. Don't ping anyone that doesn't have the pingable role!
 
 Note: This is NOT an official GeyserMC plugin. It is made to work with GeyserMC but it is not maintained or produced by GeyserMC. If you need support with this plugin, do not ask Geyser devs, and instead, go to our Discord server linked above.
 
