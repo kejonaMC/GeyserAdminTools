@@ -1,7 +1,5 @@
 package com.projectg.geyseradmintools.forms;
 
-import com.projectg.geyseradmintools.database.BanData;
-import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.database.ReportData;
 import com.projectg.geyseradmintools.language.Messages;
 import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
@@ -15,10 +13,6 @@ import org.geysermc.cumulus.response.SimpleFormResponse;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +83,7 @@ public class ReportForm {
                                             String name = names.get(clickedIndex);
                                             Player rPlayer = Bukkit.getPlayer(name);
                                             //MySQL code
+                                            assert rPlayer != null;
                                             ReportData.deleteReport(rPlayer.getUniqueId());
                                             player.sendMessage(ChatColor.GREEN + Messages.get("delete.report.form.player.message1", rPlayer.getName()));
                                         } catch (Exception e) {
@@ -165,6 +160,7 @@ public class ReportForm {
                                     Player rPlayer = Bukkit.getPlayer(name);
                                     String startDate = LocalDate.now().toString();
                                     //database code
+                                    assert rPlayer != null;
                                     ReportData.addReport(rPlayer,startDate,report,rPlayer.getName(),player.getName());
                                     player.sendMessage(ChatColor.GOLD + Messages.get("report.report.form.player.message1",name));
                                     for (Player onlinePlayers : Bukkit.getOnlinePlayers()){

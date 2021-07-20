@@ -1,12 +1,10 @@
 package com.projectg.geyseradmintools.listeners;
 
 import com.projectg.geyseradmintools.database.BanData;
-import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.database.ReportData;
 import com.projectg.geyseradmintools.forms.MainForm;
 import com.projectg.geyseradmintools.Gat;
 import com.projectg.geyseradmintools.language.Messages;
-import com.projectg.geyseradmintools.utils.CheckJavaOrFloodPlayer;
 import com.projectg.geyseradmintools.utils.ItemStackFactory;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -15,20 +13,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.UUID;
 
 
 public class AdminToolInventory  implements Listener {
 
-    private static final FileConfiguration config = Gat.plugin.getConfig();
     private static final ItemStack starTool = ItemStackFactory.getStarTool();
 
     @EventHandler

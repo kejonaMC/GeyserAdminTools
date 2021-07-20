@@ -1,7 +1,6 @@
 package com.projectg.geyseradmintools.language;
 
 import com.projectg.geyseradmintools.Gat;
-import org.bukkit.OfflinePlayer;
 
 import java.net.URL;
 import java.net.URLClassLoader;

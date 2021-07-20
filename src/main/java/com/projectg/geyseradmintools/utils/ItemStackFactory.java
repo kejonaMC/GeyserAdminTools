@@ -15,6 +15,7 @@ public class ItemStackFactory {
     public static void createStarTool() {
         starTool = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta starToolMeta = starTool.getItemMeta();
+        assert starToolMeta != null;
         starToolMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6Admin Tools"));
         starTool.setItemMeta(starToolMeta);
     }

@@ -86,6 +86,7 @@ public class BanPlayerForm {
                                     Player bPlayer = Bukkit.getPlayer(name);
                                     String startDate = LocalDate.now().toString();
                                     //database code
+                                    assert bPlayer != null;
                                     BanData.addBan(bPlayer,startDate,endDate,reason, bPlayer.getName(), player.getName());
                                     bPlayer.kickPlayer(Messages.get("ban.ban.form.player.message1",reason,endDate));
                                     player.sendMessage(ChatColor.GOLD + Messages.get("ban.ban.form.player.message2",name));

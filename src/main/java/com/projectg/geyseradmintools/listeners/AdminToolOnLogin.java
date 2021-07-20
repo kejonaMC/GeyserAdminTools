@@ -1,7 +1,6 @@
 package com.projectg.geyseradmintools.listeners;
 
 import com.projectg.geyseradmintools.database.BanData;
-import com.projectg.geyseradmintools.database.DatabaseSetup;
 import com.projectg.geyseradmintools.language.Messages;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -9,9 +8,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
