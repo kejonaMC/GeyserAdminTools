@@ -1,7 +1,7 @@
 [![Build Status](https://ci.projectg.dev/job/GeyserAdminTools/job/master/badge/icon)](https://ci.projectg.dev/job/GeyserAdminTools/job/master)
 [![License](https://img.shields.io/badge/License-GPL-orange)](https://github.com/ProjectG-Plugins/GeyserAdminTools/blob/master/LICENSE)
 [![bStats Spigot](https://img.shields.io/bstats/servers/10943?color=yellow&label=Spigot%20servers)](https://bstats.org/plugin/bukkit/GeyserAdminTools/10943)
-[![Discord](https://img.shields.io/discord/806179549498966058?color=7289da&label=discord&logo=discord&logoColor=white)](https://discord.gg/M2SvqCu4e9)
+[![Discord](https://img.shields.io/discord/853331530004299807?color=7289da&label=discord&logo=discord&logoColor=white)](https://discord.gg/M2SvqCu4e9)
 
 # GeyserAdminTools
 ### GeyserAdmintools is a plugin that makes server management easier on a bedrock client!
